@@ -26,17 +26,28 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check if we're in a browser environment
+  // Start with defaultTheme to ensure server/client consistency
+  const [theme, setTheme] = useState<Theme>(defaultTheme)
+  const [mounted, setMounted] = useState(false)
+
+  // Only run after hydration to prevent mismatch
+  useEffect(() => {
+    setMounted(true)
+    
+    // Check localStorage only after component mounts (client-side only)
     if (typeof window !== "undefined") {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme
+      const storedTheme = localStorage.getItem(storageKey) as Theme
+      if (storedTheme && storedTheme !== defaultTheme) {
+        setTheme(storedTheme)
+      }
     }
-    return defaultTheme
-  })
+  }, [storageKey, defaultTheme])
 
   useEffect(() => {
-    const root = window.document.documentElement
+    // Only apply theme changes after mounting to avoid hydration issues
+    if (!mounted) return
 
+    const root = window.document.documentElement
     root.classList.remove("light", "dark")
 
     if (theme === "system") {
@@ -50,17 +61,25 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme)
-  }, [theme])
+  }, [theme, mounted])
 
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      // Check if we're in a browser environment before using localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem(storageKey, theme)
       }
       setTheme(theme)
     },
+  }
+
+  // Don't render children until after hydration if theme might change
+  if (!mounted) {
+    return (
+      <ThemeProviderContext.Provider {...props} value={value}>
+        <div className={defaultTheme}>{children}</div>
+      </ThemeProviderContext.Provider>
+    )
   }
 
   return (
