@@ -9,6 +9,7 @@ import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { Link } from 'react-router';
 
+
 type SigninFormData = z.infer<typeof signInSchema>
 
 const SignIn = () => {
@@ -25,8 +26,10 @@ const SignIn = () => {
     console.log(values);
   }
 
+
+
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center bg-muted/40 p-4'>
+    <div className='min-h-screen flex flex-col items-center justify-center dark:bg-gray-950 p-4'>
       <Card className='max-w-md w-screen'>
         <CardHeader className='text-center mb-5'>
           <CardTitle className='text-2xl font-bold'>Welcome Back</CardTitle>
@@ -55,9 +58,12 @@ const SignIn = () => {
                 name="password"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>
+                  <div className='flex items-center justify-between'>
+                  <FormLabel> 
                     Password
-                  </FormLabel>
+                  </FormLabel>  
+                  <Link to={"/forgot-password"} className='text-sm text-muted-foreground hover:text-primary transition-colors duration-200 ease-in-out'>Forgot password?</Link>
+                  </div>
                   <FormControl>
                     <Input type='password' placeholder='********' {...field}/>
                   </FormControl>
@@ -68,7 +74,7 @@ const SignIn = () => {
               <Button type='submit' className='w-full'>Sign In</Button>
             </form>
           </Form>
-          <CardFooter>
+          <CardFooter className='flex items-center justify-center mt-2'>
             <div className='flex items-center justify-center mt-4 '>
               <p className='text-sm text-muted-foreground'> 
                 Don&apos;t have an account?{" "}
@@ -80,8 +86,8 @@ const SignIn = () => {
           </CardFooter>
         </CardContent>
       </Card>
-    </div>
+    </div>  
   )
 }
 
-export default SignIn
+export default SignIn 
