@@ -9,7 +9,7 @@ import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { Link } from 'react-router';
 
-type SignUpFormData = z.infer<typeof signUpSchema>
+export type SignUpFormData = z.infer<typeof signUpSchema>
 
 const SignIn = () => {
 
