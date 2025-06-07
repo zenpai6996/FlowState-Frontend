@@ -8,10 +8,12 @@ import { Form, FormField, FormLabel,FormControl,FormItem ,FormMessage} from '~/c
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { Link } from 'react-router';
+import { toast } from 'sonner';
+import { useSignUpMutation } from '~/hooks/use-auth';
 
 export type SignUpFormData = z.infer<typeof signUpSchema>
 
-const SignIn = () => {
+const SignUp = () => {
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
@@ -23,8 +25,21 @@ const SignIn = () => {
     },
   });
 
+  const {mutate,isPending} = useSignUpMutation();
+
   const handleOnSubmit = (values: SignUpFormData) => {
-    console.log(values);
+    mutate(values,{
+      onSuccess: () => {
+        toast.success("Account created Successfully");
+      },
+      onError: (error:any) => {
+        const errorMessage = error.response?.data?.message || "An error occured";
+        console.log(error);
+        toast.error("Something went wrong",{
+          description:errorMessage
+        })
+      }
+    });
   }
 
 
@@ -99,7 +114,7 @@ const SignIn = () => {
                   </FormItem>
                 )}
               />
-              <Button type='submit' className='w-full'>Sign Up</Button>
+              <Button type='submit' className='w-full' disabled={isPending}>{isPending ? "Signing up" : "Sign Up"}</Button>
             </form>
           </Form>
           <CardFooter className='flex items-center justify-center mt-2'>
@@ -118,4 +133,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn 
+export default SignUp
