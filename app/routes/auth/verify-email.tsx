@@ -47,7 +47,7 @@ const VerifyEmail = () => {
             <p className='text-sm text-gray-500 mb-6'>Please wait while we are verifying your email.</p>
           </> : isSuccess ? (
             <>
-            <CheckCircle className='w-10 h-10 text-green-500 mb-5'/>
+            <CheckCircle className='w-7 h-7 text-green-500 mb-5 animate-ping'/>
             <h3 className='text-md font-semibold mb-1'>Email Verified <span className='text-primary ml-1'>(●'◡'●)</span></h3>
             <p className='text-sm text-gray-500 mb-4'>
               Your Email has been Verified successfully
@@ -55,7 +55,7 @@ const VerifyEmail = () => {
             </>
           ):(
             <>
-            <XCircle className='w-10 h-10 text-red-500 mb-5'/>
+            <XCircle className='w-7 h-7 animate-ping text-red-500 mb-5'/>
             <h3 className='text-md font-semibold mb-1'>Email Verification Failed <span className='text-primary ml-1'>(〒▽〒)</span></h3>
             <p className='text-sm mb-4 text-gray-500'>Please try Again</p>
             </>

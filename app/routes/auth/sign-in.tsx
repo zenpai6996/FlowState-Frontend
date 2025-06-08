@@ -51,7 +51,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center dark:bg-gray-950 p-4'>
+    <div className='min-h-screen flex flex-col items-center justify-center dark:bg-background p-4'>
       <Card className='max-w-md w-screen'>
         <CardHeader className='text-center mb-5'>
           <CardTitle className='text-2xl font-bold dark:text-primary'>Welcome Back</CardTitle>
@@ -111,7 +111,7 @@ const SignIn = () => {
                   </FormItem>
                 )}
               />
-              <Button type='submit' className='w-full' disabled={isPending}>{isPending ? <>Signing in <Loader2 className='w-5 h-5 animate-spin'/></> : "Sign In"}</Button>
+              <Button type='submit' className='w-full mt-2' disabled={isPending}>{isPending ? <>Signing in <Loader2 className='w-5 h-5 animate-spin'/></> : "Sign In"}</Button>
             </form>
           </Form>
           <CardFooter className='flex items-center justify-center mt-2'>
