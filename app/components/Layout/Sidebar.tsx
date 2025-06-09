@@ -90,10 +90,10 @@ export const SidebarComponent = ({currentWorkspace}:{currentWorkspace:Workspace|
         <Button 
         variant={"outline"} 
         size={isCollapsed ? "icon" : "default"} 
-        className={cn("w-full justify-start dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full", isCollapsed && "justify-center")}
+        className={cn("w-full justify-start dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full", isCollapsed && "justify-center ")}
         onClick={logout}>
           <LogOut className={cn("size-5", !isCollapsed && "mr-2")}/>
-          {!isCollapsed && <span className='hidden md:block'>Logout</span>}
+          {!isCollapsed && <span className='hidden md:block ml-8'>Logout</span>}
         </Button>
       </div>
      

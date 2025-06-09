@@ -2,11 +2,11 @@ import React from 'react';
 import { useAuth } from '~/provider/auth-context';
 import type { Workspace } from '~/types';
 import { Button } from '~/components/ui/button';
-import { Bell, CircleUserRound, LogOut, PlusCircle } from 'lucide-react';
+import { ArrowBigDownDash, Bell,CircleUserRound, LogOut, PlusCircle } from 'lucide-react';
 import { DropdownMenu,DropdownMenuContent,DropdownMenuTrigger,DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuGroup } from '../ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { ModeToggle } from '../mode-toggle';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import WorkspaceAvatar from '../ui/workspace/WorkspaceAvatar';
 
 interface HeaderProps {
@@ -18,7 +18,7 @@ interface HeaderProps {
 const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: HeaderProps) => {
   
   const {user , logout} = useAuth();
-  const workspaces = [];
+  const {workspaces} = useLoaderData() as { workspaces: Workspace[] };
 
   return (
     <div className='bg-background sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary'>
@@ -31,8 +31,8 @@ const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: Hea
               {selectedWorkspace.color && <WorkspaceAvatar color={selectedWorkspace.color} name={selectedWorkspace.name} />
               }
               <span className='font-medium'>{selectedWorkspace?.name}</span>
-              </> : <>
-              <span className='font-medium'>Select Workspace</span>
+              </> : <>             
+                <span className='font-medium flex flex-row'>Select Workspace<ArrowBigDownDash className='ml-2 mt-[2px]'/></span>
               </>
              }
             </Button>
@@ -84,8 +84,8 @@ const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: Hea
               <Link to="user/profile" className='flex flex-row '>Profile <CircleUserRound className='ml-15'/></Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator/>
-            <DropdownMenuItem onClick={logout}>
-              Logout <LogOut className='ml-13'/>
+            <DropdownMenuItem onClick={logout} >
+              Logout<LogOut className='ml-13'/>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

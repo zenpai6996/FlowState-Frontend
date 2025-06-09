@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { data } from 'react-router';
+import { data, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { workspaceSchema } from '~/lib/schema';
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../dialog';
@@ -10,6 +10,8 @@ import { Input } from '../input';
 import { Textarea } from '../textarea';
 import { cn } from '~/lib/utils';
 import { Button } from '../button';
+import { useCreateWorkspace } from '~/hooks/use-workspace';
+import { toast } from 'sonner';
 interface CreateWorkspaceProps {
   isCreatingWorkspace: boolean;
   setIsCreatingWorkspace: (isCreatingWorkspace: boolean) => void;
@@ -27,12 +29,31 @@ export const colorOptions = [
     "#FACC15",  //Golden Yellow	
 ];
 
-type WorkSpaceForm = z.infer<typeof workspaceSchema>;
+export type WorkSpaceForm = z.infer<typeof workspaceSchema>;
 
 const CreateWorkspace = ({isCreatingWorkspace,setIsCreatingWorkspace}:CreateWorkspaceProps) => {
+  
+  const navigate = useNavigate();
+  const {mutate, isPending} = useCreateWorkspace();
 
   const onSubmit = (data: WorkSpaceForm) => {
-    
+    mutate(data, {
+      onSuccess:(data:any) => {
+        form.reset();
+        setIsCreatingWorkspace(false);
+        toast.success("Workspace created successfully!");
+        navigate(`/workspaces/${data._id}`);
+      },
+      onError: (error:any) => {
+        const errorMessage = error?.response?.data?.message || "Something went wrong!";
+        console.log(error);
+        setIsCreatingWorkspace(false);
+        form.reset();
+        toast.error("Something went wrong!",{
+          description: errorMessage
+        });
+      }
+    }) 
   }
 
   const form = useForm<WorkSpaceForm>({
@@ -44,7 +65,6 @@ const CreateWorkspace = ({isCreatingWorkspace,setIsCreatingWorkspace}:CreateWork
     }
   });
 
-  const isPending = false; // This can be set based on your form submission state
 
   return (
     <Dialog  open={isCreatingWorkspace} onOpenChange={setIsCreatingWorkspace} modal={true}>

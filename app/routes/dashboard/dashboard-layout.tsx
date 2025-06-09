@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import { ModeToggle } from '~/components/mode-toggle'
-import { Button } from '~/components/ui/button';
+import React, { useState } from 'react';
 import { useAuth } from '~/provider/auth-context'
 import Loader from '~/components/ui/loader';
 import { Navigate,Outlet,useNavigate } from 'react-router';
@@ -8,6 +6,16 @@ import Header from '~/components/Layout/Header';
 import type { Workspace } from '~/types';
 import { SidebarComponent } from '~/components/Layout/Sidebar';
 import CreateWorkspace from '~/components/ui/workspace/CreateWorkspace';
+import { fetchData } from '~/lib/fetch-utils';
+
+export const clientLoader = async() => {
+  try {
+   const [workspaces] = await Promise.all([fetchData("/workspaces")]);
+   return { workspaces };
+  } catch (error) {
+    console.log('Error in clientLoader:', error);
+  }
+}
 
 const DashboardLayout = () => {
   const {isAuthenticated,isLoading} = useAuth();
