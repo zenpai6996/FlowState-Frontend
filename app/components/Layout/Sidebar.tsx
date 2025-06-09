@@ -1,4 +1,4 @@
-import { BrainCircuit, CheckCircle, ChevronLeft, ChevronRightIcon, LayoutDashboardIcon, ListChecks, LogOut, Settings, Users, Users2, WrenchIcon } from 'lucide-react';
+import { Bolt, BrainCircuit,  ChevronLeft, ChevronRightIcon, Home,  ListChecks, LogOut, MonitorCheck, MonitorCog,  Users2,  } from 'lucide-react';
 import React, { useState } from 'react'
 import { useAuth } from '~/provider/auth-context'
 import type { Workspace } from '~/types'
@@ -18,12 +18,12 @@ export const SidebarComponent = ({currentWorkspace}:{currentWorkspace:Workspace|
     {
       title:"Dashboard",
       href:"/dashboard",
-      icon:LayoutDashboardIcon,
+      icon:Home,
     },
     {
       title:"Workspaces",
       href:"/workspaces",
-      icon:Users
+      icon:MonitorCog
     },
     {
       title:"My Tasks",
@@ -38,12 +38,12 @@ export const SidebarComponent = ({currentWorkspace}:{currentWorkspace:Workspace|
     {
       title:"Achieved",
       href:"/achieved",
-      icon:CheckCircle,
+      icon:MonitorCheck,
     },
     {
       title:"Settings",
       href:"/settings",
-      icon:Settings
+      icon:Bolt
     },
   ];
 
@@ -88,9 +88,9 @@ export const SidebarComponent = ({currentWorkspace}:{currentWorkspace:Workspace|
       </ScrollArea>
       <div className='p-3 border-t rounded-r-2xl rounded-l-2xl border-primary dark:border-slate-700'>
         <Button 
-        variant={"outline"} 
+        variant={"glassMorph"} 
         size={isCollapsed ? "icon" : "default"} 
-        className={cn("w-full justify-start dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full", isCollapsed && "justify-center ")}
+        className={cn("w-full justify-start  rounded-full", isCollapsed && "justify-center ")}
         onClick={logout}>
           <LogOut className={cn("size-5", !isCollapsed && "mr-2")}/>
           {!isCollapsed && <span className='hidden md:block ml-8'>Logout</span>}

@@ -130,7 +130,7 @@ const CreateWorkspace = ({isCreatingWorkspace,setIsCreatingWorkspace}:CreateWork
               />
             </div>
             <DialogFooter>
-              <Button type='submit' disabled={isPending} variant='outline' className='rounded-2xl'>
+              <Button type='submit' disabled={isPending} variant='neomorphic' className='rounded-2xl'>
                 {isPending ? "Creating..." : "Create Workspace"}
               </Button>
             </DialogFooter>

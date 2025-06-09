@@ -164,7 +164,7 @@ const SignUp = () => {
                   </FormItem>
                 )}
               />
-              <Button type='submit' className='w-full mt-2' disabled={isPending}>{isPending ? <>Signing up<Loader2 className='w-5 h-5 animate-spin'/></> : "Sign Up"}</Button>
+              <Button type='submit' variant={'glassMorph'} className='w-full mt-2' disabled={isPending}>{isPending ? <>Signing up<Loader2 className='w-5 h-5 animate-spin'/></> : "Sign Up"}</Button>
             </form>
           </Form>
           <CardFooter className='flex items-center justify-center mt-2'>

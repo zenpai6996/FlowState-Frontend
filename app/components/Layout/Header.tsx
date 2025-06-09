@@ -21,7 +21,7 @@ const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: Hea
   const {workspaces} = useLoaderData() as { workspaces: Workspace[] };
 
   return (
-    <div className='bg-background sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary'>
+    <div className='bg-header sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary'>
       <div className='flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8 py-4'>
         <DropdownMenu>
           <DropdownMenuTrigger className='rounded-full'  asChild>
