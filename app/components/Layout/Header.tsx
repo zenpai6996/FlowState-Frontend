@@ -21,11 +21,11 @@ const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: Hea
   const workspaces = [];
 
   return (
-    <div className='bg-background sticky top-0 z-40 border-b border-primary dark:border-primary'>
+    <div className='bg-background sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary'>
       <div className='flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8 py-4'>
         <DropdownMenu>
           <DropdownMenuTrigger className='rounded-full'  asChild>
-            <Button variant={"outline"} >
+            <Button variant={"outline"} className='hover:border-primary transition-colors duration-200 ease-in-out'>
              {
               selectedWorkspace ? <>
               {selectedWorkspace.color && <WorkspaceAvatar color={selectedWorkspace.color} name={selectedWorkspace.name} />
@@ -61,7 +61,7 @@ const Header = ({onWorkspaceSelected, selectedWorkspace, onCreateWorkspace}: Hea
         </DropdownMenu>
         <div className='flex items-center gap-2'>
           <ModeToggle/>
-        <Button variant={"secondary"} className='rounded-full dark:hover:text-primary' size={"icon"}>
+        <Button variant={"secondary"} className='rounded-full dark:hover:text-primary hover:text-primary' size={"icon"}>
         <Bell/>
         </Button>
         <DropdownMenu>

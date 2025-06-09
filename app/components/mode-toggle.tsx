@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react"
 
 import { Button } from "./ui/button"
 
-import { DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuTrigger } from "./ui/dropdown-menu"
+import { DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger } from "./ui/dropdown-menu"
 
 import { useTheme } from "./theme-provider"
 
@@ -19,6 +19,8 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+      <DropdownMenuLabel>Themes</DropdownMenuLabel>
+      <DropdownMenuSeparator/>
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>

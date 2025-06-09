@@ -26,6 +26,12 @@ export const forgotPasswordSchema = z.object({
   email:z.string().email("Invalid email address"),
 });
 
+export const workspaceSchema = z.object({
+  name:z.string().min(3,"Name must be atleast 3 charecters"),
+  color:z.string().min(3,"Color must be atleast 3 characters"),
+  description:z.string().optional(),
+});
+
 
 
 
