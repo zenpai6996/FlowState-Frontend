@@ -17,11 +17,11 @@ const buttonVariants = cva(
      
     // 2. GLASS MORPHISM - Modern transparent with blur
     glassMorph:
-      "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-white/5 dark:text-stone-100 dark:border dark:border-white/10 dark:backdrop-blur-xl dark:shadow-2xl dark:shadow-black/20 dark:hover:bg-white/10 dark:hover:border-white/20 dark:hover:shadow-3xl transition-all duration-400 ease-out rounded-2xl",
+      "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-white/5 dark:text-muted-foreground dark:border dark:border-white/10 dark:backdrop-blur-xl dark:shadow-2xl dark:shadow-black/20 dark:hover:bg-white/10 dark:hover:border-white/20 dark:hover:shadow-3xl transition-all duration-400 ease-out rounded-2xl",
 
     // 3. NEUMORPHISM - Soft 3D pressed/raised effect
    neomorphic: 
-  "bg-gray-100 text-gray-800 shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.7),inset_2px_2px_6px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.7),inset_1px_1px_3px_rgba(0,0,0,0.1)] active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] dark:bg-stone-900 dark:text-stone-100 dark:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.1),inset_2px_2px_6px_rgba(0,0,0,0.8)] dark:hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.1),inset_1px_1px_3px_rgba(0,0,0,0.8)] dark:active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.8),inset_-2px_-2px_6px_rgba(255,255,255,0.1)] transition-all duration-200 ease-in-out rounded-xl",
+  "bg-gray-100 text-gray-800 shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.7),inset_2px_2px_6px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.7),inset_1px_1px_3px_rgba(0,0,0,0.1)] active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] dark:bg-stone-900 dark:text-muted-foreground dark:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.1),inset_2px_2px_6px_rgba(0,0,0,0.8)] dark:hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.1),inset_1px_1px_3px_rgba(0,0,0,0.8)] dark:active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.8),inset_-2px_-2px_6px_rgba(255,255,255,0.1)] transition-all duration-200 ease-in-out rounded-xl",
 
 
 

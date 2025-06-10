@@ -36,7 +36,7 @@ const themeConfigs = {
       "primary-foreground": "#ffffff",
       secondary: "#1e1e3f",
       "secondary-foreground": "#eceff4",
-      accent: "#00ffcc",
+      accent: "#990099",
       "accent-foreground": "#0c0c1d",
       muted: "#1e1e3f",
       "muted-foreground": "#8085a6",

@@ -157,7 +157,7 @@ const ResetPassword = () => {
                 </FormItem>
               )}
             />
-           <Button type='submit' className='w-full mt-5' disabled={isPending}>
+           <Button type='submit' variant={'glassMorph'} className='w-full mt-5' disabled={isPending}>
                           {isPending ? (
                            <>
                             <span>Reseting Password</span>

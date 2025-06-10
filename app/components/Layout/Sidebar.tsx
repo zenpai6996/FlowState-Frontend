@@ -1,4 +1,4 @@
-import { Bolt, BrainCircuit,  ChevronLeft, ChevronRightIcon, Home,  ListChecks, LogOut, MonitorCheck, MonitorCog,  Users2,  } from 'lucide-react';
+import { Bolt, BrainCircuit,  ChevronLeft, ChevronRightIcon, Component, Home,  ListChecks, LogOut, MonitorCheck, MonitorCog,  Users2,  } from 'lucide-react';
 import React, { useState } from 'react'
 import { useAuth } from '~/provider/auth-context'
 import type { Workspace } from '~/types'
@@ -54,13 +54,13 @@ export const SidebarComponent = ({currentWorkspace}:{currentWorkspace:Workspace|
           {
             !isCollapsed ? (
               <div className='flex items-center gap-2'>
-                <BrainCircuit className='size-6 text-primary' />
+                <Component className='size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out' />
                 <span className='font-semibold text-lg hidden md:block'>
                   FlowState
                 </span>
               </div>
             ) : (
-              <BrainCircuit className='size-6 text-primary pr-1' />
+              <Component className='size-6 text-primary pr-1 dark:hover:animate-spin transition-all duration-150 ease-in-out' />
             )
           }
         </Link>

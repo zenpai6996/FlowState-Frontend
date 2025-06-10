@@ -62,7 +62,7 @@ const VerifyEmail = () => {
           )
           }
        <Link to={"/sign-in"}>
-          <Button>
+          <Button variant={'glassMorph'}>
             Back to Sign In
           </Button>
           </Link>
