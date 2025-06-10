@@ -88,3 +88,10 @@ export interface Project {
   updatedAt:Date;
   isArchived:boolean;
 }
+
+export interface MemberProps{
+  _id:string;
+  user:User
+  role:"admin"|"member"|"owner"|"viewer";
+  joinedAt:Date;
+}

@@ -46,10 +46,10 @@ const SidebarNav = ({
             return <Button 
             key={el.href}
             variant={isActive ? "neomorphic" : "ghost"}
-            className={cn("justify-start dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full",isActive && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground ")}
+            className={cn("justify-start  dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full",isActive && "bg-primary dark:text-primary hover:bg-primary hover:text-primary-foreground ", isCollapsed && "justify-center")}
             onClick={handleOnCLick}
             >
-              <Icon className='mr-1 ml-1  size-4'/>{
+              <Icon className={cn(' size-4', isCollapsed && 'size-3.5')}/>{
                 isCollapsed ? (<span className=' sr-only'>{el.title}</span>) :(el.title) 
               }
             </Button>

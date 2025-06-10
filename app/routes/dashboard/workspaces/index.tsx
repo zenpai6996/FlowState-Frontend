@@ -19,12 +19,17 @@ const Workspaces = () => {
   };
 
   if(isLoading){
-    return <Loader2 className='w-10 h-10 animate-spin text-gray-950 dark:text-primary'/>
+    return (
+    <div className='flex h-full items-center justify-center'>
+      <h2 className='text-muted-foreground '>Fetching Workspaces ...</h2>
+    <Loader2 className='w-10 h-10 animate-spin text-gray-950 dark:text-primary'/>
+    </div>
+  );
   }else{
      return (
     <>
-    <div className='space-y-8'>
-      <div className='flex items-center justify-between'>
+    <div className='space-y-8 '>
+      <div className='flex items-center justify-between mt-3 '>
         <h2 className='text-xl md:text-3xl font-bold'>
           Workspaces
         </h2>
@@ -87,13 +92,13 @@ const WorkspaceCard = ({workspace}:{workspace:Workspace}) => {
             {workspace.description || "No description"} 
           </CardDescription>
         </CardHeader>
-        <Link to={`/workspaces/${workspace._id}`}>
         <CardContent>
-          <div className='text-sm dark:hover:text-primary transition-colors duration-150 ease-in-out text-muted-foreground'>
-            View Workspace
+          <div >
+          <Link to={`/workspaces/${workspace._id}`}>
+            <span className='text-sm dark:hover:text-primary transition-colors duration-150 ease-in-out text-muted-foreground'>View Workspace</span>
+          </Link>
           </div>
         </CardContent>
-    </Link>
       </Card>
   )
 }

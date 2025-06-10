@@ -246,3 +246,35 @@ html, body {
     transition: none !important;
   }
 }
+
+@keyframes gradient-slow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes hologram {
+  0%, 100% { 
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 100% 0%;
+    filter: hue-rotate(90deg);
+  }
+  50% { 
+    background-position: 100% 100%;
+    filter: hue-rotate(180deg);
+  }
+  75% { 
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg);
+  }
+}
+
+.animate-gradient-slow {
+  animation: gradient-slow 4s ease infinite;
+}
+
+.animate-hologram {
+  animation: hologram 3s ease infinite;
+}

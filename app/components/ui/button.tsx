@@ -18,10 +18,35 @@ const buttonVariants = cva(
     // 2. GLASS MORPHISM - Modern transparent with blur
     glassMorph:
       "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-white/5 dark:text-muted-foreground dark:border dark:border-white/10 dark:backdrop-blur-xl dark:shadow-2xl dark:shadow-black/20 dark:hover:bg-white/10 dark:hover:border-white/20 dark:hover:shadow-3xl transition-all duration-400 ease-out rounded-2xl",
+    
+
+// 4. BUBBLE GLASS - Multiple layered bubbles effect
+glassBubble:
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-white/4 dark:text-slate-100 dark:border dark:border-white/15 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2)] dark:before:absolute dark:before:inset-2 dark:before:bg-white/5 dark:before:rounded-xl dark:before:backdrop-blur-sm dark:hover:bg-white/8 dark:hover:border-white/25 dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.4)] dark:hover:scale-105 transition-all duration-300 ease-out rounded-2xl relative overflow-hidden",
+
+
+// 8. HOLOGRAM GLASS - Shifting iridescent effect
+glassHologram:
+  "bg-gradient-to-r from-red-400/25 via-orange-400/25 via-yellow-400/25 via-green-400/25 via-blue-400/25 to-purple-400/25 text-white border border-white/25 backdrop-blur-xl shadow-2xl shadow-black/50 hover:from-red-300/35 hover:via-orange-300/35 hover:via-yellow-300/35 hover:via-green-300/35 hover:via-blue-300/35 hover:to-purple-300/35 hover:border-white/35 hover:shadow-3xl hover:shadow-rainbow active:scale-95 transition-all duration-300 ease-out rounded-full ring-1 ring-white/15 hover:ring-white/25",
+
+// 9. NEON GLASS - Glowing edges with glass center
+glassNeon:
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-black/40 dark:text-cyan-300 dark:border-2 dark:border-cyan-400/50 dark:backdrop-blur-xl dark:shadow-[0_0_20px_rgba(34,211,238,0.3),inset_0_0_20px_rgba(34,211,238,0.1)] dark:hover:bg-black/60 dark:hover:border-cyan-300/70 dark:hover:shadow-[0_0_30px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.15)] dark:hover:text-cyan-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
+
+// 10. MIRROR GLASS - Reflective metallic glass
+glassMirror:
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background dark:from-slate-400/20 dark:to-slate-600/20 dark:text-slate-100 dark:border dark:border-slate-300/30 dark:backdrop-blur-xl dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_8px_32px_rgba(0,0,0,0.3)] dark:hover:from-slate-300/25 dark:hover:to-slate-500/25 dark:hover:border-slate-200/40 dark:hover:shadow-[inset_0_2px_0_rgba(255,255,255,0.4),0_16px_48px_rgba(0,0,0,0.4)] dark:hover:scale-105 transition-all duration-350 ease-out rounded-xl",
+
+
 
     // 3. NEUMORPHISM - Soft 3D pressed/raised effect
    neomorphic: 
-  "bg-gray-100 text-gray-800 shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.7),inset_2px_2px_6px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.7),inset_1px_1px_3px_rgba(0,0,0,0.1)] active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] dark:bg-stone-900 dark:text-muted-foreground dark:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.1),inset_2px_2px_6px_rgba(0,0,0,0.8)] dark:hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.1),inset_1px_1px_3px_rgba(0,0,0,0.8)] dark:active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.8),inset_-2px_-2px_6px_rgba(255,255,255,0.1)] transition-all duration-200 ease-in-out rounded-xl",
+  "bg-background text-gray-800 shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.7),inset_2px_2px_6px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.7),inset_1px_1px_3px_rgba(0,0,0,0.1)] active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] dark:bg-muted dark:text-muted-foreground dark:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.1),inset_2px_2px_6px_rgba(0,0,0,0.8)] dark:hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,0.1),inset_1px_1px_3px_rgba(0,0,0,0.8)] dark:active:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.8),inset_-2px_-2px_6px_rgba(255,255,255,0.1)] transition-all duration-200 ease-in-out rounded-xl",
+  neoMorphicPressed:"bg-gray-200 text-gray-900 shadow-[4px_4px_6px_rgba(0,0,0,0.1),-4px_-4px_6px_rgba(255,255,255,0.7)] hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.15),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] active:translate-y-[1px] active:shadow-[inset_6px_6px_3px_rgba(0,0,0,0.2),inset_-6px_-6px_3px_rgba(255,255,255,0.4)] dark:bg-stone-800 dark:text-white dark:shadow-[4px_4px_6px_rgba(0,0,0,0.7),-4px_-4px_6px_rgba(255,255,255,0.1)] dark:hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.6),inset_-2px_-2px_5px_rgba(255,255,255,0.05)] transition-all duration-200 rounded-xl",
+  neosoft:"bg-background text-gray-800 shadow-[inset_-1px_-1px_4px_rgba(255,255,255,0.6),inset_1px_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.6),inset_2px_2px_6px_rgba(0,0,0,0.1)] active:scale-[0.98] active:shadow-inner dark:bg-muted dark:text-muted-foreground dark:shadow-[inset_-1px_-1px_4px_rgba(255,255,255,0.05),inset_1px_1px_4px_rgba(0,0,0,0.7)] dark:hover:shadow-[inset_-2px_-2px_6px_rgba(255,255,255,0.08),inset_2px_2px_6px_rgba(0,0,0,0.7)] transition-all duration-150 ease-in-out rounded-2xl",
+
+
+
 
 
 

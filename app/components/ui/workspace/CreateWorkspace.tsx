@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { data, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { workspaceSchema } from '~/lib/schema';
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader } from '../dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../form';
 import { Input } from '../input';
 import { Textarea } from '../textarea';
@@ -69,9 +69,12 @@ const CreateWorkspace = ({isCreatingWorkspace,setIsCreatingWorkspace}:CreateWork
   return (
     <Dialog  open={isCreatingWorkspace} onOpenChange={setIsCreatingWorkspace} modal={true}>
       <DialogContent className='max-h-[80vh] overflow-y-auto rounded-2xl'>
-        <DialogHeader className=' text-primary font-bold'>
+        <DialogHeader className='  font-bold'>
           Create Workspace
         </DialogHeader>
+        <DialogDescription>
+          Start a new workspace to manage all your projects
+        </DialogDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} >
             <div className="space-y-4 py-4">

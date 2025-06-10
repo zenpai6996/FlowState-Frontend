@@ -20,6 +20,7 @@ export const clientLoader = async() => {
 const DashboardLayout = () => {
   const {isAuthenticated,isLoading} = useAuth();
   const [isCreatingWorkspace, setIsCreatingWorkspace] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [currentWorkspace, setCurrentWorkspace] = useState<Workspace|null>(null);
   
   if(isLoading){
@@ -37,13 +38,15 @@ const DashboardLayout = () => {
   return (
     <div className='flex h-screen w-full'>
     {/* SideBar Component */}
-    <SidebarComponent currentWorkspace={currentWorkspace}/>
+    <SidebarComponent isMobileOpen={isMobileOpen} currentWorkspace={currentWorkspace}/>
     <div className='flex flex-1 flex-col h-full'>
       {/* Header Component */}
       <Header 
         onWorkspaceSelected={handleWorkspaceSelected}
         selectedWorkspace={currentWorkspace}
         onCreateWorkspace={() => setIsCreatingWorkspace(true)}
+        isMobileOpen={isMobileOpen}
+        setIsMobileOpen={setIsMobileOpen}
       />
       <main className='flex-1 overflow-y-auto h-full w-full'>
         <div className='mx-auto container px-2 sm:px-6 lg:px-8 py-0 md:py-8 w-full h-full'>

@@ -81,18 +81,18 @@ export function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full" asChild>
-        <Button variant="neonGlow" size="icon" ref={buttonRef}>
+        <Button variant={'glassHologram'} size="icon" ref={buttonRef}>
           <Palette className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
           <Palette className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56" sideOffset={8} collisionPadding={16}>
-        <DropdownMenuLabel>Theme Settings</DropdownMenuLabel>
+        <DropdownMenuLabel>Themes</DropdownMenuLabel>
         <DropdownMenuSeparator />
         
         <DropdownMenuLabel className="text-xs font-medium text-muted-foreground px-2 py-1.5">
-          Basic Theme
+          Basic 
         </DropdownMenuLabel>
         {defaultThemes.map((themeOption) => (
           <DropdownMenuItem 
@@ -111,7 +111,7 @@ export function ModeToggle() {
         <DropdownMenuSeparator />
         
         <DropdownMenuLabel className="text-xs font-medium text-muted-foreground px-2 py-1.5">
-          Custom Themes
+          Custom 
         </DropdownMenuLabel>
         {Object.entries(availableThemes).map(([key, config]) => (
           <DropdownMenuItem 
@@ -130,7 +130,7 @@ export function ModeToggle() {
         <DropdownMenuSeparator />
         
         <div className="px-2 py-1.5">
-          <div className="text-xs font-medium text-muted-foreground mb-2">Current Theme</div>
+          <div className="text-xs font-medium text-muted-foreground mb-2">Current </div>
           <div className="flex items-center gap-2 p-2 rounded-md bg-muted">
             <div className={`w-3 h-3 rounded-full ${getThemeColor(theme)}`} />
             <span className="text-sm capitalize">
