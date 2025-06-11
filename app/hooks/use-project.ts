@@ -16,6 +16,9 @@ export const useCreateProject = () => {
           queryClient.invalidateQueries({
             queryKey:["workspace",data.workspace],
           });
+          queryClient.invalidateQueries({
+            queryKey:["projects"],
+          });
         },
   });
 };

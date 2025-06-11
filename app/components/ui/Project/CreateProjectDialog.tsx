@@ -16,6 +16,8 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Checkbox } from '../checkbox';
 import { ScrollArea } from '../scroll-area';
+import { useCreateProject } from '~/hooks/use-project';
+import { toast } from 'sonner';
 
 interface CreateProjectDialogProps {
     isOpen:boolean;
@@ -40,7 +42,28 @@ const CreateProjectDialog = ({isOpen,onOpenChange,workspaceId,workspaceMembers}:
     },
   });
 
-  const onSubmit = (data:CreateProjectFormData) => {
+  const {mutate,isPending} = useCreateProject();
+
+  const onSubmit = (values:CreateProjectFormData) => {
+    if(!workspaceId) return;
+
+    mutate({
+      projectData: values,
+      workspaceId,
+    },{
+      onSuccess:() => {
+        form.reset();
+        onOpenChange(false);
+        toast.success("Project Created Succesfully !");
+      },
+      onError:(error:any) => {
+        const errorMessage = error.response.data.message;
+        toast.error("Something went wrong",{
+          description:errorMessage
+        });
+        console.log(error);
+      }
+    })
 
   }
 
@@ -158,7 +181,8 @@ const CreateProjectDialog = ({isOpen,onOpenChange,workspaceId,workspaceMembers}:
                                     <Select
                                       value={selectedMembers.role}
                                       onValueChange={(role) => {
-                                        selectedMember.map((m) => m.user === member.user._id ? {
+                                       field.onChange(
+                                         selectedMember.map((m) => m.user === member.user._id ? {
                                           ...m ,
                                           role: role as 
                                             | "contributor"
@@ -169,6 +193,7 @@ const CreateProjectDialog = ({isOpen,onOpenChange,workspaceId,workspaceMembers}:
                                         : m
                                       
                                       )
+                                       )
                                       }}
                                     >
                                       <SelectTrigger>
@@ -200,7 +225,7 @@ const CreateProjectDialog = ({isOpen,onOpenChange,workspaceId,workspaceMembers}:
               name="tags"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Tags</FormLabel>
+                  <FormLabel>Project Tags</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder='Tags seperated by comma'/>
                   </FormControl>
@@ -276,7 +301,7 @@ const CreateProjectDialog = ({isOpen,onOpenChange,workspaceId,workspaceMembers}:
             />
             </div>
             <DialogFooter>
-              <Button type='submit' variant={'neomorphic'}>Create Project</Button>
+              <Button type='submit' disabled={isPending} variant={'neomorphic'}>{isPending ? "Creating Project" : "Create Project"}</Button>
             </DialogFooter>
           </form>
         </Form>

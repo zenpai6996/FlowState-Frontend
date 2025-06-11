@@ -2,14 +2,15 @@ import React from 'react';
 import { useAuth } from '~/provider/auth-context';
 import type { Workspace } from '~/types';
 import { Button } from '~/components/ui/button';
-import { ArrowBigDownDash, Bell, CircleUserRound, LogOut, PlusCircle } from 'lucide-react';
+import { ArrowBigDownDash, Bell, CircleUserRound, Home, LogOut, PlusCircle } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuGroup } from '../ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { ModeToggle } from '../mode-toggle';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router';
 import WorkspaceAvatar from '../ui/workspace/WorkspaceAvatar';
 import { ChevronRightIcon, ChevronLeft } from 'lucide-react';
 import { cn } from '~/lib/utils';
+import { useGetWorkspacesQuery } from '~/hooks/use-workspace';
 
 interface HeaderProps {
   onWorkspaceSelected: (workspace: Workspace) => void;
@@ -18,6 +19,8 @@ interface HeaderProps {
   isMobileOpen: boolean;
   setIsMobileOpen: (open: boolean) => void;
 }
+
+
 
 const Header = ({
   onWorkspaceSelected,
@@ -29,6 +32,12 @@ const Header = ({
   
   const { user, logout } = useAuth();
   const { workspaces } = useLoaderData() as { workspaces: Workspace[] };
+  const {data : workspace} = useGetWorkspacesQuery() as {
+      data: Workspace[];
+    };
+  const navigate = useNavigate();
+  const location = useLocation();
+ 
 
   return (
     <div className='dark:bg-muted sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary'>
@@ -44,48 +53,67 @@ const Header = ({
             {isMobileOpen ? <ChevronLeft className="size-4" /> : <ChevronRightIcon className="size-4" />}
           </Button>
 
-          <DropdownMenu>
+          <DropdownMenu >
             <DropdownMenuTrigger className='rounded-full'  asChild>
              <Button 
                 variant={"glassMorph"} 
                 size={'default'} 
                 className='hover:border-primary transition-colors duration-200 ease-in-out'
               >
-                {selectedWorkspace ? (
-                  <>
-                    {selectedWorkspace.color && (
-                      <WorkspaceAvatar 
-                        color={selectedWorkspace.color} 
-                        name={selectedWorkspace.name} 
-                        className="max-sm:size-5" // Smaller avatar on mobile
-                      />
-                    )}
-                    <span className='font-medium max-sm:hidden'>{selectedWorkspace?.name}</span>
-                  </>
-                ) : (
-                  <>
-                    <span className='font-medium flex flex-row max-sm:hidden'>
-                      Select Workspace<ArrowBigDownDash className='ml-2 mt-[2px]'/>
-                    </span>
-                    <span className='sm:hidden'>
-                      <ArrowBigDownDash className='size-5 dark:text-primary '/>
-                    </span>
-                  </>
-                )}
+                 {location.pathname === '/dashboard' ? (
+                    <>
+                      <Home className="size-4 mr-2" />
+                      <span className='font-medium max-sm:hidden'>Dashboard</span>
+                    </>
+                  ) : selectedWorkspace ? (
+                    <>
+                      {selectedWorkspace.color && (
+                        <WorkspaceAvatar 
+                          color={selectedWorkspace.color} 
+                          name={selectedWorkspace.name} 
+                          className="max-sm:size-5"
+                        />
+                      )}
+                      <span className='font-medium max-sm:hidden'>{selectedWorkspace?.name}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className='font-medium flex flex-row max-sm:hidden'>
+                        Select Workspace<ArrowBigDownDash className='ml-2 mt-[2px]'/>
+                      </span>
+                      <span className='sm:hidden'>
+                        <ArrowBigDownDash className='size-5 dark:text-primary'/>
+                      </span>
+                    </>
+                  )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent align='start'>
               <DropdownMenuLabel className='font-bold'>Workspaces</DropdownMenuLabel>
               <DropdownMenuSeparator/>
+              
               <DropdownMenuGroup>
-                {workspaces.map((ws) => (
-                  <DropdownMenuItem key={ws._id} onClick={() => onWorkspaceSelected(ws)}>
-                    {ws.color && <WorkspaceAvatar color={ws.color} name={ws.name} />}
-                    <span className='ml-2'>{ws.name}</span>
+               
+                {workspaces.map((workspace) => (
+                  
+                  <DropdownMenuItem key={workspace._id} onClick={() =>{     onWorkspaceSelected(workspace)
+                  navigate(`/workspaces/${workspace._id}`)}  
+                  }>
+                    
+                    {workspace.color && <WorkspaceAvatar color={workspace.color} name={workspace.name} />}
+                    <span className='ml-2'>{workspace.name}</span>
                   </DropdownMenuItem>
                 ))}
+                
               </DropdownMenuGroup>
               <DropdownMenuSeparator/>
+               <DropdownMenuItem onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
+                  
+                    <Home className="size-4 " />
+                 
+                  <span className='ml-2'>Dashboard</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator/>
               <DropdownMenuItem onClick={onCreateWorkspace}>
                 <PlusCircle className='w-4 h-4 mr-2'/>
                 Create Workspace

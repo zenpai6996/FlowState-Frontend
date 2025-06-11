@@ -41,7 +41,7 @@ export const projectSchema = z.object({
   dueDate:z.string().min(10,"Due date is required"),
   members:z.array(z.object({
     user:z.string(),
-    role:z.enum(["admin","member","owner","viewer"]),
+    role:z.enum(["manager","contributor","viewer"]),
   })).optional(),
   tags:z.string().optional(),
 });

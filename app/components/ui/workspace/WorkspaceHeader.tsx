@@ -38,13 +38,13 @@ const WorkspaceHeader = ({workspace,members,onCreateProject,onInviteMember}:Work
             <Button variant="glassMorph" onClick={onInviteMember}>
               <UserPlus  className='size-4 mr-2'/> Invite Member
             </Button>
-            <Button variant='neomorphic'><PlusCircle className='size-4 mr-2'/> Create Project</Button>
+            <Button variant='neomorphic' onClick={onCreateProject}><PlusCircle className='size-4 mr-2'/> Create Project</Button>
           </div>
         </div>
         {
           workspace.description && (
             <p className='text-sm md:text-base dark:text-muted-foreground'>
-              {workspace.description}
+              <span className='text-primary'>Description : </span>{workspace.description}
             </p>
           )
         }
@@ -52,7 +52,7 @@ const WorkspaceHeader = ({workspace,members,onCreateProject,onInviteMember}:Work
       {
         members.length > 0 && (
           <div className='flex items-center gap-2'>
-            <span className='text-sm dark:text-muted-foreground'>
+            <span className='text-sm dark:text-primary'>
               Members :
             </span>
             <div className='flex space-x-2'>

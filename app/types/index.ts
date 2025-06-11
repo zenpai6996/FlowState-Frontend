@@ -79,7 +79,7 @@ export interface Project {
   startDate: Date;
   dueDate: Date;
   progress: number;
-  task: Task[];
+  tasks: Task[];
   members : {
     user:"User",
     role:"admin"| "member" | "owner" | "viewer";
