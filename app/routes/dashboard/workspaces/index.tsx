@@ -76,7 +76,7 @@ const WorkspaceCard = ({workspace}:{workspace:Workspace}) => {
                 <CardTitle>
                   {workspace.name}
                 </CardTitle>
-                <span className='text-xs text-muted-foreground'>
+                <span className='text-xs text-primary'>
                  {format(workspace.createdAt, "d/MM/yyyy, h:mm a")}
                 </span>
               </div>
@@ -89,13 +89,13 @@ const WorkspaceCard = ({workspace}:{workspace:Workspace}) => {
             </div>
           </div>
           <CardDescription>
-            {workspace.description || "No description"} 
+          <span className='text-primary'> Descriprion :</span> {workspace.description || "No description"} 
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div >
           <Link to={`/workspaces/${workspace._id}`}>
-            <span className='text-sm dark:hover:text-primary transition-colors duration-150 ease-in-out text-muted-foreground'>View Workspace</span>
+            <span className='text-sm dark:hover:text-primary transition-colors duration-150 ease-in-out text-gray-300'>View Workspace</span>
           </Link>
           </div>
         </CardContent>
