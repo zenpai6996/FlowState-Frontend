@@ -278,3 +278,12 @@ html, body {
 .animate-hologram {
   animation: hologram 3s ease infinite;
 }
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar {
+  width: 4px;
+}
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--accent-foreground));
+  border-radius: 2px;
+}

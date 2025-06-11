@@ -67,6 +67,7 @@ export const SidebarComponent = ({ currentWorkspace, isMobileOpen }: { currentWo
             isCollapsed={isCollapsed}
             className={cn(isCollapsed && "items-center space-y-2")}
             currentWorkspace={currentWorkspace}
+            isMobileOpen={isMobileOpen}
           />
         </ScrollArea>
         

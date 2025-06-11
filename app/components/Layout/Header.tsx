@@ -9,6 +9,7 @@ import { ModeToggle } from '../mode-toggle';
 import { Link, useLoaderData } from 'react-router';
 import WorkspaceAvatar from '../ui/workspace/WorkspaceAvatar';
 import { ChevronRightIcon, ChevronLeft } from 'lucide-react';
+import { cn } from '~/lib/utils';
 
 interface HeaderProps {
   onWorkspaceSelected: (workspace: Workspace) => void;
@@ -44,15 +45,32 @@ const Header = ({
           </Button>
 
           <DropdownMenu>
-            <DropdownMenuTrigger className='rounded-full' asChild>
-              <Button variant={"glassMorph"} className='hover:border-primary transition-colors duration-200 ease-in-out'>
+            <DropdownMenuTrigger className='rounded-full'  asChild>
+             <Button 
+                variant={"glassMorph"} 
+                size={'default'} 
+                className='hover:border-primary transition-colors duration-200 ease-in-out'
+              >
                 {selectedWorkspace ? (
                   <>
-                    {selectedWorkspace.color && <WorkspaceAvatar color={selectedWorkspace.color} name={selectedWorkspace.name} />}
-                    <span className='font-medium'>{selectedWorkspace?.name}</span>
+                    {selectedWorkspace.color && (
+                      <WorkspaceAvatar 
+                        color={selectedWorkspace.color} 
+                        name={selectedWorkspace.name} 
+                        className="max-sm:size-5" // Smaller avatar on mobile
+                      />
+                    )}
+                    <span className='font-medium max-sm:hidden'>{selectedWorkspace?.name}</span>
                   </>
                 ) : (
-                  <span className='font-medium flex flex-row'>Select Workspace<ArrowBigDownDash className='ml-2 mt-[2px]'/></span>
+                  <>
+                    <span className='font-medium flex flex-row max-sm:hidden'>
+                      Select Workspace<ArrowBigDownDash className='ml-2 mt-[2px]'/>
+                    </span>
+                    <span className='sm:hidden'>
+                      <ArrowBigDownDash className='size-5 dark:text-primary '/>
+                    </span>
+                  </>
                 )}
               </Button>
             </DropdownMenuTrigger>

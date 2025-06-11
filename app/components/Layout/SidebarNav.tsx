@@ -12,6 +12,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLDivElement> {
     icon: LucideIcon;
   }[];
   isCollapsed: boolean;
+  isMobileOpen:boolean;
   className?: string;
   currentWorkspace: Workspace | null;
 }
@@ -22,6 +23,7 @@ const SidebarNav = ({
   isCollapsed,
   className,
   currentWorkspace,
+  isMobileOpen,
   ...props
 }:SidebarNavProps) => {
 
@@ -49,8 +51,8 @@ const SidebarNav = ({
             className={cn("justify-start  dark:hover:text-primary transition-colors duration-300 ease-in-out rounded-full",isActive && "bg-primary dark:text-primary hover:bg-primary hover:text-primary-foreground ", isCollapsed && "justify-center")}
             onClick={handleOnCLick}
             >
-              <Icon className={cn(' size-4', isCollapsed && 'size-3.5')}/>{
-                isCollapsed ? (<span className=' sr-only'>{el.title}</span>) :(el.title) 
+              <Icon className={cn(' size-4',(isMobileOpen || isCollapsed) && 'size-3.5')}/>{
+                (isMobileOpen || isCollapsed) ? (<span className=' sr-only'>{el.title}</span>) : (el.title) 
               }
             </Button>
           })

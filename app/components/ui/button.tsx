@@ -35,7 +35,7 @@ glassNeon:
 
 // 10. MIRROR GLASS - Reflective metallic glass
 glassMirror:
-  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background dark:from-slate-400/20 dark:to-slate-600/20 dark:text-slate-100 dark:border dark:border-slate-300/30 dark:backdrop-blur-xl dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_8px_32px_rgba(0,0,0,0.3)] dark:hover:from-slate-300/25 dark:hover:to-slate-500/25 dark:hover:border-slate-200/40 dark:hover:shadow-[inset_0_2px_0_rgba(255,255,255,0.4),0_16px_48px_rgba(0,0,0,0.4)] dark:hover:scale-105 transition-all duration-350 ease-out rounded-xl",
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background dark:from-slate-400/20 dark:to-slate-600/20 dark:text-slate-100 dark:border dark:border-slate-300/30 dark:backdrop-blur-xl dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_8px_32px_rgba(0,0,0,0.3)] dark:hover:from-slate-300/25 dark:hover:to-slate-500/25 dark:hover:border-slate-200/40 dark:hover:shadow-[inset_0_2px_0_rgba(255,255,255,0.4),0_16px_48px_rgba(0,0,0,0.4)] dark:hover:scale-101 transition-all duration-350 ease-out rounded-xl",
 
 
 
