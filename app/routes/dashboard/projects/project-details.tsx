@@ -23,7 +23,6 @@ const ProjectDetails = () => {
     workspaceId:string,
   }>();
 
-
 const navigate = useNavigate();
 
 const [isCreateTask, setIsCreateTask] = useState(false);
@@ -39,9 +38,11 @@ const {data , isLoading} = UseProjectQuery(projectId!) as {
 
 if (isLoading) 
   return (
-   <div className='flex h-full items-center justify-center'>
-      <h2 className='text-muted-foreground '>Fetching Project Details ...</h2>
-      <Loader/>
+   <div className='flex h-full items-center justify-center p-4'>
+      <div className="text-center">
+        <h2 className='text-muted-foreground text-sm sm:text-base mb-2'>Fetching Project Details ...</h2>
+        <Loader/>
+      </div>
       </div>
   );
 
@@ -50,8 +51,6 @@ if (isLoading)
   
   console.log("Fetched project data:", data);
 
-
-
   const handleTaskClick = (taskId:string) => {
     navigate(
       `/workspaces/${workspaceId}/projects/${projectId}/tasks/${taskId}`
@@ -59,117 +58,161 @@ if (isLoading)
   };
 
   return (
-    <div className="space-y-8 px-2 sm:px-1 mb-5">
-      <div className=" flex-col md:flex-row lg:flex-row md:items-center justify-between gap-4">
-        <div className="mt-0 sm:mt-5">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8 mb-5 px-2 sm:px-4 lg:px-0">
+      {/* Header Section */}
+      <div className="space-y-4">
+        <div className="mt-2 sm:mt-5">
           <BackButton/>
-          <div className="flex items-center gap-3">
-            <h1 className="text-xl md:text-2xl font-bold">
+          <div className="flex items-start gap-3 mt-2">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
               {project.title}
             </h1>
           </div>
           {project.description && (
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2 line-clamp-2 sm:line-clamp-none">
               {project.description}
             </p>
           )}
         </div>
-        <div className="flex flex-row  sm:flex-row gap-3">
-          <div className="flex items-center gap-2 w-full  sm:w-full">
-            <div className="text-sm text-primary">
+        
+        {/* Progress and Add Task Section */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <div className="text-xs sm:text-sm text-primary whitespace-nowrap">
               Progress:
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <Progress value={projectProgress} className="h-2"/>
             </div>
-            <span className="text-xs text-white">
-              {projectProgress} %
+            <span className="text-xs text-white whitespace-nowrap">
+              {projectProgress}%
             </span>
           </div>
-          <Button variant={'neomorphic'} className="sm:text-sm sm:px-6 p-[10px] rounded-full text-[10px] " onClick={() => setIsCreateTask(true)}>
-            Add Task
+          <Button 
+            variant={'neomorphic'} 
+            className="text-xs sm:text-sm px-3 sm:px-6 py-2 rounded-full whitespace-nowrap" 
+            onClick={() => setIsCreateTask(true)}
+          >
+            <span className="hidden xs:inline">Add Task</span>
+            <span className="xs:hidden">Add</span>
           </Button>
         </div>
-       <div className="space-x-1 flex flex-row items-center mt-3 text-sm">
-                <span className="text-muted-foreground mr-2 text-[16px]">Status:</span>
-                <div className="space-x-1">
-                  <Badge variant={'todo'} className="bg-muted">
-                    {tasks.filter((task) => task.status === "To Do").length} To Do
-                  </Badge>
-                  <Badge variant={'progress'} className="bg-muted">
-                    {tasks.filter((task) => task.status === "In Progress").length} In Progress
-                  </Badge>
-                  <Badge variant={'done'} className="bg-muted">
-                    {tasks.filter((task) => task.status === "Done").length} Done
-                  </Badge>
-                </div>
-              </div>
+
+        {/* Status Badges */}
+        <div className="flex flex-col xs:flex-row xs:items-center gap-2 text-sm">
+          <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">Status:</span>
+          <div className="flex flex-wrap gap-1 sm:gap-2">
+            <Badge variant={'todo'} className="bg-muted text-xs sm:text-sm">
+              <span className="hidden xs:inline">{tasks.filter((task) => task.status === "To Do").length} To Do</span>
+              <span className="xs:hidden">{tasks.filter((task) => task.status === "To Do").length}</span>
+            </Badge>
+            <Badge variant={'progress'} className="bg-muted text-xs sm:text-sm">
+              <span className="hidden xs:inline">{tasks.filter((task) => task.status === "In Progress").length} In Progress</span>
+              <span className="xs:hidden">{tasks.filter((task) => task.status === "In Progress").length}</span>
+            </Badge>
+            <Badge variant={'done'} className="bg-muted text-xs sm:text-sm">
+              <span className="hidden xs:inline">{tasks.filter((task) => task.status === "Done").length} Done</span>
+              <span className="xs:hidden">{tasks.filter((task) => task.status === "Done").length}</span>
+            </Badge>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center justify-between w-full">
-          <Tabs defaultValue="all" className="w-full">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 ">
-              <TabsList className="w-full ">
-                <TabsTrigger value="all" onClick={() => setTaskFilter("All")}>All Tasks</TabsTrigger>
-                <TabsTrigger value="todo" onClick={() => setTaskFilter("To Do")} className="dark:text-yellow-500">To Do</TabsTrigger>
-                <TabsTrigger value="in-progress" onClick={() => setTaskFilter("In Progress")} className="dark:text-cyan-500">In Progress</TabsTrigger>
-                <TabsTrigger value="done" onClick={() => setTaskFilter("Done")} className="dark:text-green-500">Done</TabsTrigger>
-              </TabsList>
-               
-              
+
+      {/* Tabs Section */}
+      <div className="w-full">
+        <Tabs defaultValue="all" className="w-full">
+          <div className="flex flex-col gap-4 mb-4 sm:mb-6">
+            <TabsList className="w-full grid grid-cols-4 h-auto p-1">
+              <TabsTrigger 
+                value="all" 
+                onClick={() => setTaskFilter("All")}
+                className="text-xs sm:text-sm py-2 px-1 sm:px-3"
+              >
+                <span className="hidden sm:inline">All Tasks</span>
+                <span className="sm:hidden">All</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="todo" 
+                onClick={() => setTaskFilter("To Do")} 
+                className="dark:text-yellow-500 text-xs sm:text-sm py-2 px-1 sm:px-3"
+              >
+                <span className="hidden sm:inline">To Do</span>
+                <span className="sm:hidden">Todo</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="in-progress" 
+                onClick={() => setTaskFilter("In Progress")} 
+                className="dark:text-cyan-500 text-xs sm:text-sm py-2 px-1 sm:px-3"
+              >
+                <span className="hidden sm:inline">In Progress</span>
+                <span className="sm:hidden">Progress</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="done" 
+                onClick={() => setTaskFilter("Done")} 
+                className="dark:text-green-500 text-xs sm:text-sm py-2 px-1 sm:px-3"
+              >
+                Done
+              </TabsTrigger>
+            </TabsList>
+          </div>
+
+          <TabsContent value="all" className="m-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              <TabsColumn
+                title="To Do"
+                tasks={tasks.filter((task) => task.status === "To Do")}
+                onTaskClick={handleTaskClick}
+              />
+              <TabsColumn
+                title="In Progress"
+                tasks={tasks.filter((task) => task.status === "In Progress")}
+                onTaskClick={handleTaskClick}
+              />
+              <TabsColumn
+                title="Done"
+                tasks={tasks.filter((task) => task.status === "Done")}
+                onTaskClick={handleTaskClick}
+              />
             </div>
-            <TabsContent value="all" className="m-0">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <TabsColumn
-                  title="To Do"
-                  tasks={tasks.filter((task) => task.status === "To Do")}
-                  onTaskClick={handleTaskClick}
-                />
-                <TabsColumn
-                  title="In Progress"
-                  tasks={tasks.filter((task) => task.status === "In Progress")}
-                  onTaskClick={handleTaskClick}
-                />
-                <TabsColumn
-                  title="Done"
-                  tasks={tasks.filter((task) => task.status === "Done")}
-                  onTaskClick={handleTaskClick}
-                />
-              </div>
-            </TabsContent>
-            <TabsContent value="todo" className="m-0">
-              <div className="grid md:grid-cols-1 gap-4">
-                <TabsColumn
-                  title="To Do"
-                  tasks={tasks.filter((task) => task.status === "To Do")}
-                  onTaskClick={handleTaskClick}
-                  isfullWidth
-                />
-              </div>
-            </TabsContent>
-            <TabsContent value="in-progress" className="m-0">
-              <div className="grid md:grid-cols-1 gap-4">
-                <TabsColumn
-                  title="In Progress"
-                  tasks={tasks.filter((task) => task.status === "In Progress")}
-                  onTaskClick={handleTaskClick}
-                  isfullWidth
-                />
-              </div>
-            </TabsContent>
-            <TabsContent value="done" className="m-0">
-              <div className="grid md:grid-cols-1 gap-4">
-                <TabsColumn
-                  title="Done"
-                  tasks={tasks.filter((task) => task.status === "Done")}
-                  onTaskClick={handleTaskClick}
-                  isfullWidth
-                />
-              </div>
-            </TabsContent>
-          </Tabs>
+          </TabsContent>
           
+          <TabsContent value="todo" className="m-0">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
+              <TabsColumn
+                title="To Do"
+                tasks={tasks.filter((task) => task.status === "To Do")}
+                onTaskClick={handleTaskClick}
+                isfullWidth
+              />
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="in-progress" className="m-0">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
+              <TabsColumn
+                title="In Progress"
+                tasks={tasks.filter((task) => task.status === "In Progress")}
+                onTaskClick={handleTaskClick}
+                isfullWidth
+              />
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="done" className="m-0">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
+              <TabsColumn
+                title="Done"
+                tasks={tasks.filter((task) => task.status === "Done")}
+                onTaskClick={handleTaskClick}
+                isfullWidth
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
-      {/* create task dialogue */}
+
+      {/* Create Task Dialog */}
       <CreateTaskDialog
         open={isCreateTask}
         onOpenChange={setIsCreateTask}
@@ -188,37 +231,46 @@ interface TaskColumnProps{
 }
 
 const TabsColumn = ({title,tasks,onTaskClick,isfullWidth= false}:TaskColumnProps) => {
-  
-  
   return(
     <div className={
       isfullWidth 
-      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
       : ""
     }>
       <div className={
-        cn("space-y-4",!isfullWidth
+        cn("space-y-3 sm:space-y-4",!isfullWidth
         ? "h-full"
         : "col-span-full mb-4")
       }>
         {
           !isfullWidth && (
             <div className="flex items-center justify-between">
-              <h1 className="font-medium">
+              <h1 className="font-medium text-sm sm:text-base flex items-center">
                 {title === "To Do" 
-                  ? <div className="flex flex-row"><AlertCircle className="mr-2 size-6 text-yellow-500"/>{title}</div>
+                  ? <>
+                      <AlertCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-yellow-500"/>
+                      <span className="hidden xs:inline">{title}</span>
+                      <span className="xs:hidden">Todo</span>
+                    </>
                   : title === "In Progress" 
-                  ? <div className="flex flex-row"><ClockPlus className="mr-2 size-6 text-cyan-500"/>{title}</div>
-                  : <div className="flex flex-row"><CheckCircle className="mr-2 size-6 text-green-500"/>{title}</div>
-                }</h1>
-              <Badge variant={'glassMorph'}>
+                  ? <>
+                      <ClockPlus className="mr-1 sm:mr-2 size-4 sm:size-5 text-cyan-500"/>
+                      <span className="hidden sm:inline">{title}</span>
+                      <span className="sm:hidden">Progress</span>
+                    </>
+                  : <>
+                      <CheckCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-green-500"/>
+                      {title}
+                    </>
+                }
+              </h1>
+              <Badge variant={'glassMorph'} className="text-xs">
                 {
                   title === "To Do"
                   ? <span className="text-yellow-500">{tasks.length}</span>
                   : title === "In Progress"
                   ? <span className="text-cyan-500">{tasks.length}</span>
                   : <span className="text-green-500">{tasks.length}</span>
-
                 }
               </Badge>
             </div>
@@ -226,21 +278,23 @@ const TabsColumn = ({title,tasks,onTaskClick,isfullWidth= false}:TaskColumnProps
         }
         <div
           className={cn("space-y-3",
-            isfullWidth && "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            isfullWidth && "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
           )}
         >
           {tasks.length === 0 ? (
             <div className="text-center text-sm text-muted-foreground">
               <Card className="cursor-pointer hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                 <div className="flex flex-row justify-betwen items-center">
-                   <ShieldAlert size={20} className="mr-5"/>
-                  {title === "Done" 
-                    ? <span>No Tasks completed</span>
-                    : title === "To Do" 
-                    ? <span>No Tasks pending</span>
-                    : <span>No Tasks in progress </span>
-                  }
+                <CardHeader className="p-3 sm:p-4">
+                 <div className="flex flex-row justify-between items-center">
+                   <ShieldAlert size={16} className="sm:size-5 mr-2 sm:mr-3 flex-shrink-0"/>
+                   <span className="text-xs sm:text-sm">
+                    {title === "Done" 
+                      ? "No Tasks completed"
+                      : title === "To Do" 
+                      ? "No Tasks pending"
+                      : "No Tasks in progress"
+                    }
+                   </span>
                  </div>
                 </CardHeader>
               </Card>
@@ -264,112 +318,119 @@ const TaskCard = ({task,onClick}:{task:Task;onClick:() => void}) => {
   return (
      <Card
       onClick={onClick}
-      className="cursor-pointer mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+      className="cursor-pointer mb-3 sm:mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
     >
-      <CardHeader className="p-4 sm:p-4">
-        <h4 className="font-medium text-sm sm:text-xl">{task.title}</h4>
-        <div className="flex items-center justify-between mt-2">
+      <CardHeader className="p-3 sm:p-4">
+        <h4 className="font-medium text-sm sm:text-base lg:text-lg line-clamp-2">{task.title}</h4>
+        <div className="flex items-center justify-between mt-2 gap-2">
           <Badge 
             className={cn(
-              "text-xs sm:text-sm",
+              "text-xs flex-shrink-0",
               task.priority === "High" 
                 ? "text-rose-500 shadow-2xl dark:hover:shadow-rose-500" 
                 : task.priority === "Medium" 
                   ? "text-yellow-500 shadow-2xl dark:hover:shadow-yellow-500" 
-                  : "text-green-500 shadow-2xl dark:hover:shadow-yellow-500"  
+                  : "text-green-500 shadow-2xl dark:hover:shadow-green-500"  
             )} 
             variant={'glassHologram'}
           >
             {task.priority}
           </Badge>
-          <div className="flex gap-1">
+          <div className="flex gap-1 sm:gap-2">
             {task.status !== "To Do" && (
               <Button 
-             variant={'neoMorphicPressed'}
-              size={'icon'}
-              className="size-5 sm:size-6 dark:hover:text-yellow-500 rounded-full"
-              onClick={() => {
-                console.log("todo");
-              }}
-              title="Mark as To Do"
+                variant={'neoMorphicPressed'}
+                size={'icon'}
+                className="size-6 sm:size-7 dark:hover:text-yellow-500 rounded-full flex-shrink-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("todo");
+                }}
+                title="Mark as To Do"
               >
-                <AlertCircle className={cn("size-5 sm:size-6    animate-pulse")}/>
+                <AlertCircle className="size-3 sm:size-4 animate-pulse"/>
                 <span className="sr-only">Mark as To Do</span>
               </Button>
             )}
             {task.status !== "In Progress" && (
               <Button 
-              variant={'neoMorphicPressed'}
-              size={'icon'}
-              className="size-5 sm:size-6  rounded-full  dark:hover:text-cyan-500 "
-              onClick={() => {
-                console.log("todo");
-              }}
-              title="Mark as in progress"
+                variant={'neoMorphicPressed'}
+                size={'icon'}
+                className="size-6 sm:size-7 rounded-full dark:hover:text-cyan-500 flex-shrink-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("in progress");
+                }}
+                title="Mark as in progress"
               >
-                <ClockPlus className={cn("size-5 sm:size-6  rounded-full  animate-pulse")}/>
+                <ClockPlus className="size-3 sm:size-4 animate-pulse"/>
                 <span className="sr-only">Mark as In Progress</span>
               </Button>
             )}
             {task.status !== "Done" && (
               <Button 
-              variant={'neoMorphicPressed'}
-              size={'icon'}
-              className=" dark:hover:text-green-500 size-5 sm:size-6  rounded-full "
-              onClick={() => {
-                console.log("todo");
-              }}
-              title="Mark as Done"
+                variant={'neoMorphicPressed'}
+                size={'icon'}
+                className="dark:hover:text-green-500 size-6 sm:size-7 rounded-full flex-shrink-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("done");
+                }}
+                title="Mark as Done"
               >
-                <CheckCircle className={cn("size-5 sm:size-6  rounded-full   animate-pulse")}/>
+                <CheckCircle className="size-3 sm:size-4 animate-pulse"/>
                 <span className="sr-only">Mark as Done</span>
               </Button>
             )}
           </div>
         </div>
-            {
+        {
           task.description && (
-            <p className="text-sm text-muted-foreground line-clamp-1 mt-1">
+            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mt-1">
               {task.description}
             </p>
           )
         }
       </CardHeader>
-      <CardContent  className="p-4 sm:p-6 pt-0">
-        
-        <div className="flex items-center justify-between text-xs sm:text-sm">
-          <div className="flex items-center gap-2">
+      <CardContent className="p-3 sm:p-4 lg:p-6 pt-0">
+        <div className="flex items-center justify-between text-xs sm:text-sm gap-2">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
             {task.assignees && task.assignees.length > 0 && (
-              <div className="flex -space-x-2">
-                  {task.assignees.slice(0,5).map((member) => (
-                    <Avatar
-                      key={member._id}
-                      className="relative size-8 bg-muted rounded-full border-2 border-accent"
-                      title={member.name}
-                    >
-                      <AvatarImage src={member.profilePicture}/>
-                      <AvatarFallback>
-                        {member.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                  ))}
-                  {
-                    task.assignees.length > 5 && (
+              <div className="flex -space-x-1 sm:-space-x-2">
+                {task.assignees.slice(0, 3).map((member) => (
+                  <Avatar
+                    key={member._id}
+                    className="relative size-6 sm:size-8 bg-muted rounded-full border-2 border-accent flex-shrink-0"
+                    title={member.name}
+                  >
+                    <AvatarImage src={member.profilePicture}/>
+                    <AvatarFallback className="text-xs">
+                      {member.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                ))}
+                {
+                  task.assignees.length > 3 && (
+                    <div className="flex items-center justify-center size-6 sm:size-8 bg-muted rounded-full border-2 border-accent">
                       <span className="text-xs text-muted-foreground">
-                        + {task.assignees.length - 5}
+                        +{task.assignees.length - 3}
                       </span>
-                    )
-                  }
+                    </div>
+                  )
+                }
               </div>
             )}
           </div>
           {
             task.dueDate && (
-              <div className="text-xs text-primary flex items-center">
+              <div className="text-xs text-primary flex items-center flex-shrink-0">
                 <CalendarCheck className="size-3 mr-1"/>
-                {
-                  format(new Date(task.dueDate), "d/MM/yyyy")
-                }
+                <span className="hidden xs:inline">
+                  {format(new Date(task.dueDate), "d/MM/yyyy")}
+                </span>
+                <span className="xs:hidden">
+                  {format(new Date(task.dueDate), "d/MM")}
+                </span>
               </div> 
             ) 
           }
@@ -377,7 +438,8 @@ const TaskCard = ({task,onClick}:{task:Task;onClick:() => void}) => {
         {
           task.subtasks && task.subtasks.length > 0 && (
             <div className="mt-2 text-xs text-muted-foreground">
-              {task.subtasks.filter((subtask) => subtask.completed).length}/{task.subtasks.length} subtasks
+              {task.subtasks.filter((subtask) => subtask.completed).length}/{task.subtasks.length} 
+              <span className="hidden xs:inline"> subtasks</span>
             </div>
           )
         }
