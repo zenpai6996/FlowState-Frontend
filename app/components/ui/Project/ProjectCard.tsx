@@ -8,6 +8,7 @@ import { Progress } from '../progress';
 import { CalendarDays } from 'lucide-react';
 import { format } from 'date-fns';
 
+
 interface ProjectCardTypes {
     project:Project;
     progress:number;
@@ -15,6 +16,9 @@ interface ProjectCardTypes {
 }
 
 const ProjectCard = ({project,progress,workspaceId}:ProjectCardTypes) => {
+  
+
+
   return (
     <Link to={`/workspaces/${workspaceId}/projects/${project._id}`}>
       <Card className='transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1'>

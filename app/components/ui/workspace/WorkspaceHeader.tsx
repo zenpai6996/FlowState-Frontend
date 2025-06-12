@@ -36,7 +36,7 @@ const WorkspaceHeader = ({workspace,members,onCreateProject,onInviteMember}:Work
              
             </div>
           </div>
-          <div className='flex ml-10 md:ml-0 gap-3 md:gap-4 flex-wrap'>
+          <div className='flex ml-10 md:ml-0 gap-3 md:gap-4 flex-row'>
             <Button 
               variant="glassMorph" 
               onClick={onInviteMember}

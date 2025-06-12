@@ -8,10 +8,10 @@ const BackButton = () => {
   const navigate = useNavigate();
   return (
     <Button
-    variant={'glassBubble'}
+    variant={'glassMirror'}
     size={"sm"}
     onClick={() =>  navigate(-1)}
-    className='p-4 mr-4'
+    className='p-4 mr-4 mb-5 mt-5 md:mt-0 lg:mt-0 rounded-full '
     >
     <ArrowLeft/> Back
     </Button>

@@ -236,7 +236,7 @@ const CreateTaskDialog = ({
                               >
                                 {selectedMembers.length === 0 ? (
                                   <span className='text-muted-foreground'>
-                                    Select assignees
+                                    Select Assignees
                                   </span>
                                 ):(
                                   selectedMembers.length <= 2 ? (
