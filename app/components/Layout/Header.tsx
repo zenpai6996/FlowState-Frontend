@@ -62,7 +62,7 @@ const Header = ({
               >
                  {location.pathname === '/dashboard' ? (
                     <>
-                      <Home className="size-4 mr-2" />
+                      <Home className="size-4 " />
                       <span className='font-medium max-sm:hidden'>Dashboard</span>
                     </>
                   ) : selectedWorkspace ? (

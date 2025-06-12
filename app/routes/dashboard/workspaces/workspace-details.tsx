@@ -16,7 +16,7 @@ const WorkspaceDetails = () => {
   
   if(!workspaceId){
     return (
-      <div>No Workspace found</div>
+      <div className="px-4 py-8 text-center">No Workspace found</div>
     )
   }
   
@@ -30,16 +30,18 @@ const WorkspaceDetails = () => {
 
   if(isLoading){
     return (
-      <div className='flex h-full items-center justify-center'>
-      <h2 className='text-muted-foreground '>Fetching Projects ...</h2>
-      <Loader/>
+      <div className='flex h-full items-center justify-center px-4'>
+        <div className='text-center'>
+          <h2 className='text-muted-foreground mb-2'>Fetching Projects ...</h2>
+          <Loader/>
+        </div>
       </div>
     )
   }
 
 
   return (
-    <div className='space-y-8'>
+    <div className='space-y-6 md:space-y-8 px-4 md:px-6 lg:px-8 py-4 md:py-6'>
       <WorkspaceHeader
         workspace={data.workspace}
         members={data?.workspace?.members as any}
@@ -47,9 +49,9 @@ const WorkspaceDetails = () => {
         onInviteMember={() => setIsInviteMember(true)}
       />
       <ProjectList
-      workspaceId={workspaceId}
-      project={data.projects}
-      onCreateProject={() => setIsCreateProject(true)}
+        workspaceId={workspaceId}
+        project={data.projects}
+        onCreateProject={() => setIsCreateProject(true)}
       />
       <CreateProjectDialog
         isOpen={isCreateProject}
