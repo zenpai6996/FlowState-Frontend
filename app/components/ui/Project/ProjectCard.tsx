@@ -16,7 +16,7 @@ interface ProjectCardTypes {
 
 const ProjectCard = ({project,progress,workspaceId}:ProjectCardTypes) => {
   return (
-    <Link to={`/workspace/${workspaceId}/projects/${project._id}`}>
+    <Link to={`/workspaces/${workspaceId}/projects/${project._id}`}>
       <Card className='transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1'>
         <CardHeader>
           <div className='flex items-center justify-between'>
