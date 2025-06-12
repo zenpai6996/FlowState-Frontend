@@ -100,7 +100,7 @@ if (isLoading)
 
         {/* Status Badges */}
         <div className="flex flex-col xs:flex-row xs:items-center gap-2 text-sm">
-          <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">Status:</span>
+          <div className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">Status:</div>
           <div className="flex flex-wrap gap-1 sm:gap-2">
             <Badge variant={'todo'} className="bg-muted text-xs sm:text-sm">
               <span className="hidden xs:inline">{tasks.filter((task) => task.status === "To Do").length} To Do</span>
