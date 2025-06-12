@@ -95,7 +95,14 @@ const ProjectDetails = () => {
           
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        
+      </div>
+      {/* --- FIX END: Consolidated and Responsive Header --- */}
+
+      <div className="w-full">
+        <Tabs defaultValue="all" className="w-full">
+          <div className="flex  flex-col">
+            <div className="flex flex-wrap mb-4 items-center gap-2">
             <span className="text-muted-foreground text-sm font-medium mr-2">Status:</span>
             <div className="flex flex-wrap gap-2">
                 <Badge variant={'todo'} className="bg-muted">
@@ -109,20 +116,15 @@ const ProjectDetails = () => {
                 </Badge>
             </div>
         </div>
-      </div>
-      {/* --- FIX END: Consolidated and Responsive Header --- */}
-
-      <div className="w-full">
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
-            <TabsTrigger value="all" onClick={() => setTaskFilter("All")}>All Tasks</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 h-md">
+            <TabsTrigger className="text-xs md:text-md"  value="all" onClick={() => setTaskFilter("All")}>All Tasks</TabsTrigger>
             <TabsTrigger value="todo" onClick={() => setTaskFilter("To Do")} className="dark:text-yellow-500">To Do</TabsTrigger>
             <TabsTrigger value="in-progress" onClick={() => setTaskFilter("In Progress")} className="dark:text-cyan-500">In Progress</TabsTrigger>
             <TabsTrigger value="done" onClick={() => setTaskFilter("Done")} className="dark:text-green-500">Done</TabsTrigger>
           </TabsList>
+          </div>
 
           <TabsContent value="all" className="mt-6">
-            {/* --- FIX START: Responsive grid for 'All Tasks' view --- */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* --- FIX END --- */}
               <TabsColumn
@@ -179,52 +181,78 @@ const ProjectDetails = () => {
   )
 }
 
-interface TaskColumnProps {
-  title: string;
-  tasks: Task[];
-  onTaskClick: (taskId: string) => void;
-  isfullWidth?: boolean;
+interface TaskColumnProps{
+  title:string;
+  tasks:Task[];
+  onTaskClick:(taskId:string) => void;
+  isfullWidth?:boolean;
 }
 
-const TabsColumn = ({ title, tasks, onTaskClick, isfullWidth = false }: TaskColumnProps) => {
-  return (
-    <div className={cn(!isfullWidth && "flex flex-col")}>
-      <div className={cn("space-y-4", !isfullWidth ? "h-full" : "col-span-full mb-4")}>
-        <div className="flex items-center justify-between">
-          <h2 className="font-medium text-lg">
-            {title === "To Do"
-              ? <div className="flex items-center gap-2"><AlertCircle className="size-5 text-yellow-500" />{title}</div>
-              : title === "In Progress"
-                ? <div className="flex items-center gap-2"><ClockPlus className="size-5 text-cyan-500" />{title}</div>
-                : <div className="flex items-center gap-2"><CheckCircle className="size-5 text-green-500" />{title}</div>
-            }
-          </h2>
-          <Badge variant={'glassMorph'}>
-            {title === "To Do"
-              ? <span className="text-yellow-500">{tasks.length}</span>
-              : title === "In Progress"
-                ? <span className="text-cyan-500">{tasks.length}</span>
-                : <span className="text-green-500">{tasks.length}</span>
-            }
-          </Badge>
-        </div>
-        
-        <div className={cn("space-y-3", isfullWidth && "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4")}>
+const TabsColumn = ({title,tasks,onTaskClick,isfullWidth= false}:TaskColumnProps) => {
+  
+  
+  return(
+    <div className={
+      isfullWidth 
+      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      : ""
+    }>
+      <div className={
+        cn("space-y-4",!isfullWidth
+        ? "h-full"
+        : "col-span-full mb-4")
+      }>
+        {
+          !isfullWidth && (
+            <div className="flex items-center justify-between">
+              <h1 className="font-medium">
+                {title === "To Do" 
+                  ? <div className="flex flex-row"><AlertCircle className="mr-2 size-6 text-yellow-500"/>{title.toUpperCase()}</div>
+                  : title === "In Progress" 
+                  ? <div className="flex flex-row"><ClockPlus className="mr-2 size-6 text-cyan-500"/>{title.toUpperCase()}</div>
+                  : <div className="flex flex-row"><CheckCircle className="mr-2 size-6 text-green-500"/>{title.toUpperCase()}</div>
+                }</h1>
+              <Badge variant={'glassMorph'}>
+                {
+                  title === "To Do"
+                  ? <span className="text-yellow-500">{tasks.length}</span>
+                  : title === "In Progress"
+                  ? <span className="text-cyan-500">{tasks.length}</span>
+                  : <span className="text-green-500">{tasks.length}</span>
+
+                }
+              </Badge>
+            </div>
+          )
+        }
+        <div
+          className={cn("space-y-3",
+            isfullWidth && "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          )}
+        >
           {tasks.length === 0 ? (
-            <Card className="mt-4">
-              <CardHeader>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <ShieldAlert size={20} />
-                  {title === "Done" ? "No tasks completed yet." :
-                    title === "To Do" ? "No pending tasks." :
-                    "No tasks in progress."
+            <div className="text-center text-sm text-muted-foreground">
+              <Card className="cursor-pointer hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                <CardHeader>
+                 <div className="flex flex-row justify-betwen items-center">
+                   <ShieldAlert size={20} className="mr-5"/>
+                  {title === "Done" 
+                    ? <span>No Tasks completed</span>
+                    : title === "To Do" 
+                    ? <span>No Tasks pending</span>
+                    : <span>No Tasks in progress </span>
                   }
-                </div>
-              </CardHeader>
-            </Card>
-          ) : (
+                 </div>
+                </CardHeader>
+              </Card>
+            </div>
+          ):(
             tasks.map((task) => (
-              <TaskCard key={task._id} task={task} onClick={() => onTaskClick(task._id)} />
+              <TaskCard
+                key={task._id}
+                task={task}
+                onClick={() => onTaskClick(task._id)}
+              />
             ))
           )}
         </div>
@@ -233,92 +261,127 @@ const TabsColumn = ({ title, tasks, onTaskClick, isfullWidth = false }: TaskColu
   )
 }
 
-const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
-    
-  // --- FIX: Added stopPropagation to button clicks ---
-  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>, action: string) => {
-    e.stopPropagation(); // Prevents the card's onClick from firing
-    console.log(`Button clicked: ${action}`);
-    // Add logic here to update task status
-  };
-
+const TaskCard = ({task,onClick}:{task:Task;onClick:() => void}) => {
   return (
-    <Card onClick={onClick} className="cursor-pointer hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-      <CardHeader className="p-4">
-        <h4 className="font-medium text-base">{task.title}</h4>
+     <Card
+      onClick={onClick}
+      className="cursor-pointer mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+    >
+      <CardHeader className="p-4 sm:p-4">
+        <h4 className="font-medium text-sm sm:text-xl">{task.title}</h4>
         <div className="flex items-center justify-between mt-2">
-          <Badge
+          <Badge 
             className={cn(
-              "text-xs",
-              task.priority === "High" ? "text-rose-500 dark:hover:shadow-rose-500" :
-              task.priority === "Medium" ? "text-yellow-500 dark:hover:shadow-yellow-500" :
-              "text-green-500 dark:hover:shadow-green-500"
-            )}
+              "text-xs sm:text-sm",
+              task.priority === "High" 
+                ? "text-rose-500 shadow-2xl dark:hover:shadow-rose-500" 
+                : task.priority === "Medium" 
+                  ? "text-yellow-500 shadow-2xl dark:hover:shadow-yellow-500" 
+                  : "text-green-500 shadow-2xl dark:hover:shadow-yellow-500"  
+            )} 
             variant={'glassHologram'}
           >
             {task.priority}
           </Badge>
           <div className="flex gap-1">
             {task.status !== "To Do" && (
-              <Button variant={'neoMorphicPressed'} size={'icon'} className="size-6 dark:hover:text-yellow-500 rounded-full"
-                onClick={(e) => handleButtonClick(e, "Mark as To Do")} title="Mark as To Do">
-                <AlertCircle className="size-4 animate-pulse" />
+              <Button 
+             variant={'neoMorphicPressed'}
+              size={'icon'}
+              className="size-5 sm:size-6 dark:hover:text-yellow-500 rounded-full"
+              onClick={() => {
+                console.log("todo");
+              }}
+              title="Mark as To Do"
+              >
+                <AlertCircle className={cn("size-5 sm:size-6    animate-pulse")}/>
                 <span className="sr-only">Mark as To Do</span>
               </Button>
             )}
             {task.status !== "In Progress" && (
-              <Button variant={'neoMorphicPressed'} size={'icon'} className="size-6 rounded-full dark:hover:text-cyan-500"
-                onClick={(e) => handleButtonClick(e, "Mark as In Progress")} title="Mark as in progress">
-                <ClockPlus className="size-4 animate-pulse" />
+              <Button 
+              variant={'neoMorphicPressed'}
+              size={'icon'}
+              className="size-5 sm:size-6  rounded-full  dark:hover:text-cyan-500 "
+              onClick={() => {
+                console.log("todo");
+              }}
+              title="Mark as in progress"
+              >
+                <ClockPlus className={cn("size-5 sm:size-6  rounded-full  animate-pulse")}/>
                 <span className="sr-only">Mark as In Progress</span>
               </Button>
             )}
             {task.status !== "Done" && (
-              <Button variant={'neoMorphicPressed'} size={'icon'} className="dark:hover:text-green-500 size-6 rounded-full"
-                onClick={(e) => handleButtonClick(e, "Mark as Done")} title="Mark as Done">
-                <CheckCircle className="size-4 animate-pulse" />
+              <Button 
+              variant={'neoMorphicPressed'}
+              size={'icon'}
+              className=" dark:hover:text-green-500 size-5 sm:size-6  rounded-full "
+              onClick={() => {
+                console.log("todo");
+              }}
+              title="Mark as Done"
+              >
+                <CheckCircle className={cn("size-5 sm:size-6  rounded-full   animate-pulse")}/>
                 <span className="sr-only">Mark as Done</span>
               </Button>
             )}
           </div>
         </div>
-        {task.description && (
-          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
-            {task.description}
-          </p>
-        )}
+            {
+          task.description && (
+            <p className="text-sm text-muted-foreground line-clamp-1 mt-1">
+              {task.description}
+            </p>
+          )
+        }
       </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <div className="flex items-center justify-between text-xs">
+      <CardContent  className="p-4 sm:p-6 pt-0">
+        
+        <div className="flex items-center justify-between text-xs sm:text-sm">
           <div className="flex items-center gap-2">
             {task.assignees && task.assignees.length > 0 && (
               <div className="flex -space-x-2">
-                {task.assignees.slice(0, 5).map((member) => (
-                  <Avatar key={member._id} className="relative size-8 bg-muted rounded-full border-2 border-accent" title={member.name}>
-                    <AvatarImage src={member.profilePicture} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                ))}
-                {task.assignees.length > 5 && (
-                  <span className="text-xs text-muted-foreground self-center pl-3">
-                    + {task.assignees.length - 5}
-                  </span>
-                )}
+                  {task.assignees.slice(0,5).map((member) => (
+                    <Avatar
+                      key={member._id}
+                      className="relative size-8 bg-muted rounded-full border-2 border-accent"
+                      title={member.name}
+                    >
+                      <AvatarImage src={member.profilePicture}/>
+                      <AvatarFallback>
+                        {member.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                  ))}
+                  {
+                    task.assignees.length > 5 && (
+                      <span className="text-xs text-muted-foreground">
+                        + {task.assignees.length - 5}
+                      </span>
+                    )
+                  }
               </div>
             )}
           </div>
-          {task.dueDate && (
-            <div className="text-xs text-primary flex items-center gap-1">
-              <CalendarCheck className="size-3" />
-              {format(new Date(task.dueDate), "d MMM yyyy")}
-            </div>
-          )}
+          {
+            task.dueDate && (
+              <div className="text-xs text-primary flex items-center">
+                <CalendarCheck className="size-3 mr-1"/>
+                {
+                  format(new Date(task.dueDate), "d/MM/yyyy")
+                }
+              </div> 
+            ) 
+          }
         </div>
-        {task.subtasks && task.subtasks.length > 0 && (
-          <div className="mt-2 text-xs text-muted-foreground">
-            {task.subtasks.filter((subtask) => subtask.completed).length}/{task.subtasks.length} subtasks
-          </div>
-        )}
+        {
+          task.subtasks && task.subtasks.length > 0 && (
+            <div className="mt-2 text-xs text-muted-foreground">
+              {task.subtasks.filter((subtask) => subtask.completed).length}/{task.subtasks.length} subtasks
+            </div>
+          )
+        }
       </CardContent>
     </Card>
   )
