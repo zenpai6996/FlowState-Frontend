@@ -23,7 +23,7 @@ const WorkspaceHeader = ({workspace,members,onCreateProject,onInviteMember}:Work
     <div className='space-y-3'>
       <div className='space-y-1'>
         <div className='flex flex-row md:mt-0 mt-5 mb-5 md:flex-row md:justify-between md:items-center gap-3'>
-          <div className='flex items-center gap-3 '>
+          <div className='flex items-center  gap-4 '>
             {
               workspace.color && (
                 <WorkspaceAvatar  color={workspace.color} name={workspace.name}/>
@@ -36,21 +36,29 @@ const WorkspaceHeader = ({workspace,members,onCreateProject,onInviteMember}:Work
              
             </div>
           </div>
-          <div className='flex ml-10 md:ml-0 gap-3 md:gap-4 flex-row'>
-            <Button 
-              variant="glassMorph" 
-              onClick={onInviteMember}
-              className='text-sm md:text-base'
-            >
-              <UserPlus className='size-4 mr-2'/> Invite Member
-            </Button>
-            <Button 
-              variant='neomorphic' 
-              onClick={onCreateProject}
-              className='text-sm md:text-base'
-            >
-              <PlusCircle className='size-4 mr-2'/> Create Project
-            </Button>
+          <div className='flex ml-25 md:ml-0 gap-3 md:gap-4 flex-wrap'>
+            <div className='flex items-center gap-2'>
+              <Button 
+                variant="glassMorph" 
+                onClick={onInviteMember}
+                size="icon"
+                className='size-9 md:size-auto md:px-4 md:py-2'
+                title='Invite Member'
+              >
+                <UserPlus className='size-4'/>
+                <span className='sr-only md:not-sr-only md:ml-2'>Invite Member</span>
+              </Button>
+              <Button 
+                variant='neomorphic' 
+                onClick={onCreateProject}
+                size="icon"
+                className='size-9 md:size-auto md:px-4 md:py-2'
+                title='Create Workspace'
+              >
+                <PlusCircle className='size-4'/>
+                <span className='sr-only md:not-sr-only md:ml-2'>Create Project</span>
+              </Button>
+            </div>
           </div>
         </div>
          {workspace.description && (

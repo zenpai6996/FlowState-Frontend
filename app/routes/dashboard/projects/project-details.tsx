@@ -59,7 +59,7 @@ if (isLoading)
   };
 
   return (
-    <div className="space-y-8 px-2 sm:px-1 mb-5">
+    <div className="space-y-8  mb-5">
       <div className=" flex-col md:flex-row lg:flex-row md:items-center justify-between gap-4">
         <div className="mt-0 sm:mt-5">
           <BackButton/>
