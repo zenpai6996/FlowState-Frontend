@@ -1,7 +1,6 @@
-import React from "react";
-import { Button } from "./ui/button";
-import { useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router";
+import { Button } from "./ui/button";
 
 const BackButton = () => {
 	const navigate = useNavigate();
@@ -16,7 +15,7 @@ const BackButton = () => {
         p-2 sm:p-3 md:p-4 
         mr-2 sm:mr-4 
         mb-3 sm:mb-4 lg:mb-5 
-        mt-3 sm:mt-4 md:mt-5 lg:mt-0 
+        mt-1 sm:mt-1 md:mt-1 lg:mt-0 
         rounded-full 
         text-xs sm:text-sm 
         h-8 sm:h-9 md:h-10

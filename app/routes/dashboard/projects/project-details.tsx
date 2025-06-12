@@ -70,15 +70,24 @@ const ProjectDetails = () => {
 		<div className="space-y-4 sm:space-y-6 lg:space-y-8 mb-5 px-2 sm:px-4 lg:px-0">
 			{/* Header Section */}
 			<div className="space-y-4">
-				<div className="mt-2 sm:mt-5">
+				<div>
 					<BackButton />
-					<div className="flex items-start gap-3 mt-2">
+					<div className="flex justify-between gap-3 mt-2">
 						<h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
 							{project.title}
 						</h1>
+						<Button
+							variant={"neomorphic"}
+							className="text-xs sm:text-sm px-3 sm:px-6  rounded-full whitespace-nowrap"
+							onClick={() => setIsCreateTask(true)}
+						>
+							<span className="hidden xs:inline">Add</span>
+							<span className="xs:hidden">Add Task</span>
+						</Button>
 					</div>
 					{project.description && (
-						<p className="text-xs sm:text-sm text-muted-foreground mt-2 line-clamp-2 sm:line-clamp-none">
+						<p className="text-xs sm:text-sm text-muted-foreground mt-3 line-clamp-2 sm:line-clamp-none">
+							<span className="text-primary">Description :</span>{" "}
 							{project.description}
 						</p>
 					)}
@@ -93,23 +102,17 @@ const ProjectDetails = () => {
 						<div className="flex-1 min-w-0">
 							<Progress value={projectProgress} className="h-2" />
 						</div>
-						<span className="text-xs text-white whitespace-nowrap">
-							{projectProgress}%
-						</span>
+						<Badge variant={"glassHologram"}>
+							<span className="text-xs text-white whitespace-nowrap">
+								{projectProgress}%
+							</span>
+						</Badge>
 					</div>
-					<Button
-						variant={"neomorphic"}
-						className="text-xs sm:text-sm px-3 sm:px-6 py-2 rounded-full whitespace-nowrap"
-						onClick={() => setIsCreateTask(true)}
-					>
-						<span className="hidden xs:inline">Add Task</span>
-						<span className="xs:hidden">Add</span>
-					</Button>
 				</div>
 
 				{/* Status Badges */}
 				<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
-					<div className="text-muted-foreground whitespace-nowrap">Status:</div>
+					<div className="text-primary whitespace-nowrap">Status:</div>
 					<div className="flex flex-wrap gap-1 sm:gap-2">
 						<Badge variant={"todo"} className="bg-muted text-[10px] sm:text-xs">
 							<span className="hidden xs:inline">
@@ -261,6 +264,7 @@ const TabsColumn = ({
 	onTaskClick,
 	isfullWidth = false,
 }: TaskColumnProps) => {
+	const [isCreateTask, setIsCreateTask] = useState(false);
 	return (
 		<div
 			className={
@@ -281,19 +285,23 @@ const TabsColumn = ({
 							{title === "To Do" ? (
 								<>
 									<AlertCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-yellow-500" />
-									<span className="hidden xs:inline">{title}</span>
-									<span className="xs:hidden">Todo</span>
+									<span className="hidden xs:inline">
+										{title.toUpperCase()}
+									</span>
+									<span className="xs:hidden">TODO</span>
 								</>
 							) : title === "In Progress" ? (
 								<>
 									<ClockPlus className="mr-1 sm:mr-2 size-4 sm:size-5 text-cyan-500" />
-									<span className="hidden sm:inline">{title}</span>
-									<span className="sm:hidden">Progress</span>
+									<span className="hidden sm:inline">
+										{title.toUpperCase()}
+									</span>
+									<span className="sm:hidden">PROGRESS</span>
 								</>
 							) : (
 								<>
 									<CheckCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-green-500" />
-									{title}
+									{title.toUpperCase()}
 								</>
 							)}
 						</h1>
@@ -316,14 +324,15 @@ const TabsColumn = ({
 					)}
 				>
 					{tasks.length === 0 ? (
-						<div className="text-center text-sm text-muted-foreground">
+						<div className="text-center text-sm text-muted-foreground mb-5">
 							<Card className="cursor-pointer hover:shadow-md transition-all duration-300 hover:-translate-y-1">
 								<CardHeader className="p-3 sm:p-4">
-									<div className="flex flex-row justify-between items-center">
+									<div className="flex flex-col justify-center text-primary items-center">
 										<ShieldAlert
 											size={16}
-											className="sm:size-5 mr-2 sm:mr-3 flex-shrink-0"
+											className=" size-10 mb-3  flex-shrink-0 animate-pulse "
 										/>
+
 										<span className="text-xs sm:text-sm">
 											{title === "Done"
 												? "No Tasks completed"
@@ -331,6 +340,14 @@ const TabsColumn = ({
 												? "No Tasks pending"
 												: "No Tasks in progress"}
 										</span>
+										<Button
+											variant={"neomorphic"}
+											className="text-xs sm:text-sm px-3 mt-2 sm:px-6 py-2 rounded-full whitespace-nowrap"
+											onClick={() => setIsCreateTask(true)}
+										>
+											<span className="hidden xs:inline">Add Task</span>
+											<span className="xs:hidden">Add Task</span>
+										</Button>
 									</div>
 								</CardHeader>
 							</Card>
@@ -357,36 +374,35 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 			className="cursor-pointer mb-3 sm:mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
 		>
 			<CardHeader className="p-3 sm:p-4">
-				<h4 className="font-medium text-sm sm:text-base lg:text-lg line-clamp-2">
-					{task.title}
+				<h4 className="font-medium text-sm sm:text-base lg:text-lg line-clamp-1">
+					{task.title.toUpperCase()}
 				</h4>
-				<div className="flex items-center justify-between mt-2 gap-2">
+				<div className="flex items-center justify-between mb-2 mt-1 gap-2">
 					<Badge
 						className={cn(
 							"text-xs flex-shrink-0",
 							task.priority === "High"
-								? "text-rose-500 shadow-2xl dark:hover:shadow-rose-500"
+								? "text-rose-500 shadow-2xl dark:hover:border-rose-500"
 								: task.priority === "Medium"
-								? "text-yellow-500 shadow-2xl dark:hover:shadow-yellow-500"
-								: "text-green-500 shadow-2xl dark:hover:shadow-green-500"
+								? "text-yellow-500 shadow-2xl dark:hover:border-yellow-500"
+								: "text-green-500 shadow-2xl dark:hover:border-green-500"
 						)}
-						variant={"glassHologram"}
+						variant={"glassMorph"}
 					>
 						{task.priority}
 					</Badge>
-					<div className="flex gap-1 sm:gap-2">
+					<div className="flex gap-2 sm:gap-3">
 						{task.status !== "To Do" && (
 							<Button
 								variant={"neoMorphicPressed"}
 								size={"icon"}
 								className="size-6 sm:size-7 dark:hover:text-yellow-500 rounded-full flex-shrink-0"
-								onClick={(e) => {
-									e.stopPropagation();
+								onClick={() => {
 									console.log("todo");
 								}}
 								title="Mark as To Do"
 							>
-								<AlertCircle className="size-3 sm:size-4 animate-pulse" />
+								<AlertCircle className="size-6 sm:size-7 animate-pulse" />
 								<span className="sr-only">Mark as To Do</span>
 							</Button>
 						)}
@@ -401,7 +417,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								}}
 								title="Mark as in progress"
 							>
-								<ClockPlus className="size-3 sm:size-4 animate-pulse" />
+								<ClockPlus className="size-6 sm:size-7 animate-pulse" />
 								<span className="sr-only">Mark as In Progress</span>
 							</Button>
 						)}
@@ -416,23 +432,23 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								}}
 								title="Mark as Done"
 							>
-								<CheckCircle className="size-3 sm:size-4 animate-pulse" />
+								<CheckCircle className="size-6 sm:size-7 animate-pulse" />
 								<span className="sr-only">Mark as Done</span>
 							</Button>
 						)}
 					</div>
 				</div>
 				{task.description && (
-					<p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mt-1">
+					<p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 ">
 						{task.description}
 					</p>
 				)}
 			</CardHeader>
-			<CardContent className="p-3 sm:p-4 lg:p-6 pt-0">
+			<CardContent className="p-2 sm:p-3 lg:p-5 pt-0">
 				<div className="flex items-center justify-between text-xs sm:text-sm gap-2">
 					<div className="flex items-center gap-2 min-w-0 flex-1">
 						{task.assignees && task.assignees.length > 0 && (
-							<div className="flex -space-x-1 sm:-space-x-2">
+							<div className="flex ml-2 -space-x-1 sm:-space-x-2">
 								{task.assignees.slice(0, 3).map((member) => (
 									<Avatar
 										key={member._id}
