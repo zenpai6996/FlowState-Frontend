@@ -18,11 +18,11 @@ const badgeVariants = cva(
         outline:
           "text-stone-950 [a&]:hover:bg-stone-100 [a&]:hover:text-stone-900 dark:text-stone-50 dark:[a&]:hover:bg-stone-800 dark:[a&]:hover:text-stone-50",
            progress:
-  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-cyan-300 dark:border-2 dark:border-cyan-400/50 dark:backdrop-blur-xl dark:shadow-[0_0_20px_rgba(34,211,238,0.3),inset_0_0_20px_rgba(34,211,238,0.1)] dark:hover:bg-black/60 dark:hover:border-cyan-300/70 dark:hover:shadow-[0_0_30px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.15)] dark:hover:text-cyan-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-cyan-300 dark:border-2 dark:border-cyan-400/50 dark:backdrop-blur-xldark:hover:bg-black/60 dark:hover:border-cyan-300/70  dark:hover:text-cyan-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
            todo:
-  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-yellow-300 dark:border-2 dark:border-yellow-400/50 dark:backdrop-blur-xl dark:shadow-[0_0_20px_rgba(34,211,238,0.3),inset_0_0_20px_rgba(34,211,238,0.1)] dark:hover:bg-black/60 dark:hover:border-yellow-300/70 dark:hover:shadow-[0_0_30px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.15)] dark:hover:text-yellow-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-yellow-300 dark:border-2 dark:border-yellow-400/50 dark:backdrop-blur-xl dark:hover:bg-black/60 dark:hover:border-yellow-300/70 dark:hover:text-yellow-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
            done:
-  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-green-300 dark:border-2 dark:border-green-400/50 dark:backdrop-blur-xl dark:shadow-[0_0_20px_rgba(34,211,238,0.3),inset_0_0_20px_rgba(34,211,238,0.1)] dark:hover:bg-black/60 dark:hover:border-green-300/70 dark:hover:shadow-[0_0_30px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.15)] dark:hover:text-green-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
+  "bg-stone-900 text-stone-50 shadow-md hover:bg-stone-800 dark:bg-background/40 dark:text-green-300 dark:border-2 dark:border-green-400/50 dark:backdrop-blur-xl  dark:hover:bg-black/60 dark:hover:border-green-300/70 dark:hover:text-green-200 dark:hover:pulse transition-all duration-300 ease-out rounded-full",
   glassHologram:
   "bg-gradient-to-r from-red-400/25 via-orange-400/25 via-yellow-400/25 via-green-400/25 via-blue-400/25 to-purple-400/25 text-white border dark:border-accent backdrop-blur-xl shadow-2xl  active:scale-95 transition-all duration-300 ease-out rounded-full ring-1 ring-white/15 hover:ring-white/25",
   glassBubble:
