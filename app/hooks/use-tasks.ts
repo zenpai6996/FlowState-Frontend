@@ -108,30 +108,14 @@ export const useUpdateTaskStatusMutation = () => {
 	return useMutation({
 		mutationFn: (data: { taskId: string; status: TaskStatus }) =>
 			updateData(`/tasks/${data.taskId}/status`, { status: data.status }),
-		onMutate: async (variables) => {
-			await queryClient.cancelQueries({ queryKey: ["task", variables.taskId] });
-
-			const previousTask = queryClient.getQueryData(["task", variables.taskId]);
-
-			queryClient.setQueryData(["task", variables.taskId], (old: any) => ({
-				...old,
-				status: variables.status,
-			}));
-
-			return { previousTask };
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", data._id],
+			});
 		},
-		onError: (err, variables, context) => {
-			if (context?.previousTask) {
-				queryClient.setQueryData(
-					["task", variables.taskId],
-					context.previousTask
-				);
-			}
-		},
-		// Remove onSettled or modify it to be more specific
-		onSuccess: (data, variables) => {
-			// Ensure the data is properly updated
-			queryClient.setQueryData(["task", variables.taskId], data);
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
 		},
 	});
 };
