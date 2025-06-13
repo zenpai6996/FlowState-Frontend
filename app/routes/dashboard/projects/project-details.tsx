@@ -90,11 +90,11 @@ const ProjectDetails = () => {
 										className="bg-muted text-[10px] sm:text-xs"
 										title="To Do"
 									>
-										<span className="hidden xs:inline">
+										<span className="hidden xs:inline animate-pulse">
 											{tasks.filter((task) => task.status === "To Do").length}{" "}
 											To Do
 										</span>
-										<span className="xs:hidden">
+										<span className="xs:hidden animate-pulse">
 											{tasks.filter((task) => task.status === "To Do").length}
 										</span>
 									</Badge>
@@ -103,14 +103,14 @@ const ProjectDetails = () => {
 										className="bg-muted text-[10px] sm:text-xs"
 										title="In Progress"
 									>
-										<span className="hidden xs:inline">
+										<span className="hidden xs:inline  animate-pulse">
 											{
 												tasks.filter((task) => task.status === "In Progress")
 													.length
 											}{" "}
 											In Progress
 										</span>
-										<span className="xs:hidden">
+										<span className="xs:hidden  animate-pulse">
 											{
 												tasks.filter((task) => task.status === "In Progress")
 													.length
@@ -122,11 +122,11 @@ const ProjectDetails = () => {
 										className="bg-muted text-[10px] sm:text-xs"
 										title="Done"
 									>
-										<span className="hidden xs:inline">
+										<span className="hidden xs:inline  animate-pulse">
 											{tasks.filter((task) => task.status === "Done").length}{" "}
 											Done
 										</span>
-										<span className="xs:hidden">
+										<span className="xs:hidden  animate-pulse">
 											{tasks.filter((task) => task.status === "Done").length}
 										</span>
 									</Badge>
@@ -318,7 +318,7 @@ const TabsColumn = ({
 			>
 				{!isfullWidth && (
 					<div className="flex items-center justify-between">
-						<h1 className="font-medium text-sm sm:text-base flex items-center">
+						<h1 className="font-medium text-sm   sm:text-base flex items-center">
 							{title === "To Do" ? (
 								<>
 									<AlertCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-yellow-500" />
@@ -439,7 +439,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								}}
 								title="Mark as To Do"
 							>
-								<AlertCircle className="size-6 sm:size-7 animate-pulse" />
+								<AlertCircle className="size-6 sm:size-7 " />
 								<span className="sr-only">Mark as To Do</span>
 							</Button>
 						)}
@@ -454,7 +454,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								}}
 								title="Mark as in progress"
 							>
-								<ClockPlus className="size-6 sm:size-7 animate-pulse" />
+								<ClockPlus className="size-6 sm:size-7 " />
 								<span className="sr-only">Mark as In Progress</span>
 							</Button>
 						)}
@@ -469,7 +469,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								}}
 								title="Mark as Done"
 							>
-								<CheckCircle className="size-6 sm:size-7 animate-pulse" />
+								<CheckCircle className="size-6 sm:size-7 " />
 								<span className="sr-only">Mark as Done</span>
 							</Button>
 						)}
