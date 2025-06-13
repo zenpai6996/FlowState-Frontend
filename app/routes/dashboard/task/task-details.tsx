@@ -52,7 +52,7 @@ const TaskDetails = () => {
 		);
 
 	// //TODO create an empty tasks container
-	if (!data) {
+	if (!data?.task) {
 		return (
 			<div className="flex items-center flex-col justify-center h-screen">
 				<ShieldClose className="size-20 mb-5 text-primary animate-ping" />
@@ -63,7 +63,7 @@ const TaskDetails = () => {
 
 	const { task, project } = data;
 	const isUserWatching = task?.watchers?.some(
-		(watcher) => watcher._id.toString() === user?._id.toString()
+		(watcher) => watcher._id?.toString() === user?._id?.toString()
 	);
 	const goBack = () => navigate(-1);
 
