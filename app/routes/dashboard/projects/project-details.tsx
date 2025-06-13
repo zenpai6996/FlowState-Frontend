@@ -169,9 +169,6 @@ const ProjectDetails = () => {
 					</div>
 				</div>
 				<div className="flex flex-row">
-					<p className="text-md sm:text-sm text-primary mr-5 whitespace-nowrap">
-						Tags:
-					</p>
 					{project?.tags?.slice(0, 6).map((tag, index) => (
 						<>
 							<Badge
@@ -434,9 +431,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 					<div className="flex gap-2 sm:gap-3">
 						{task.status !== "To Do" && (
 							<Button
-								variant={"neoMorphicPressed"}
+								variant={"glassMorph"}
 								size={"icon"}
-								className="size-6 sm:size-7 dark:hover:text-yellow-500 rounded-full flex-shrink-0"
+								className="size-6 sm:size-7 dark:text-yellow-500 rounded-full flex-shrink-0"
 								onClick={() => {
 									console.log("todo");
 								}}
@@ -448,9 +445,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 						)}
 						{task.status !== "In Progress" && (
 							<Button
-								variant={"neoMorphicPressed"}
+								variant={"glassMorph"}
 								size={"icon"}
-								className="size-6 sm:size-7 rounded-full dark:hover:text-cyan-500 flex-shrink-0"
+								className="size-6 sm:size-7 rounded-full dark:text-cyan-500 flex-shrink-0"
 								onClick={(e) => {
 									e.stopPropagation();
 									console.log("in progress");
@@ -463,9 +460,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 						)}
 						{task.status !== "Done" && (
 							<Button
-								variant={"neoMorphicPressed"}
+								variant={"glassMorph"}
 								size={"icon"}
-								className="dark:hover:text-green-500 size-6 sm:size-7 rounded-full flex-shrink-0"
+								className="dark:text-green-500 size-6 sm:size-7 rounded-full flex-shrink-0"
 								onClick={(e) => {
 									e.stopPropagation();
 									console.log("done");
