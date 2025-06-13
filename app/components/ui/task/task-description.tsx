@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { Edit, Save } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -16,20 +15,12 @@ const TaskDescription = ({
 	const [isEditing, setIsEditing] = useState(false);
 	const [newDescription, setNewDescription] = useState(description);
 	const { mutate, isPending } = useUpdateTaskDescription();
-	const queryClient = useQueryClient();
 
 	const updateDescription = () => {
-		// Optimistic update
-		queryClient.setQueryData(["task", taskId], (old: any) => ({
-			...old,
-			description: newDescription,
-		}));
-
 		mutate(
 			{ taskId, description: newDescription },
 			{
-				onSuccess: (data) => {
-					queryClient.setQueryData(["task", taskId], data);
+				onSuccess: () => {
 					setIsEditing(false);
 					toast.success("Description updated successfully");
 				},
