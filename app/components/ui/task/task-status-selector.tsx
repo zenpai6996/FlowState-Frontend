@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useUpdateTaskStatusMutation } from "~/hooks/use-tasks";
 import { cn } from "~/lib/utils";
@@ -19,22 +18,13 @@ const TaskStatusSelector = ({
 	taskId: string;
 }) => {
 	const { mutate, isPending } = useUpdateTaskStatusMutation();
-	const queryClient = useQueryClient();
 
 	const handleStatusChange = (value: string) => {
-		const newStatus = value as TaskStatus;
-		// Optimistically update the status immediately
-		queryClient.setQueryData(["task", taskId], (old: any) => ({
-			...old,
-			status: newStatus,
-		}));
-
 		mutate(
-			{ taskId, status: newStatus },
+			{ taskId, status },
 			{
 				onSuccess: (data) => {
 					// Ensure server data is reflected
-					queryClient.setQueryData(["task", taskId], data);
 					toast.success("Status updated successfully");
 				},
 				onError: (error: any) => {

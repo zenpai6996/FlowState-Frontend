@@ -128,10 +128,9 @@ export const useUpdateTaskStatusMutation = () => {
 				);
 			}
 		},
-		// Remove onSettled or modify it to be more specific
-		onSuccess: (data, variables) => {
-			// Ensure the data is properly updated
-			queryClient.setQueryData(["task", variables.taskId], data);
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
 		},
 	});
 };
