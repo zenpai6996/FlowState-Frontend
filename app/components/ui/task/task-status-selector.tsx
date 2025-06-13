@@ -47,16 +47,19 @@ const TaskStatusSelector = ({
 			<SelectTrigger
 				className={cn(
 					"sm:w-[180px] cursor-pointer",
+					"w-10 px-3 sm:px-4", // Smaller width and padding on mobile
 					status === "To Do"
-						? "text-yellow-500 border text-xs md:text-sm  dark:border-yellow-500"
+						? "text-yellow-500 border dark:border-yellow-500"
 						: status === "In Progress"
-						? "text-cyan-500 border text-xs md:text-sm   dark:border-cyan-500"
-						: "text-green-500 border text-xs md:text-sm   dark:border-green-500"
+						? "text-cyan-500 border dark:border-cyan-500"
+						: "text-green-500 border dark:border-green-500"
 				)}
 			>
-				<SelectValue placeholder={"Status"} />
+				<div className="hidden sm:block">
+					<SelectValue placeholder="Status" />
+				</div>
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent align="end">
 				<SelectItem className="text-yellow-500" value="To Do">
 					Todo
 				</SelectItem>
