@@ -21,7 +21,7 @@ const TaskStatusSelector = ({
 
 	const handleStatusChange = (value: string) => {
 		mutate(
-			{ taskId, status },
+			{ taskId, status: value as TaskStatus },
 			{
 				onSuccess: (data) => {
 					// Ensure server data is reflected
