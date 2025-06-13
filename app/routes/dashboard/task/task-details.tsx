@@ -133,6 +133,8 @@ const TaskDetails = () => {
 									{formatDistanceToNow(new Date(task.createdAt), {
 										addSuffix: true,
 									})}
+								</div>
+								<div className="flex flex-row mt-3">
 									<Badge
 										variant={
 											task.priority === "High"
@@ -141,9 +143,11 @@ const TaskDetails = () => {
 												? "todo"
 												: "done"
 										}
-										className="ml-3   rounded-2xl  capitalize"
+										className="  rounded-2xl  capitalize"
 									>
-										{task.priority}{" "}
+										<span className="text-[10px] md:text-xs">
+											{task.priority}{" "}
+										</span>
 									</Badge>
 									<Badge
 										variant={
@@ -153,9 +157,11 @@ const TaskDetails = () => {
 												? "progress"
 												: "todo"
 										}
-										className="ml-3   rounded-2xl  capitalize"
+										className="ml-2   rounded-2xl  capitalize"
 									>
-										{task.status}{" "}
+										<span className="text-[10px] md:text-xs">
+											{task.status}{" "}
+										</span>
 									</Badge>
 								</div>
 							</div>
@@ -173,7 +179,7 @@ const TaskDetails = () => {
 						<div className="mb-6 flex px-2 md:px-3 flex-col">
 							<CardDescription>
 								<h3 className="text-sm font-medium text-primary mb-2">
-									Description:
+									Description :
 								</h3>
 								<TaskDescription
 									description={task.description || ""}
