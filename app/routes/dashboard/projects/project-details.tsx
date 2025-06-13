@@ -48,10 +48,10 @@ const ProjectDetails = () => {
 		return (
 			<div className="flex h-full items-center justify-center p-4">
 				<div className="text-center">
+					<Loader />
 					<h2 className="text-muted-foreground text-sm sm:text-base mb-2">
 						Fetching Project Details ...
 					</h2>
-					<Loader />
 				</div>
 			</div>
 		);

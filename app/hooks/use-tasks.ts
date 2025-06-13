@@ -128,7 +128,7 @@ export const useUpdateTaskStatusMutation = () => {
 				);
 			}
 		},
-		onSettled: () => {
+		onSuccess: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
 		},
