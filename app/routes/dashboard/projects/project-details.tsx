@@ -4,6 +4,7 @@ import {
 	AlertCircle,
 	CalendarCheck,
 	CheckCircle,
+	CirclePlus,
 	ClockPlus,
 	ShieldAlert,
 } from "lucide-react";
@@ -58,8 +59,6 @@ const ProjectDetails = () => {
 	const { project, tasks } = data;
 	const projectProgress = getProjectProgress(tasks);
 
-	console.log("Fetched project data:", data);
-
 	const handleTaskClick = (taskId: string) => {
 		navigate(
 			`/workspaces/${workspaceId}/projects/${projectId}/tasks/${taskId}`
@@ -72,18 +71,78 @@ const ProjectDetails = () => {
 			<div className="space-y-4">
 				<div>
 					<BackButton />
-					<div className="flex justify-between gap-3 mt-2">
+					<div className="flex justify-between gap-3 mt-2 mb-7">
 						<h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
 							{project.title}
 						</h1>
-						<Button
-							variant={"neomorphic"}
-							className="text-xs sm:text-sm px-3 sm:px-6  rounded-full whitespace-nowrap"
-							onClick={() => setIsCreateTask(true)}
-						>
-							<span className="hidden xs:inline">Add</span>
-							<span className="xs:hidden">Add Task</span>
-						</Button>
+						<div className="flex flex-row gap-3">
+							{/* Status Badges */}
+							<Badge
+								variant={"glassMorph"}
+								className="flex items-center flex-wrap gap-2 text-xs sm:text-sm"
+							>
+								{/* <div className="text-primary xs:hidden inline whitespace-nowrap">
+									Stats:
+								</div> */}
+								<div className="flex flex-wrap gap-1 sm:gap-2">
+									<Badge
+										variant={"todo"}
+										className="bg-muted text-[10px] sm:text-xs"
+										title="To Do"
+									>
+										<span className="hidden xs:inline">
+											{tasks.filter((task) => task.status === "To Do").length}{" "}
+											To Do
+										</span>
+										<span className="xs:hidden">
+											{tasks.filter((task) => task.status === "To Do").length}
+										</span>
+									</Badge>
+									<Badge
+										variant={"progress"}
+										className="bg-muted text-[10px] sm:text-xs"
+										title="In Progress"
+									>
+										<span className="hidden xs:inline">
+											{
+												tasks.filter((task) => task.status === "In Progress")
+													.length
+											}{" "}
+											In Progress
+										</span>
+										<span className="xs:hidden">
+											{
+												tasks.filter((task) => task.status === "In Progress")
+													.length
+											}
+										</span>
+									</Badge>
+									<Badge
+										variant={"done"}
+										className="bg-muted text-[10px] sm:text-xs"
+										title="Done"
+									>
+										<span className="hidden xs:inline">
+											{tasks.filter((task) => task.status === "Done").length}{" "}
+											Done
+										</span>
+										<span className="xs:hidden">
+											{tasks.filter((task) => task.status === "Done").length}
+										</span>
+									</Badge>
+								</div>
+							</Badge>
+							<Button
+								variant={"neomorphic"}
+								className="text-xs sm:text-sm px-3 sm:px-6  rounded-full whitespace-nowrap"
+								onClick={() => setIsCreateTask(true)}
+							>
+								<CirclePlus className="size-4 sm:size-4 md:size-5 flex-shrink-0" />
+								<span className="hidden xs:inline sm:inline whitespace-nowrap">
+									Add Task
+								</span>
+							</Button>
+						</div>
 					</div>
 					{project.description && (
 						<p className="text-xs sm:text-sm text-muted-foreground mt-3 line-clamp-2 sm:line-clamp-none">
@@ -99,50 +158,31 @@ const ProjectDetails = () => {
 						<div className="text-xs sm:text-sm text-primary whitespace-nowrap">
 							Progress:
 						</div>
-						<div className="flex-1 min-w-0">
+						<div className="flex-1 min-w-0 max-w-xs">
 							<Progress value={projectProgress} className="h-2" />
 						</div>
-						<Badge variant={"glassHologram"}>
-							<span className="text-xs text-white whitespace-nowrap">
+						<Badge variant={"glassMorph"}>
+							<span className="text-xs text-white dark:hover:text-primary whitespace-nowrap">
 								{projectProgress}%
 							</span>
 						</Badge>
 					</div>
 				</div>
-
-				{/* Status Badges */}
-				<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
-					<div className="text-primary whitespace-nowrap">Status:</div>
-					<div className="flex flex-wrap gap-1 sm:gap-2">
-						<Badge variant={"todo"} className="bg-muted text-[10px] sm:text-xs">
-							<span className="hidden xs:inline">
-								{tasks.filter((task) => task.status === "To Do").length} To Do
-							</span>
-							<span className="xs:hidden">
-								{tasks.filter((task) => task.status === "To Do").length}
-							</span>
-						</Badge>
-						<Badge
-							variant={"progress"}
-							className="bg-muted text-[10px] sm:text-xs"
-						>
-							<span className="hidden xs:inline">
-								{tasks.filter((task) => task.status === "In Progress").length}{" "}
-								In Progress
-							</span>
-							<span className="xs:hidden">
-								{tasks.filter((task) => task.status === "In Progress").length}
-							</span>
-						</Badge>
-						<Badge variant={"done"} className="bg-muted text-[10px] sm:text-xs">
-							<span className="hidden xs:inline">
-								{tasks.filter((task) => task.status === "Done").length} Done
-							</span>
-							<span className="xs:hidden">
-								{tasks.filter((task) => task.status === "Done").length}
-							</span>
-						</Badge>
-					</div>
+				<div className="flex flex-row">
+					<p className="text-md sm:text-sm text-primary mr-5 whitespace-nowrap">
+						Tags:
+					</p>
+					{project?.tags?.slice(0, 6).map((tag, index) => (
+						<>
+							<Badge
+								key={index}
+								variant={"neoMorphicPressed"}
+								className="mr-2 mb-2  text-xs sm:text-sm text-muted dark:hover:text-primary"
+							>
+								{tag}
+							</Badge>
+						</>
+					))}
 				</div>
 			</div>
 
@@ -371,9 +411,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 	return (
 		<Card
 			onClick={onClick}
-			className="cursor-pointer mb-3 sm:mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+			className="cursor-pointer mb-7 sm:mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
 		>
-			<CardHeader className="p-3 sm:p-4">
+			<CardHeader className="py-1 sm:py-1 px-3 sm:px-4">
 				<h4 className="font-medium text-sm sm:text-base lg:text-lg line-clamp-1">
 					{task.title.toUpperCase()}
 				</h4>
@@ -439,7 +479,8 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 					</div>
 				</div>
 				{task.description && (
-					<p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 ">
+					<p className="text-xs capitalize mt-5 px-2 sm:text-sm text-muted-foreground line-clamp-2 ">
+						<span className="text-primary">Task Detail: </span>
 						{task.description}
 					</p>
 				)}
