@@ -145,6 +145,18 @@ const TaskDetails = () => {
 									>
 										{task.priority}{" "}
 									</Badge>
+									<Badge
+										variant={
+											task.status === "Done"
+												? "done"
+												: task.status === "In Progress"
+												? "progress"
+												: "todo"
+										}
+										className="ml-3   rounded-2xl  capitalize"
+									>
+										{task.status}{" "}
+									</Badge>
 								</div>
 							</div>
 							<div className="flex items-center gap-2 ">

@@ -113,5 +113,9 @@ export const useUpdateTaskStatusMutation = () => {
 				queryKey: ["task", data._id],
 			});
 		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
 	});
 };
