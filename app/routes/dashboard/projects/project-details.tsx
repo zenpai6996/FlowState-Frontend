@@ -170,15 +170,13 @@ const ProjectDetails = () => {
 				</div>
 				<div className="flex flex-row">
 					{project?.tags?.slice(0, 6).map((tag, index) => (
-						<>
-							<Badge
-								key={index}
-								variant={"neoMorphicPressed"}
-								className="mr-2 mb-2  text-xs sm:text-sm text-muted dark:hover:text-primary"
-							>
-								{tag}
-							</Badge>
-						</>
+						<Badge
+							key={index}
+							variant={"neosoft"}
+							className="mr-2 mb-2  text-xs sm:text-sm text-muted dark:hover:text-primary"
+						>
+							{tag}
+						</Badge>
 					))}
 				</div>
 			</div>
