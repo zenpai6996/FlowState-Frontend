@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { getTaskStatusColor } from "~/lib";
 import { cn } from "~/lib/utils";
 import type { Project } from "~/types";
+import { Badge } from "../badge";
 import {
 	Card,
 	CardContent,
@@ -42,6 +43,15 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 				<CardContent>
 					<div className="space-y-4">
 						<div className="space-y-1">
+							{project?.tags?.slice(0, 3).map((tag, index) => (
+								<Badge
+									key={index}
+									variant={"glassMorph"}
+									className="mr-2 mb-2 text-xs sm:text-sm text-muted-foreground dark:hover:text-primary"
+								>
+									{tag}
+								</Badge>
+							))}
 							<div className="flex justify-between text-xs">
 								<span className="text-xs mr-3">Progress:</span>
 								<Progress value={progress} className="h-4" />
