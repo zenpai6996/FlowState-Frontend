@@ -47,7 +47,7 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 								<Badge
 									key={index}
 									variant={"glassMorph"}
-									className="mr-2 mb-2 text-xs sm:text-sm text-muted-foreground dark:hover:text-primary"
+									className="mr-2 mb-2 text-[10px] sm:text-xs text-muted-foreground dark:hover:text-primary"
 								>
 									{tag}
 								</Badge>
