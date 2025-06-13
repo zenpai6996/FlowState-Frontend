@@ -1,16 +1,21 @@
+import { formatDistanceToNow } from "date-fns";
 import {
 	Archive,
 	ArchiveRestore,
 	Eye,
 	EyeOff,
 	ShieldClose,
+	Trash2Icon,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import BackButton from "~/components/back-button";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
+import { Card, CardDescription, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
+import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
+import TaskDescription from "~/components/ui/task/task-description";
+import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
 import { useTaskByIdQuery } from "~/hooks/use-tasks";
 import { useAuth } from "~/provider/auth-context";
@@ -118,22 +123,58 @@ const TaskDetails = () => {
 			<div className="grid grid-cols-1 md:grid-cols-1 gap-6">
 				<div className="lg:col-span-2">
 					<Card className="bg-muted rounded-2xl p6 shadow-sm mb-6">
-						<div className="flex flex-col md:flex-row justify-between items-start mb-4">
+						<div className="flex flex-row md:flex-row justify-between items-start mb-4">
 							<div className="flex px-2 md:px-3 flex-col">
-								<Badge
-									variant={
-										task.priority === "High"
-											? "red"
-											: task.priority === "Medium"
-											? "todo"
-											: "done"
-									}
-									className="mb-2 capitalize"
-								>
-									{task.priority}{" "}
-								</Badge>
-								<TaskTitle title={task.title} taskId={task._id} />
+								<CardTitle>
+									<TaskTitle title={task.title} taskId={task._id} />
+								</CardTitle>
+								<div className=" flex text-sm mt-5 md:text-base text-muted-foreground">
+									<span className="text-primary">Created at :</span>
+									{formatDistanceToNow(new Date(task.createdAt), {
+										addSuffix: true,
+									})}
+									<Badge
+										variant={
+											task.priority === "High"
+												? "red"
+												: task.priority === "Medium"
+												? "todo"
+												: "done"
+										}
+										className="ml-3   rounded-2xl  capitalize"
+									>
+										{task.priority}{" "}
+									</Badge>
+								</div>
 							</div>
+							<div className="flex items-center gap-2 ">
+								<TaskStatusSelector status={task.status} taskId={task._id} />
+
+								<Button variant={"red"} className="mr-3" onClick={() => {}}>
+									<Trash2Icon className=" rounded-full size-4 md:size-5 flex-shrink-0" />
+									<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
+										Delete Task
+									</span>
+								</Button>
+							</div>
+						</div>
+						<div className="mb-6 flex px-2 md:px-3 flex-col">
+							<CardDescription>
+								<h3 className="text-sm font-medium text-primary mb-2">
+									Description:
+								</h3>
+								<TaskDescription
+									description={task.description || ""}
+									taskId={task._id}
+								/>
+							</CardDescription>
+						</div>
+						<div className="mb-6 flex px-2 md:px-3 flex-col">
+							<TaskAssigneesSelector
+								task={task}
+								assignees={task.assignees}
+								projectMembers={project.members as any}
+							/>
 						</div>
 					</Card>
 				</div>

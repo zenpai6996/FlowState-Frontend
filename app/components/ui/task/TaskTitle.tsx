@@ -33,15 +33,13 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 		<div className="flex justify-between items-center gap-2">
 			{isEditing ? (
 				<Input
-					className="text-xl! font-semibold w-full min-w-1xl"
+					className="text-xl! font-semibold rounded-full border dark:border-primary w-full dark:bg-background min-w-1xl"
 					value={newTitle}
 					onChange={(e) => setNewTitle(e.target.value)}
 					disabled={isPending}
 				/>
 			) : (
-				<h2 className=" text-xl flex-1 mt-5 font-semibold capitalize">
-					{title}
-				</h2>
+				<h2 className=" text-xl flex-1 font-semibold capitalize">{title}</h2>
 			)}
 			{isEditing ? (
 				<Button
@@ -58,7 +56,7 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 			) : (
 				<>
 					<Edit
-						className="size-5 mt-5 dark:hover:text-primary cursor-pointer"
+						className="size-5  dark:hover:text-primary cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>
