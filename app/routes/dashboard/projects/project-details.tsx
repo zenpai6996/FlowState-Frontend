@@ -299,7 +299,6 @@ const TabsColumn = ({
 	onTaskClick,
 	isfullWidth = false,
 }: TaskColumnProps) => {
-	const [isCreateTask, setIsCreateTask] = useState(false);
 	return (
 		<div
 			className={
@@ -367,7 +366,6 @@ const TabsColumn = ({
 											size={16}
 											className=" size-10 mb-3  flex-shrink-0 animate-pulse "
 										/>
-
 										<span className="text-xs sm:text-sm">
 											{title === "Done"
 												? "No Tasks completed"
@@ -375,14 +373,6 @@ const TabsColumn = ({
 												? "No Tasks pending"
 												: "No Tasks in progress"}
 										</span>
-										{/* <Button
-											variant={"neomorphic"}
-											className="text-xs sm:text-sm px-3 mt-2 sm:px-6 py-2 rounded-full whitespace-nowrap"
-											onClick={() => setIsCreateTask(true)}
-										>
-											<span className="hidden xs:inline">Add Task</span>
-											<span className="xs:hidden">Add Task</span>
-										</Button> */}
 									</div>
 								</CardHeader>
 							</Card>

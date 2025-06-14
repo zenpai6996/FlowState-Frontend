@@ -2,9 +2,9 @@ import {
 	CheckCircle2,
 	ChevronDown,
 	ChevronRight,
-	Circle,
 	CircleOffIcon,
 	Plus,
+	ShieldAlert,
 	Trash,
 } from "lucide-react";
 import { useState } from "react";
@@ -108,7 +108,7 @@ const SubtaskDetails = ({
 	};
 
 	return (
-		<div className="mx-auto container px-2 md:px-6">
+		<div className="mx-auto container px-3 md:px-6">
 			{/* Header Section - Always visible and clickable */}
 			<div
 				className="flex items-center justify-between cursor-pointer"
@@ -228,16 +228,16 @@ const SubtaskDetails = ({
 								))}
 							</div>
 						) : (
-							<div className="flex flex-col items-center justify-center py-8 px-4 text-center space-y-3">
+							<div className="flex flex-col items-center justify-center mb-3 px-4 text-center space-y-3">
 								<div className="rounded-full bg-muted p-3">
-									<Circle className="h-6 w-6 text-muted-foreground" />
+									<ShieldAlert className="h-10 w-10 text-primary" />
 								</div>
 								<div className="space-y-1">
 									<p className="text-sm font-medium text-muted-foreground">
 										No subtasks yet
 									</p>
 									<p className="text-xs text-muted-foreground">
-										Break down this task into smaller, manageable steps
+										Break down this task into smaller steps
 									</p>
 								</div>
 							</div>
@@ -246,7 +246,7 @@ const SubtaskDetails = ({
 
 					{/* Add Subtask Section */}
 					<div className="space-y-3">
-						<div className="flex items-center space-x-2 text-sm font-medium text-muted-foreground">
+						<div className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted-foreground">
 							<span>Add Subtask :</span>
 						</div>
 						<div className="flex space-x-2">
