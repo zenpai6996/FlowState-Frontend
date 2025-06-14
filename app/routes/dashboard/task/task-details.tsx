@@ -11,14 +11,16 @@ import { useNavigate, useParams } from "react-router";
 import BackButton from "~/components/back-button";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { Card, CardDescription, CardTitle } from "~/components/ui/card";
+import { Card, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
+import TaskActivity from "~/components/ui/task/task-activity";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
 import TaskDescription from "~/components/ui/task/task-description";
 import TaskPrioritySelector from "~/components/ui/task/task-priority-selector";
 import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
+import Watchers from "~/components/ui/task/Watchers";
 import { useTaskByIdQuery } from "~/hooks/use-tasks";
 import { cn } from "~/lib/utils";
 import { useAuth } from "~/provider/auth-context";
@@ -131,7 +133,7 @@ const TaskDetails = () => {
 					</Button>
 				</div>
 			</div>
-			<div className="grid grid-cols-1 md:grid-cols-1 gap-2">
+			<div className="flex flex-col lg:flex-row gap-2">
 				<div className="lg:col-span-2">
 					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-6">
 						<div className="flex flex-row md:flex-row justify-between items-start ">
@@ -139,31 +141,33 @@ const TaskDetails = () => {
 								<CardTitle>
 									<TaskTitle title={task.title} taskId={task._id} />
 								</CardTitle>
-								<div className=" flex text-sm mt-5 md:text-base text-muted-foreground">
-									<span className="text-primary">Created at:&nbsp; </span>
+
+								<div className=" flex text-sm mt-2 md:text-base text-muted-foreground">
+									<span className="text-primary">Created:&nbsp; </span>
 									{formatDistanceToNow(new Date(task.createdAt), {
 										addSuffix: true,
 									})}
 								</div>
-								<div className="flex flex-row mt-3">
+								<div className="flex flex-row mt-2">
 									<Badge
-										variant={"neoMorphicPressed"}
-										className={
+										variant={"neosoft"}
+										className={cn(
+											"block sm:hidden",
 											task.priority === "High"
-												? "dark:text-red-400"
+												? "dark:text-red-400 "
 												: task.priority === "Medium"
 												? "dark:text-yellow-500"
 												: "dark:text-green-500"
-										}
+										)}
 									>
 										<span className="text-[10px] md:text-xs">
 											{task.priority}{" "}
 										</span>
 									</Badge>
 									<Badge
-										variant={"neoMorphicPressed"}
+										variant={"neosoft"}
 										className={cn(
-											"ml-2   rounded-2xl  capitalize",
+											"ml-2   rounded-2xl block sm:hidden capitalize",
 											task.status === "To Do"
 												? "dark:text-yellow-500"
 												: task.status === "In Progress"
@@ -177,7 +181,8 @@ const TaskDetails = () => {
 									</Badge>
 								</div>
 							</div>
-							<div className="flex items-center gap-1 ">
+
+							<div className="flex ">
 								<TaskPrioritySelector
 									priority={task.priority}
 									taskId={task._id}
@@ -186,20 +191,22 @@ const TaskDetails = () => {
 							</div>
 						</div>
 						<div className=" flex px-2 md:px-3 flex-col">
-							<CardDescription>
-								<h3 className="text-sm font-medium text-primary mb-2">
-									Description :
-								</h3>
-								<TaskDescription
-									description={task.description || ""}
+							<TaskDescription
+								description={task.description || ""}
+								taskId={task._id}
+							/>
+						</div>
+						<div className="px-2 md:px-2">
+							<h3 className="text-sm  mb-2 font-medium ml-1 text-primary">
+								Subtasks:
+							</h3>
+							<Card className="dark:bg-background">
+								<SubtaskDetails
+									subtask={task.subtasks || []}
 									taskId={task._id}
 								/>
-							</CardDescription>
+							</Card>
 						</div>
-
-						<Card className="dark:bg-background">
-							<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
-						</Card>
 						<div className=" flex px-2 md:px-3 flex-col">
 							<TaskAssigneesSelector
 								task={task}
@@ -208,6 +215,10 @@ const TaskDetails = () => {
 							/>
 						</div>
 					</Card>
+				</div>
+				<div className="md:w-[500px]">
+					<Watchers watchers={task.watchers || []} />
+					<TaskActivity resourceId={task._id} />
 				</div>
 			</div>
 		</div>

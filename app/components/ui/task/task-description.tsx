@@ -44,43 +44,49 @@ const TaskDescription = ({
 	};
 
 	return (
-		<div className="flex items-center gap-2 ">
-			{isEditing ? (
-				<Textarea2
-					className="text-base! rounded-2xl border dark:border-primary w-full dark:bg-background min-w-1xl"
-					value={newDescription}
-					onChange={(e) => setNewDescription(e.target.value)}
-					disabled={isPending}
-					onClear={handleClear}
+		<>
+			<div className="flex flex-row">
+				<h3 className="text-sm font-medium text-primary mb-2">
+					Description &nbsp;{" "}
+				</h3>
+				<Edit
+					className="size-3 mt-0.5  md:size-4 dark:hover:text-primary  cursor-pointer"
+					onClick={() => setIsEditing(true)}
 				/>
-			) : (
-				<div className=" text-sm md:text-base text-pretty text-muted-foreground  font-semibold">
-					{description}
-				</div>
-			)}
-			{isEditing ? (
-				<Button
-					type="submit"
-					variant={"neomorphic"}
-					className="py-0 rounded-2xl"
-					size={"lg"}
-					onClick={updateDescription}
-					disabled={isPending}
-				>
-					<Save className=" rounded-full size-4 md:size-5 flex-shrink-0" />
-					<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
-						{isPending ? "Saving ..." : "Save Title"}{" "}
-					</span>
-				</Button>
-			) : (
-				<>
-					<Edit
-						className="size-3 md:size-5 dark:text-primary   cursor-pointer"
-						onClick={() => setIsEditing(true)}
+			</div>
+			<div className="flex items-center gap-2 ">
+				{isEditing ? (
+					<Textarea2
+						className="text-base! rounded-2xl border dark:border-primary w-full dark:bg-background min-w-1xl"
+						value={newDescription}
+						onChange={(e) => setNewDescription(e.target.value)}
+						disabled={isPending}
+						onClear={handleClear}
 					/>
-				</>
-			)}
-		</div>
+				) : (
+					<div className=" text-sm md:text-base text-pretty text-muted-foreground  font-semibold">
+						{description}
+					</div>
+				)}
+				{isEditing ? (
+					<Button
+						type="submit"
+						variant={"neomorphic"}
+						className="py-0 rounded-2xl"
+						size={"lg"}
+						onClick={updateDescription}
+						disabled={isPending}
+					>
+						<Save className=" rounded-full size-4 md:size-5 flex-shrink-0" />
+						<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
+							{isPending ? "Saving ..." : "Save Title"}{" "}
+						</span>
+					</Button>
+				) : (
+					<></>
+				)}
+			</div>
+		</>
 	);
 };
 

@@ -101,3 +101,40 @@ export interface MemberProps {
 	role: "admin" | "member" | "owner" | "viewer";
 	joinedAt: Date;
 }
+
+export type ResourceType =
+	| "Task"
+	| "Project"
+	| "Workspace"
+	| "Comment"
+	| "User";
+
+export type ActionType =
+	| "created_task"
+	| "updated_task"
+	| "created_subtask"
+	| "updated_subtask"
+	| "deleted_subtask"
+	| "edited_subtask"
+	| "completed_task"
+	| "created_project"
+	| "updated_project"
+	| "completed_project"
+	| "created_workspace"
+	| "updated_workspace"
+	| "added_comment"
+	| "added_member"
+	| "removed_member"
+	| "joined_workspace"
+	| "transferred_workspace_ownership"
+	| "added_attachment";
+
+export interface ActivityLog {
+	_id: string;
+	user: User;
+	action: ActionType;
+	resourceType: ResourceType;
+	resourceId: string;
+	details: any;
+	createdAt: Date;
+}

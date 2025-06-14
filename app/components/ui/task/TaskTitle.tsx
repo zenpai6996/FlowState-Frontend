@@ -45,9 +45,10 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 					onClear={handleClear}
 				/>
 			) : (
-				<h2 className=" md:text-xl   flex-1 font-semibold capitalize">
+				<h2 className=" md:text-xl mt-[3px] text-md sm:max-w-[240px] md:max-w-[710px] truncate max-w-[160px]   flex-1 font-semibold capitalize">
 					{title}
 				</h2>
+        
 			)}
 			{isEditing ? (
 				<Button
@@ -66,7 +67,7 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 			) : (
 				<>
 					<Edit
-						className="md:size-5 size-3  dark:text-primary cursor-pointer"
+						className="md:size-4 size-3  dark:hover:text-primary cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>

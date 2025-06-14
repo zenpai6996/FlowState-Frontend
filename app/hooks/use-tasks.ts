@@ -57,6 +57,7 @@ export const useUpdateTaskTitle = () => {
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -97,6 +98,7 @@ export const useUpdateTaskDescription = () => {
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -112,10 +114,14 @@ export const useUpdateTaskStatusMutation = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data._id],
+			});
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -131,10 +137,14 @@ export const useUpdateTaskPriorityMutation = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data._id],
+			});
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -151,10 +161,14 @@ export const useUpdateAssignees = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data._id],
+			});
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -171,10 +185,14 @@ export const useAddSubTask = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data._id],
+			});
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
@@ -195,18 +213,22 @@ export const useUpdateSubTask = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data._id],
+			});
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
 };
 
 export const useDeleteSubTask = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
+	const queryClient = useQueryClient();
+
+	return useMutation({
 		mutationFn: (data: { taskId: string; subTaskId: string }) =>
 			deleteData(`/tasks/${data.taskId}/subtasks/${data.subTaskId}`),
 		onSuccess: (data, variables) => {
@@ -222,9 +244,9 @@ export const useDeleteSubTask = () => {
 };
 
 export const useUpdateSubTaskTitle = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
+	const queryClient = useQueryClient();
+
+	return useMutation({
 		mutationFn: (data: { taskId: string; subTaskId: string; title: string }) =>
 			updateData(`/tasks/${data.taskId}/subtasks/${data.subTaskId}/title`, {
 				title: data.title,

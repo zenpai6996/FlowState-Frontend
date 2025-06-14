@@ -1,7 +1,7 @@
 import {
 	CheckCircle2,
-	ChevronDown,
-	ChevronRight,
+	CircleArrowDown,
+	CircleArrowRight,
 	CircleOffIcon,
 	Plus,
 	ShieldAlert,
@@ -29,7 +29,7 @@ const SubtaskDetails = ({
 	taskId: string;
 }) => {
 	const [newSubtask, setNewSubtask] = useState("");
-	const [isCollapsed, setIsCollapsed] = useState(false);
+	const [isCollapsed, setIsCollapsed] = useState(true);
 	const { mutate: addSubTask, isPending } = useAddSubTask();
 	const { mutate: updateSubTask, isPending: isUpdating } = useUpdateSubTask();
 	const { mutate: deleteSubTask, isPending: isDeleting } = useDeleteSubTask();
@@ -116,23 +116,27 @@ const SubtaskDetails = ({
 			>
 				<div className="flex items-center space-x-2 ">
 					{isCollapsed ? (
-						<Badge variant={"glassMorph"} className="rounded-full">
-							<ChevronRight className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
-						</Badge>
+						<CircleArrowDown className="size-5 dark:text-primary transition-transform duration-300" />
 					) : (
-						<Badge variant={"glassMorph"} className="rounded-full">
-							<ChevronDown className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
-						</Badge>
+						<CircleArrowRight className="size-5  dark:text-primary transition-transform duration-300" />
 					)}
 
 					<div className="space-y-1">
-						<h3 className="text-sm font-semibold text-foreground">Subtasks</h3>
-						{totalCount > 0 && (
-							<div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
+						{totalCount > 0 ? (
+							<div className="flex items-center space-x-2 text-sm text-muted-foreground ">
 								<span>
 									{completedCount} of {totalCount} completed
 								</span>
 								<span className="text-xs">({completionPercentage}%)</span>
+							</div>
+						) : (
+							<div className="flex items-center space-x-2 text-sm text-muted-foreground ">
+								<span>
+									{completedCount} of {totalCount} completed :
+								</span>
+								<span className="text-xs text-primary">
+									{completionPercentage}%
+								</span>
 							</div>
 						)}
 					</div>
@@ -140,9 +144,9 @@ const SubtaskDetails = ({
 				{totalCount > 0 && (
 					<div className="flex items-center space-x-2">
 						{completionPercentage === 100 ? (
-							<CheckCircle2 className="h-5 w-5 text-green-500" />
+							<CheckCircle2 className="size-5 text-green-500" />
 						) : (
-							<CircleOffIcon className="h-5 w-5 text-muted-foreground" />
+							<CircleOffIcon className="size-5 text-primary" />
 						)}
 					</div>
 				)}
@@ -158,7 +162,7 @@ const SubtaskDetails = ({
 				<div className="mt-4">
 					{/* Progress Bar */}
 					{totalCount > 0 && (
-						<div className="space-y-2 mb-2">
+						<div className="space-y-2 mb-4">
 							<div className="w-full bg-secondary rounded-full h-2">
 								<div
 									className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
@@ -176,7 +180,7 @@ const SubtaskDetails = ({
 									<div
 										key={subtasks._id}
 										className={cn(
-											"group flex items-center mt-2  mb-2  rounded-2xl space-x-3 p-3  border transition-all duration-200",
+											"group flex items-center mt-2  mb-2  rounded-2xl space-x-3 p-1  border transition-all duration-200",
 											"hover:bg-background/50 hover:border-accent-foreground/20",
 											subtasks.completed
 												? "bg-muted/30  border-muted"

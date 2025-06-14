@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useUpdateTaskStatusMutation } from "~/hooks/use-tasks";
 import { cn } from "~/lib/utils";
 import type { TaskStatus } from "~/types";
+import { Badge } from "../badge";
 import {
 	Select,
 	SelectContent,
@@ -49,25 +50,27 @@ const TaskStatusSelector = ({
 			<SelectGroup>
 				<SelectTrigger
 					className={cn(
-						"sm:w-[120px] cursor-pointer mr-[10px] text-center",
-						"w-10 px-3 sm:px-3",
+						"sm:w-auto cursor-pointer mr-[10px] text-center",
+
 						status === "To Do"
-							? "text-yellow-500 border dark:border-yellow-500"
+							? "text-yellow-500 border "
 							: status === "In Progress"
-							? "text-cyan-500 border dark:border-cyan-500"
-							: "text-green-500 border dark:border-green-500"
+							? "text-cyan-500 border "
+							: "text-green-500 border"
 					)}
 				>
-					{status === "To Do" ? (
-						<AlertCircle className="text-yellow-500 size-4 md:ml-0 md:size-5" />
-					) : status === "In Progress" ? (
-						<ClockPlus className="text-cyan-500 size-4 md:ml-0 md:size-5" />
-					) : (
-						<CheckCircle className="text-green-500 size-4 md:ml-0 md:size-5" />
-					)}
-					<div className="hidden sm:block">
-						<SelectValue placeholder="Status" />
-					</div>
+					<Badge variant={"glassMorph"}>
+						{status === "To Do" ? (
+							<AlertCircle className="text-yellow-500 size-4 md:ml-0 md:size-5" />
+						) : status === "In Progress" ? (
+							<ClockPlus className="text-cyan-500 size-4 md:ml-0 md:size-5" />
+						) : (
+							<CheckCircle className="text-green-500 size-4 md:ml-0 md:size-5" />
+						)}
+						<div className="hidden sm:block">
+							<SelectValue placeholder="Status" />
+						</div>
+					</Badge>
 				</SelectTrigger>
 
 				<SelectContent align="end">
