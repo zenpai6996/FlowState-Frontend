@@ -13,8 +13,10 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardDescription, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
+import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
 import TaskDescription from "~/components/ui/task/task-description";
+import TaskPrioritySelector from "~/components/ui/task/task-priority-selector";
 import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
 import { useTaskByIdQuery } from "~/hooks/use-tasks";
@@ -70,13 +72,11 @@ const TaskDetails = () => {
 	const members = task?.assignees || [];
 
 	return (
-		<div className="container mx-auto p-0 py-4 md:px-4">
-			<BackButton />
-			<div className="flex flex-row md:flex-row items-center  justify-between mb-6">
+		<div className="container mx-auto p-0  md:px-4">
+			<div className="flex flex-row md:flex-row items-center  justify-between mb-3">
+				<BackButton className="mb-0" />
+
 				<div className="flex flex-row md:flex-row   md:items-center">
-					<h1 className="text-xl md:text-2xl font-bold mt-2  mb-0 md:mb-5">
-						{task.title.toUpperCase()}
-					</h1>
 					{task.isArchived && (
 						<Badge className="ml-2" variant={"glassHologram"}>
 							Archived
@@ -103,7 +103,7 @@ const TaskDetails = () => {
 					</Button>
 					<Button
 						title={task.isArchived ? "Unarchive" : "Archive"}
-						variant={"neomorphic"}
+						variant={"glassMorph"}
 						onClick={() => {}}
 					>
 						{task.isArchived ? (
@@ -118,31 +118,35 @@ const TaskDetails = () => {
 							</>
 						)}
 					</Button>
+					<Button
+						variant={"neomorphic"}
+						onClick={() => {}}
+						className="border dark:hover:border-red-400 "
+					>
+						<Trash2Icon className=" dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
+						<span className="hidden text-xs dark:text-red-400 md:text-sm xs:inline sm:inline whitespace-nowrap">
+							Delete Task
+						</span>
+					</Button>
 				</div>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-1 gap-6">
 				<div className="lg:col-span-2">
-					<Card className="bg-muted rounded-2xl p6 shadow-sm mb-6">
-						<div className="flex flex-row md:flex-row justify-between items-start mb-4">
+					<Card className="bg-muted rounded-2xl  md:p-6 shadow-sm mb-6">
+						<div className="flex flex-row md:flex-row justify-between items-start ">
 							<div className="flex px-2 md:px-3 flex-col">
 								<CardTitle>
 									<TaskTitle title={task.title} taskId={task._id} />
 								</CardTitle>
 								<div className=" flex text-sm mt-5 md:text-base text-muted-foreground">
-									<span className="text-primary">Created at :</span>
+									<span className="text-primary">Created at:&nbsp; </span>
 									{formatDistanceToNow(new Date(task.createdAt), {
 										addSuffix: true,
 									})}
 								</div>
 								<div className="flex flex-row mt-3">
 									<Badge
-										variant={
-											task.priority === "High"
-												? "red"
-												: task.priority === "Medium"
-												? "todo"
-												: "done"
-										}
+										variant={"neoMorphicPressed"}
 										className="  rounded-2xl  capitalize"
 									>
 										<span className="text-[10px] md:text-xs">
@@ -150,13 +154,7 @@ const TaskDetails = () => {
 										</span>
 									</Badge>
 									<Badge
-										variant={
-											task.status === "Done"
-												? "done"
-												: task.status === "In Progress"
-												? "progress"
-												: "todo"
-										}
+										variant={"neoMorphicPressed"}
 										className="ml-2   rounded-2xl  capitalize"
 									>
 										<span className="text-[10px] md:text-xs">
@@ -165,15 +163,12 @@ const TaskDetails = () => {
 									</Badge>
 								</div>
 							</div>
-							<div className="flex items-center gap-2 ">
+							<div className="flex items-center gap-1 ">
+								<TaskPrioritySelector
+									priority={task.priority}
+									taskId={task._id}
+								/>
 								<TaskStatusSelector status={task.status} taskId={task._id} />
-
-								<Button variant={"red"} className="mr-3" onClick={() => {}}>
-									<Trash2Icon className=" rounded-full size-4 md:size-5 flex-shrink-0" />
-									<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
-										Delete Task
-									</span>
-								</Button>
 							</div>
 						</div>
 						<div className="mb-6 flex px-2 md:px-3 flex-col">
@@ -194,6 +189,9 @@ const TaskDetails = () => {
 								projectMembers={project.members as any}
 							/>
 						</div>
+					</Card>
+					<Card>
+						<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
 					</Card>
 				</div>
 			</div>

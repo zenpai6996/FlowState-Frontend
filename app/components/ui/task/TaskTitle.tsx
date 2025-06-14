@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useUpdateTaskTitle } from "~/hooks/use-tasks";
 import { Button } from "../button";
-import { Input } from "../input";
+import { Input2 } from "../Input2";
 
 const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -29,17 +29,25 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 		);
 	};
 
+	const handleClear = () => {
+		setNewTitle(title); // Reset to original title
+		setIsEditing(false); // Exit edit mode
+	};
+
 	return (
 		<div className="flex justify-between items-center gap-2">
 			{isEditing ? (
-				<Input
-					className="text-xl! font-semibold rounded-full border dark:border-primary w-full dark:bg-background min-w-1xl"
+				<Input2
+					className="md:text-xl! text-sm font-semibold rounded-full border dark:border-primary w-full dark:bg-background min-w-1xl"
 					value={newTitle}
 					onChange={(e) => setNewTitle(e.target.value)}
 					disabled={isPending}
+					onClear={handleClear}
 				/>
 			) : (
-				<h2 className=" text-xl flex-1 font-semibold capitalize">{title}</h2>
+				<h2 className=" md:text-xl   flex-1 font-semibold capitalize">
+					{title}
+				</h2>
 			)}
 			{isEditing ? (
 				<Button
@@ -50,13 +58,15 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 					onClick={updateTitle}
 					disabled={isPending}
 				>
-					<Save />
-					{isPending ? "Saving ..." : "Save Title"}
+					<Save className=" rounded-full size-4 md:size-5 flex-shrink-0" />
+					<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
+						{isPending ? "Saving ..." : "Save Title"}{" "}
+					</span>
 				</Button>
 			) : (
 				<>
 					<Edit
-						className="size-5  dark:hover:text-primary cursor-pointer"
+						className="md:size-5 size-3  dark:hover:text-primary cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>

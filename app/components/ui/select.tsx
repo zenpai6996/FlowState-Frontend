@@ -42,7 +42,7 @@ function SelectTrigger({
 		>
 			{children}
 			<SelectPrimitive.Icon asChild>
-				<ChevronDownIcon className="size-4 opacity-50" />
+				<ChevronDownIcon className="size-4 hidden opacity-50" />
 			</SelectPrimitive.Icon>
 		</SelectPrimitive.Trigger>
 	);
@@ -91,7 +91,7 @@ function SelectLabel({
 		<SelectPrimitive.Label
 			data-slot="select-label"
 			className={cn(
-				"text-stone-500 px-2 py-1.5 text-xs dark:text-stone-400",
+				"text-stone-500 px-2 py-1.5 text-xs dark:text-primary",
 				className
 			)}
 			{...props}
@@ -131,7 +131,7 @@ function SelectSeparator({
 		<SelectPrimitive.Separator
 			data-slot="select-separator"
 			className={cn(
-				"bg-stone-200 pointer-events-none -mx-1 my-1 h-px dark:bg-stone-800",
+				"bg-stone-200 pointer-events-none -mx-1 my-1 h-px dark:bg-accent",
 				className
 			)}
 			{...props}

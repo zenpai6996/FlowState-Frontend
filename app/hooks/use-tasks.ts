@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CreateTaskFromData } from "~/components/ui/task/create-task-dialog";
 import { fetchData, postData, updateData } from "~/lib/fetch-utils";
-import type { TaskStatus } from "~/types";
+import type { TaskPriority, TaskStatus } from "~/types";
 
 export const useCreateTask = () => {
 	const queryClient = useQueryClient();
@@ -108,6 +108,44 @@ export const useUpdateTaskStatusMutation = () => {
 	return useMutation({
 		mutationFn: (data: { taskId: string; status: TaskStatus }) =>
 			updateData(`/tasks/${data.taskId}/status`, { status: data.status }),
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", data._id],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+// Update in use-tasks.ts
+export const useUpdateTaskPriorityMutation = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: { taskId: string; priority: TaskPriority }) =>
+			updateData(`/tasks/${data.taskId}/priority`, { priority: data.priority }),
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", data._id],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+
+export const useUpdateAssignees = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: { taskId: string; assignees: string[] }) =>
+			updateData(`tasks/${data.taskId}/assignees`, {
+				assignees: data.assignees,
+			}),
 		onSuccess: (data: any) => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
