@@ -108,24 +108,23 @@ const SubtaskDetails = ({
 	};
 
 	return (
-		<div className="mx-auto container px-3 md:px-6">
+		<div className="mx-auto container  px-3 md:px-6">
 			{/* Header Section - Always visible and clickable */}
 			<div
 				className="flex items-center justify-between cursor-pointer"
 				onClick={() => setIsCollapsed(!isCollapsed)}
 			>
 				<div className="flex items-center space-x-2 ">
-					<div className="mb-8">
-						{isCollapsed ? (
-							<Badge variant={"glassMorph"} className="rounded-full">
-								<ChevronRight className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
-							</Badge>
-						) : (
-							<Badge variant={"glassMorph"} className="rounded-full">
-								<ChevronDown className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
-							</Badge>
-						)}
-					</div>
+					{isCollapsed ? (
+						<Badge variant={"glassMorph"} className="rounded-full">
+							<ChevronRight className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
+						</Badge>
+					) : (
+						<Badge variant={"glassMorph"} className="rounded-full">
+							<ChevronDown className="h-4 w-4 md:h-7 md:w-7  dark:text-primary transition-transform duration-300" />
+						</Badge>
+					)}
+
 					<div className="space-y-1">
 						<h3 className="text-sm font-semibold text-foreground">Subtasks</h3>
 						{totalCount > 0 && (
@@ -251,7 +250,7 @@ const SubtaskDetails = ({
 						</div>
 						<div className="flex space-x-2">
 							<Input
-								placeholder="Enter subtask inshort..."
+								placeholder="Enter subtask ..."
 								value={newSubtask}
 								onChange={(e) => setNewSubtask(e.target.value)}
 								onKeyPress={handleKeyPress}

@@ -133,7 +133,7 @@ const TaskDetails = () => {
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-1 gap-2">
 				<div className="lg:col-span-2">
-					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-2">
+					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-6">
 						<div className="flex flex-row md:flex-row justify-between items-start ">
 							<div className="flex px-2 md:px-3 flex-col">
 								<CardTitle>
@@ -185,7 +185,7 @@ const TaskDetails = () => {
 								<TaskStatusSelector status={task.status} taskId={task._id} />
 							</div>
 						</div>
-						<div className="mb-6 flex px-2 md:px-3 flex-col">
+						<div className=" flex px-2 md:px-3 flex-col">
 							<CardDescription>
 								<h3 className="text-sm font-medium text-primary mb-2">
 									Description :
@@ -196,7 +196,11 @@ const TaskDetails = () => {
 								/>
 							</CardDescription>
 						</div>
-						<div className="mb-6 flex px-2 md:px-3 flex-col">
+
+						<Card className="dark:bg-background">
+							<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
+						</Card>
+						<div className=" flex px-2 md:px-3 flex-col">
 							<TaskAssigneesSelector
 								task={task}
 								assignees={task.assignees}
@@ -205,9 +209,6 @@ const TaskDetails = () => {
 						</div>
 					</Card>
 				</div>
-				<Card className="mb-5">
-					<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
-				</Card>
 			</div>
 		</div>
 	);
