@@ -20,6 +20,7 @@ import TaskPrioritySelector from "~/components/ui/task/task-priority-selector";
 import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
 import { useTaskByIdQuery } from "~/hooks/use-tasks";
+import { cn } from "~/lib/utils";
 import { useAuth } from "~/provider/auth-context";
 import type { Project, Task } from "~/types";
 
@@ -72,7 +73,7 @@ const TaskDetails = () => {
 	const members = task?.assignees || [];
 
 	return (
-		<div className="container mx-auto p-0  md:px-4">
+		<div className="container mx-auto   md:px-4">
 			<div className="flex flex-row md:flex-row items-center  justify-between mb-3">
 				<BackButton className="mb-0" />
 
@@ -130,9 +131,9 @@ const TaskDetails = () => {
 					</Button>
 				</div>
 			</div>
-			<div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-1 gap-2">
 				<div className="lg:col-span-2">
-					<Card className="bg-muted rounded-2xl  md:p-6 shadow-sm mb-6">
+					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-2">
 						<div className="flex flex-row md:flex-row justify-between items-start ">
 							<div className="flex px-2 md:px-3 flex-col">
 								<CardTitle>
@@ -147,7 +148,13 @@ const TaskDetails = () => {
 								<div className="flex flex-row mt-3">
 									<Badge
 										variant={"neoMorphicPressed"}
-										className="  rounded-2xl  capitalize"
+										className={
+											task.priority === "High"
+												? "dark:text-red-400"
+												: task.priority === "Medium"
+												? "dark:text-yellow-500"
+												: "dark:text-green-500"
+										}
 									>
 										<span className="text-[10px] md:text-xs">
 											{task.priority}{" "}
@@ -155,7 +162,14 @@ const TaskDetails = () => {
 									</Badge>
 									<Badge
 										variant={"neoMorphicPressed"}
-										className="ml-2   rounded-2xl  capitalize"
+										className={cn(
+											"ml-2   rounded-2xl  capitalize",
+											task.status === "To Do"
+												? "dark:text-yellow-500"
+												: task.status === "In Progress"
+												? "dark:text-cyan-500"
+												: "dark:text-green-500"
+										)}
 									>
 										<span className="text-[10px] md:text-xs">
 											{task.status}{" "}
@@ -190,10 +204,10 @@ const TaskDetails = () => {
 							/>
 						</div>
 					</Card>
-					<Card>
-						<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
-					</Card>
 				</div>
+				<Card className="mb-5">
+					<SubtaskDetails subtask={task.subtasks || []} taskId={task._id} />
+				</Card>
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CreateTaskFromData } from "~/components/ui/task/create-task-dialog";
-import { fetchData, postData, updateData } from "~/lib/fetch-utils";
+import { deleteData, fetchData, postData, updateData } from "~/lib/fetch-utils";
 import type { TaskPriority, TaskStatus } from "~/types";
 
 export const useCreateTask = () => {
@@ -119,6 +119,7 @@ export const useUpdateTaskStatusMutation = () => {
 		},
 	});
 };
+
 // Update in use-tasks.ts
 export const useUpdateTaskPriorityMutation = () => {
 	const queryClient = useQueryClient();
@@ -149,6 +150,88 @@ export const useUpdateAssignees = () => {
 		onSuccess: (data: any) => {
 			queryClient.invalidateQueries({
 				queryKey: ["task", data._id],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+
+export const useAddSubTask = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: { taskId: string; title: string }) =>
+			postData(`tasks/${data.taskId}/add-subtask`, {
+				title: data.title,
+			}),
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", data._id],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+
+export const useUpdateSubTask = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: {
+			taskId: string;
+			subTaskId: string;
+			completed: boolean;
+		}) =>
+			updateData(`tasks/${data.taskId}/update-subtask/${data.subTaskId}`, {
+				completed: data.completed,
+			}),
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", data._id],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+
+export const useDeleteSubTask = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+		mutationFn: (data: { taskId: string; subTaskId: string }) =>
+			deleteData(`/tasks/${data.taskId}/subtasks/${data.subTaskId}`),
+		onSuccess: (data, variables) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", variables.taskId],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+		},
+	});
+};
+
+export const useUpdateSubTaskTitle = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+		mutationFn: (data: { taskId: string; subTaskId: string; title: string }) =>
+			updateData(`/tasks/${data.taskId}/subtasks/${data.subTaskId}/title`, {
+				title: data.title,
+			}),
+		onSuccess: (data, variables) => {
+			queryClient.invalidateQueries({
+				queryKey: ["task", variables.taskId],
 			});
 		},
 		onSettled: () => {

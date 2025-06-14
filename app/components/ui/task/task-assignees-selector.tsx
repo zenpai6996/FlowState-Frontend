@@ -52,7 +52,7 @@ const TaskAssigneesSelector = ({
 			{
 				onSuccess: () => {
 					setDropDownOpen(false);
-					toast.success("Assignee selected Successfully!");
+					toast.success("Assignee changed Successfully!");
 				},
 				onError: (error: any) => {
 					const errorMessage =
