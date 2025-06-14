@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useUpdateTaskPriorityMutation } from "~/hooks/use-tasks";
 import { cn } from "~/lib/utils";
 import type { TaskPriority } from "~/types";
+import { Badge } from "../badge";
 import {
 	Select,
 	SelectContent,
@@ -48,25 +49,35 @@ const TaskPrioritySelector = ({
 		>
 			<SelectTrigger
 				className={cn(
-					"sm:w-[110px] cursor-pointer",
-					"w-10 px-3 sm:px-4",
+					"sm:w-auto cursor-pointer ",
 					priority === "High"
-						? "dark:text-red-400 border dark:border-red-400"
+						? "dark:text-red-400  "
 						: priority === "Medium"
-						? "dark:text-yellow-500 border dark:border-yellow-500"
-						: "dark:text-green-500 border dark:border-green-500"
+						? "dark:text-yellow-500 "
+						: "dark:text-green-500  "
 				)}
 			>
-				{priority === "High" ? (
-					<ShieldAlert className="size-4 md:ml-0 md:size-5 dark:text-red-400" />
-				) : priority === "Medium" ? (
-					<ShieldHalf className="size-4 md:ml-0 md:size-5 dark:text-yellow-500" />
-				) : (
-					<ShieldCheck className="size-4 md:ml-0 md:size-5 dark:text-green-500" />
-				)}
-				<div className="hidden sm:block">
-					<SelectValue placeholder="Priority" />
-				</div>
+				<Badge variant={"glassMorph"}>
+					{priority === "High" ? (
+						<ShieldAlert className="size-4 md:ml-0 md:size-5 dark:text-red-400" />
+					) : priority === "Medium" ? (
+						<ShieldHalf className="size-4 md:ml-0 md:size-5 dark:text-yellow-500" />
+					) : (
+						<ShieldCheck className="size-4 md:ml-0 md:size-5 dark:text-green-500" />
+					)}
+					<div className="hidden sm:block ">
+						<SelectValue
+							className={
+								priority === "High"
+									? "dark:text-red-400  "
+									: priority === "Medium"
+									? "dark:text-yellow-500 "
+									: "dark:text-green-500  "
+							}
+							placeholder="Priority"
+						/>
+					</div>
+				</Badge>
 			</SelectTrigger>
 			<SelectGroup>
 				<SelectContent align="end">
