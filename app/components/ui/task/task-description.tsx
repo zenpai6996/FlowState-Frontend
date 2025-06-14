@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useUpdateTaskDescription } from "~/hooks/use-tasks";
 import { Button } from "../button";
-import { Textarea } from "../textarea";
+import { Textarea2 } from "../textarea2";
 
 const TaskDescription = ({
 	description,
@@ -38,15 +38,20 @@ const TaskDescription = ({
 			}
 		);
 	};
+	const handleClear = () => {
+		setNewDescription(description); // Reset to original title
+		setIsEditing(false); // Exit edit mode
+	};
 
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-center gap-2 ">
 			{isEditing ? (
-				<Textarea
+				<Textarea2
 					className="text-base! rounded-2xl border dark:border-primary w-full dark:bg-background min-w-1xl"
 					value={newDescription}
 					onChange={(e) => setNewDescription(e.target.value)}
 					disabled={isPending}
+					onClear={handleClear}
 				/>
 			) : (
 				<div className=" text-sm md:text-base text-pretty text-muted-foreground  font-semibold">
@@ -62,13 +67,15 @@ const TaskDescription = ({
 					onClick={updateDescription}
 					disabled={isPending}
 				>
-					<Save />
-					{isPending ? "Saving ..." : "Save"}
+					<Save className=" rounded-full size-4 md:size-5 flex-shrink-0" />
+					<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
+						{isPending ? "Saving ..." : "Save Title"}{" "}
+					</span>
 				</Button>
 			) : (
 				<>
 					<Edit
-						className="size-10 md:size-5 mb-5  dark:hover:text-primary cursor-pointer"
+						className="size-10 md:size-6 mb-5  dark:hover:text-primary cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>

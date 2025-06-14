@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { toast } from "sonner";
+import { useUpdateAssignees } from "~/hooks/use-tasks";
 import type { ProjectMemberRole, Task, User } from "~/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Badge } from "../badge";
 import { Button } from "../button";
+import { Checkbox } from "../checkbox";
 
 const TaskAssigneesSelector = ({
 	task,
@@ -18,6 +21,8 @@ const TaskAssigneesSelector = ({
 	);
 	const [dropDownOpen, setDropDownOpen] = useState(false);
 
+	const { mutate, isPending } = useUpdateAssignees();
+
 	const handleSelectAll = () => {
 		const allIds = projectMembers.map((m) => m.user._id);
 		setSelectedId(allIds);
@@ -25,6 +30,40 @@ const TaskAssigneesSelector = ({
 
 	const handleUnSelectAll = () => {
 		setSelectedId([]);
+	};
+
+	const handleSelect = (id: string) => {
+		let newSelected: String[] = [];
+
+		if (selectedId.includes(id)) {
+			newSelected = selectedId.filter((sid) => sid !== id);
+		} else {
+			newSelected = [...selectedId, id];
+		}
+		setSelectedId(newSelected);
+	};
+
+	const handleSave = () => {
+		mutate(
+			{
+				taskId: task._id,
+				assignees: selectedId,
+			},
+			{
+				onSuccess: () => {
+					setDropDownOpen(false);
+					toast.success("Assignee selected Successfully!");
+				},
+				onError: (error: any) => {
+					const errorMessage =
+						error.response.data.message || "Failed to update assignee";
+					toast.error("Something went wrong", {
+						description: errorMessage,
+					});
+					console.log(errorMessage);
+				},
+			}
+		);
 	};
 
 	return (
@@ -57,7 +96,7 @@ const TaskAssigneesSelector = ({
 			</div>
 
 			{/* dropdown Menu */}
-			<div className="relative mt-3">
+			<div className="relative mt-3 ">
 				<div className="flex justify-between ">
 					<Button
 						variant={"glassMirror"}
@@ -66,7 +105,7 @@ const TaskAssigneesSelector = ({
 					>
 						Select Assignees
 					</Button>
-					<Badge variant={"done"}>
+					<Badge variant={selectedId.length === 0 ? "red" : "done"}>
 						{selectedId.length === 0
 							? "No assignees"
 							: `${selectedId.length} selected`}
@@ -79,9 +118,7 @@ const TaskAssigneesSelector = ({
 								variant={"neosoft"}
 								size={"sm"}
 								className="text-xs rounded-2xl dark:text-green-500"
-								onClick={() => {
-									handleSelectAll;
-								}}
+								onClick={() => handleSelectAll()}
 							>
 								Select all
 							</Button>
@@ -89,11 +126,46 @@ const TaskAssigneesSelector = ({
 								variant={"neosoft"}
 								size={"sm"}
 								className="text-xs rounded-2xl dark:text-red-400"
-								onClick={() => {
-									handleUnSelectAll;
-								}}
+								onClick={() => handleUnSelectAll()}
 							>
-								UnSelect all
+								Unselect all
+							</Button>
+						</div>
+						{projectMembers.map((m) => (
+							<label
+								className="flex items-center px-3 py-2 cursor-pointer dark:hover:bg-card "
+								key={m.user._id}
+							>
+								<Checkbox
+									checked={selectedId.includes(m.user._id)}
+									onCheckedChange={() => handleSelect(m.user._id)}
+									className="mr-2"
+								/>
+								<Avatar className="size-6 mr-2">
+									<AvatarImage src={m.user.profilePicture} />
+									<AvatarFallback>{m.user.name.charAt(0)}</AvatarFallback>
+								</Avatar>
+								<span className="text-xs md:text-sm">{m.user.name}</span>
+							</label>
+						))}
+						<div className="flex justify-between px-2 py-1">
+							<Button
+								variant={"neosoft"}
+								size={"sm"}
+								className="font-light dark:text-red-400 rounded-2xl"
+								onClick={() => setDropDownOpen(false)}
+								disabled={isPending}
+							>
+								Cancel
+							</Button>
+							<Button
+								variant={"neosoft"}
+								size={"sm"}
+								className="font-light dark:text-green-500 rounded-2xl"
+								onClick={() => handleSave()}
+								disabled={isPending}
+							>
+								Save
 							</Button>
 						</div>
 					</div>
