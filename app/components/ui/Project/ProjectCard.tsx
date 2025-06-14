@@ -23,7 +23,7 @@ interface ProjectCardTypes {
 const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 	return (
 		<Link to={`/workspaces/${workspaceId}/projects/${project._id}`}>
-			<Card className="transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1">
+			<Card className="transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1 mb-3">
 				<CardHeader>
 					<div className="flex items-center justify-between">
 						<CardTitle>{project.title.toUpperCase()}</CardTitle>

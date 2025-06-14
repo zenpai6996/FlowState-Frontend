@@ -66,7 +66,7 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 			) : (
 				<>
 					<Edit
-						className="md:size-5 size-3  dark:hover:text-primary cursor-pointer"
+						className="md:size-5 size-3  dark:text-primary cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>

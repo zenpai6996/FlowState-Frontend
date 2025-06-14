@@ -75,7 +75,7 @@ const TaskDescription = ({
 			) : (
 				<>
 					<Edit
-						className="size-10 md:size-6 mb-5  dark:hover:text-primary cursor-pointer"
+						className="size-3 md:size-5 dark:text-primary   cursor-pointer"
 						onClick={() => setIsEditing(true)}
 					/>
 				</>

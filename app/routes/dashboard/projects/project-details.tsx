@@ -299,7 +299,6 @@ const TabsColumn = ({
 	onTaskClick,
 	isfullWidth = false,
 }: TaskColumnProps) => {
-	const [isCreateTask, setIsCreateTask] = useState(false);
 	return (
 		<div
 			className={
@@ -316,18 +315,18 @@ const TabsColumn = ({
 			>
 				{!isfullWidth && (
 					<div className="flex items-center justify-between">
-						<h1 className="font-medium text-sm   sm:text-base flex items-center">
+						<h1 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
 							{title === "To Do" ? (
 								<>
-									<AlertCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-yellow-500" />
-									<span className="hidden xs:inline">
+									<AlertCircle className="mr-5  size-4 sm:size-5 text-yellow-500" />
+									<span className="hidden xs:inline ">
 										{title.toUpperCase()}
 									</span>
 									<span className="xs:hidden">TODO</span>
 								</>
 							) : title === "In Progress" ? (
 								<>
-									<ClockPlus className="mr-1 sm:mr-2 size-4 sm:size-5 text-cyan-500" />
+									<ClockPlus className="mr-5  size-4 sm:size-5 text-cyan-500" />
 									<span className="hidden sm:inline">
 										{title.toUpperCase()}
 									</span>
@@ -335,7 +334,7 @@ const TabsColumn = ({
 								</>
 							) : (
 								<>
-									<CheckCircle className="mr-1 sm:mr-2 size-4 sm:size-5 text-green-500" />
+									<CheckCircle className="mr-5  size-4 sm:size-5 text-green-500" />
 									{title.toUpperCase()}
 								</>
 							)}
@@ -367,7 +366,6 @@ const TabsColumn = ({
 											size={16}
 											className=" size-10 mb-3  flex-shrink-0 animate-pulse "
 										/>
-
 										<span className="text-xs sm:text-sm">
 											{title === "Done"
 												? "No Tasks completed"
@@ -375,14 +373,6 @@ const TabsColumn = ({
 												? "No Tasks pending"
 												: "No Tasks in progress"}
 										</span>
-										<Button
-											variant={"neomorphic"}
-											className="text-xs sm:text-sm px-3 mt-2 sm:px-6 py-2 rounded-full whitespace-nowrap"
-											onClick={() => setIsCreateTask(true)}
-										>
-											<span className="hidden xs:inline">Add Task</span>
-											<span className="xs:hidden">Add Task</span>
-										</Button>
 									</div>
 								</CardHeader>
 							</Card>
@@ -409,13 +399,13 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 			className="cursor-pointer mb-7 sm:mb-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
 		>
 			<CardHeader className="py-1 sm:py-1 px-3 sm:px-4">
-				<h4 className="font-medium text-sm sm:text-base lg:text-lg line-clamp-1">
+				<h4 className="font-medium text-xs ml-2 sm:text-base lg:text-md line-clamp-1">
 					{task.title.toUpperCase()}
 				</h4>
 				<div className="flex items-center justify-between mb-2 mt-1 gap-2">
 					<Badge
 						className={cn(
-							"text-xs flex-shrink-0",
+							"text-xs flex-shrink-0 ml-1",
 							task.priority === "High"
 								? "text-rose-500 shadow-2xl dark:hover:border-rose-500"
 								: task.priority === "Medium"
@@ -474,11 +464,24 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 					</div>
 				</div>
 				{task.description && (
-					<p className="text-xs capitalize mt-5 px-2 sm:text-sm text-muted-foreground line-clamp-2 ">
-						<span className="text-primary">Task Detail: </span>
+					<p className="text-xs capitalize mt-5 px-2 sm:text-sm text-muted-foreground line-clamp-1 ">
+						<span className="text-primary">Description: </span>
 						{task.description}
 					</p>
 				)}
+				<div className="ml-2">
+					{task.subtasks && task.subtasks.length > 0 ? (
+						<div className="mt-2 text-xs text-muted-foreground">
+							<span className="text-xs text-primary"> Subtasks: </span>
+							{task.subtasks.filter((subtask) => subtask.completed).length}/
+							{task.subtasks.length}
+						</div>
+					) : (
+						<div className="mt-2 text-xs text-muted-foreground">
+							<span className="text-xs text-primary">No Subtask</span>
+						</div>
+					)}
+				</div>
 			</CardHeader>
 			<CardContent className="p-2 sm:p-3 lg:p-5 pt-0">
 				<div className="flex items-center justify-between text-xs sm:text-sm gap-2">
@@ -519,13 +522,6 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 						</div>
 					)}
 				</div>
-				{task.subtasks && task.subtasks.length > 0 && (
-					<div className="mt-2 text-xs text-muted-foreground">
-						{task.subtasks.filter((subtask) => subtask.completed).length}/
-						{task.subtasks.length}
-						<span className="hidden xs:inline"> subtasks</span>
-					</div>
-				)}
 			</CardContent>
 		</Card>
 	);

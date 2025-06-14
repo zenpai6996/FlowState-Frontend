@@ -52,7 +52,7 @@ const TaskAssigneesSelector = ({
 			{
 				onSuccess: () => {
 					setDropDownOpen(false);
-					toast.success("Assignee selected Successfully!");
+					toast.success("Assignee changed Successfully!");
 				},
 				onError: (error: any) => {
 					const errorMessage =
@@ -67,9 +67,9 @@ const TaskAssigneesSelector = ({
 	};
 
 	return (
-		<div className="mb-6">
+		<div>
 			<h3 className="text-sm font-medium text-primary">Assignees:</h3>
-			<div className="flex flex-wrap gap-2 mb-2 mt-2">
+			<div className="flex justify-between gap-2 mb-2 mt-2">
 				{selectedId.length === 0 ? (
 					<span className="text-xs text-muted-foreground">Unassigned</span>
 				) : (
@@ -93,11 +93,16 @@ const TaskAssigneesSelector = ({
 							</Badge>
 						))
 				)}
+				<Badge variant={selectedId.length === 0 ? "red" : "done"}>
+					{selectedId.length === 0
+						? "No assignees"
+						: `${selectedId.length} selected`}
+				</Badge>
 			</div>
 
 			{/* dropdown Menu */}
-			<div className="relative mt-3 ">
-				<div className="flex justify-between ">
+			<div className="relative mt-3">
+				<div className="flex justify-between">
 					<Button
 						variant={"glassMirror"}
 						onClick={() => setDropDownOpen(!dropDownOpen)}
@@ -105,14 +110,9 @@ const TaskAssigneesSelector = ({
 					>
 						Select Assignees
 					</Button>
-					<Badge variant={selectedId.length === 0 ? "red" : "done"}>
-						{selectedId.length === 0
-							? "No assignees"
-							: `${selectedId.length} selected`}
-					</Badge>
 				</div>
 				{dropDownOpen && (
-					<div className="absolute z-10 mt-1 w-full bg-background border rounded-2xl shadow-lg max-h-60 overflow-y-auto">
+					<div className="absolute z-10 bottom-full mb-1 w-full bg-background border rounded-2xl shadow-lg max-h-60 overflow-y-auto">
 						<div className="flex justify-between px-2 py-1 border-b">
 							<Button
 								variant={"neosoft"}
@@ -133,7 +133,7 @@ const TaskAssigneesSelector = ({
 						</div>
 						{projectMembers.map((m) => (
 							<label
-								className="flex items-center px-3 py-2 cursor-pointer dark:hover:bg-card "
+								className="flex items-center px-3 py-2 cursor-pointer dark:hover:bg-card"
 								key={m.user._id}
 							>
 								<Checkbox
@@ -148,16 +148,7 @@ const TaskAssigneesSelector = ({
 								<span className="text-xs md:text-sm">{m.user.name}</span>
 							</label>
 						))}
-						<div className="flex justify-between px-2 py-1">
-							<Button
-								variant={"neosoft"}
-								size={"sm"}
-								className="font-light dark:text-red-400 rounded-2xl"
-								onClick={() => setDropDownOpen(false)}
-								disabled={isPending}
-							>
-								Cancel
-							</Button>
+						<div className="flex justify-between px-2 py-1 border-t">
 							<Button
 								variant={"neosoft"}
 								size={"sm"}
@@ -166,6 +157,15 @@ const TaskAssigneesSelector = ({
 								disabled={isPending}
 							>
 								Save
+							</Button>
+							<Button
+								variant={"neosoft"}
+								size={"sm"}
+								className="font-light dark:text-red-400 rounded-2xl"
+								onClick={() => setDropDownOpen(false)}
+								disabled={isPending}
+							>
+								Cancel
 							</Button>
 						</div>
 					</div>
