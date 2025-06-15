@@ -2,17 +2,21 @@ import { formatDistanceToNow } from "date-fns";
 import {
 	Archive,
 	ArchiveRestore,
+	CircleArrowLeft,
 	Eye,
 	EyeOff,
 	ShieldClose,
 	Trash2Icon,
+	X,
 } from "lucide-react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import BackButton from "~/components/back-button";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
+import CommentSection from "~/components/ui/task/comment-section";
 import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
 import TaskActivity from "~/components/ui/task/task-activity";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
@@ -28,6 +32,7 @@ import type { Project, Task } from "~/types";
 
 const TaskDetails = () => {
 	const { user } = useAuth();
+	const [isPanelOpen, setIsPanelOpen] = useState(false);
 	const { taskId, projectId, workspaceId } = useParams<{
 		taskId: string;
 		projectId: string;
@@ -56,7 +61,6 @@ const TaskDetails = () => {
 			</div>
 		);
 
-	// //TODO create an empty tasks container
 	if (!data?.task) {
 		return (
 			<div className="flex items-center flex-col justify-center h-screen">
@@ -75,11 +79,11 @@ const TaskDetails = () => {
 	const members = task?.assignees || [];
 
 	return (
-		<div className="container mx-auto   md:px-4">
-			<div className="flex flex-row md:flex-row items-center  justify-between mb-3">
+		<div className="container mx-auto md:px-4 relative">
+			<div className="flex flex-row md:flex-row items-center justify-between mb-3">
 				<BackButton className="mb-0" />
 
-				<div className="flex flex-row md:flex-row   md:items-center">
+				<div className="flex flex-row md:flex-row md:items-center">
 					{task.isArchived && (
 						<Badge className="ml-2" variant={"glassHologram"}>
 							Archived
@@ -133,8 +137,10 @@ const TaskDetails = () => {
 					</Button>
 				</div>
 			</div>
+
+			{/* Main Content */}
 			<div className="flex flex-col lg:flex-row gap-2">
-				<div className="lg:col-span-2">
+				<div className="lg:col-span-2 w-full">
 					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-6">
 						<div className="flex flex-row md:flex-row justify-between items-start ">
 							<div className="flex px-2 md:px-3 flex-col">
@@ -150,7 +156,7 @@ const TaskDetails = () => {
 								</div>
 								<div className="flex flex-row mt-2">
 									<Badge
-										variant={"neosoft"}
+										variant={"glassMorph"}
 										className={cn(
 											"block sm:hidden",
 											task.priority === "High"
@@ -165,7 +171,7 @@ const TaskDetails = () => {
 										</span>
 									</Badge>
 									<Badge
-										variant={"neosoft"}
+										variant={"glassMorph"}
 										className={cn(
 											"ml-2   rounded-2xl block sm:hidden capitalize",
 											task.status === "To Do"
@@ -196,14 +202,25 @@ const TaskDetails = () => {
 								taskId={task._id}
 							/>
 						</div>
-						<div className="px-2 md:px-2">
+						<div className="px-1 ">
 							<h3 className="text-sm  mb-2 font-medium ml-1 text-primary">
 								Subtasks:
 							</h3>
-							<Card className="dark:bg-background">
+							<Card className="dark:bg-background p-0">
 								<SubtaskDetails
 									subtask={task.subtasks || []}
 									taskId={task._id}
+								/>
+							</Card>
+						</div>
+						<div className="px-1">
+							<h3 className="text-sm  mb-2 font-medium ml-1 text-primary">
+								Comments :
+							</h3>
+							<Card className="bg-background p-0 ">
+								<CommentSection
+									taskId={task._id}
+									members={project.members as any}
 								/>
 							</Card>
 						</div>
@@ -216,11 +233,51 @@ const TaskDetails = () => {
 						</div>
 					</Card>
 				</div>
-				<div className="md:w-[500px]">
-					<Watchers watchers={task.watchers || []} />
-					<TaskActivity resourceId={task._id} />
+			</div>
+
+			{/* Side Panel Overlay */}
+			<div className={`fixed inset-0 z-50 ${isPanelOpen ? "block" : "hidden"}`}>
+				<div
+					className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+					onClick={() => setIsPanelOpen(false)}
+				/>
+			</div>
+
+			{/* Side Panel Content */}
+			<div
+				className={`fixed top-0 right-0 h-full w-full max-w-md bg-background z-50 shadow-xl transition-transform duration-300 ease-in-out ${
+					isPanelOpen ? "translate-x-0" : "translate-x-full"
+				}`}
+			>
+				<div className="h-full flex flex-col">
+					<div className="p-4 border-b flex justify-between items-center">
+						<h2 className="text-lg font-semibold">Task Logs</h2>
+						<button
+							onClick={() => setIsPanelOpen(false)}
+							className="p-1 rounded-full hover:bg-muted"
+						>
+							<X className="h-5 w-5" />
+						</button>
+					</div>
+
+					<div className="flex-1 overflow-y-auto p-4 space-y-4">
+						<Watchers watchers={task.watchers || []} />
+						<TaskActivity resourceId={task._id} />
+					</div>
 				</div>
 			</div>
+
+			{/* Mobile Toggle Button (only visible on small screens) */}
+			<button
+				onClick={() => setIsPanelOpen(!isPanelOpen)}
+				className=" fixed md:top-80  right-6 opacity-90 z-40 bg-primary text-muted p-3 rounded-full shadow-lg"
+			>
+				{isPanelOpen ? (
+					<X className="h-6 w-6" />
+				) : (
+					<CircleArrowLeft className="h-6 w-6 animate-pulse" />
+				)}
+			</button>
 		</div>
 	);
 };

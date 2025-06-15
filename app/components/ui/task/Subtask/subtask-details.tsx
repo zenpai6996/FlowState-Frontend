@@ -3,7 +3,7 @@ import {
 	CircleArrowDown,
 	CircleArrowRight,
 	CircleOffIcon,
-	Plus,
+	Send,
 	ShieldAlert,
 	Trash,
 } from "lucide-react";
@@ -20,6 +20,7 @@ import { Badge } from "../../badge";
 import { Button } from "../../button";
 import { Checkbox } from "../../checkbox";
 import { Input } from "../../input";
+import { Separator } from "../../separator";
 
 const SubtaskDetails = ({
 	subtask,
@@ -108,10 +109,10 @@ const SubtaskDetails = ({
 	};
 
 	return (
-		<div className="mx-auto container  px-3 md:px-6">
+		<div className="mx-auto container ">
 			{/* Header Section - Always visible and clickable */}
 			<div
-				className="flex items-center justify-between cursor-pointer"
+				className="flex items-center p-3 justify-between cursor-pointer"
 				onClick={() => setIsCollapsed(!isCollapsed)}
 			>
 				<div className="flex items-center space-x-2 ">
@@ -123,20 +124,34 @@ const SubtaskDetails = ({
 
 					<div className="space-y-1">
 						{totalCount > 0 ? (
-							<div className="flex items-center space-x-2 text-sm text-muted-foreground ">
-								<span>
-									{completedCount} of {totalCount} completed
-								</span>
-								<span className="text-xs">({completionPercentage}%)</span>
+							<div className="flex flex-row gap-1">
+								<Badge
+									variant={"neosoft"}
+									className="text-xs bg-primary/10 dark:text-muted-foreground px-2 py-0.5 rounded-full"
+								>
+									<span>
+										&nbsp;{completedCount} of {totalCount} completed
+									</span>
+								</Badge>
 							</div>
 						) : (
-							<div className="flex items-center space-x-2 text-sm text-muted-foreground ">
-								<span>
-									{completedCount} of {totalCount} completed :
-								</span>
-								<span className="text-xs text-primary">
-									{completionPercentage}%
-								</span>
+							<div className="flex flex-row gap-1">
+								<Badge
+									variant={"glassMorph"}
+									className="text-xs bg-primary/10 text-muted-foreground  py-0.5 px-1 rounded-full"
+								>
+									<span className="text-xs text-primary">
+										{completionPercentage}%
+									</span>
+								</Badge>
+								<Badge
+									variant={"glassMorph"}
+									className="text-xs bg-primary/10 text-muted-foreground  py-0.5 px-1 rounded-full"
+								>
+									<span>
+										&nbsp;{completedCount} of {totalCount} completed
+									</span>
+								</Badge>
 							</div>
 						)}
 					</div>
@@ -155,33 +170,39 @@ const SubtaskDetails = ({
 			{/* Collapsible Content with Animation */}
 			<div
 				className={cn(
-					"overflow-hidden transition-all duration-300 ease-in-out",
+					"overflow-hidden transition-all  duration-300 ease-in-out",
 					isCollapsed ? "max-h-0 opacity-0" : "max-h-[1000px] opacity-100"
 				)}
 			>
-				<div className="mt-4">
+				<div className="mt-4 px-3">
 					{/* Progress Bar */}
 					{totalCount > 0 && (
 						<div className="space-y-2 mb-4">
-							<div className="w-full bg-secondary rounded-full h-2">
+							<div className="flex justify-between w-full bg-secondary rounded-full items-center space-x-3">
 								<div
-									className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
+									className="bg-primary h-2 rounded-full transition-all duration-300 ease-out ml-3"
 									style={{ width: `${completionPercentage}%` }}
 								/>
+								<Badge
+									variant={"neosoft"}
+									className="text-xs bg-primary/10 dark:text-muted-foreground  py-0.5 px-1 rounded-full"
+								>
+									<span className="text-xs ">{completionPercentage}%</span>
+								</Badge>
 							</div>
 						</div>
 					)}
 
 					{/* Subtasks List */}
-					<div className="space-y-3">
+					<div className="space-y-3 ">
 						{subtask.length > 0 ? (
 							<div className="space-y-2">
 								{subtask.map((subtasks, index) => (
 									<div
 										key={subtasks._id}
 										className={cn(
-											"group flex items-center mt-2  mb-2  rounded-2xl space-x-3 p-1  border transition-all duration-200",
-											"hover:bg-background/50 hover:border-accent-foreground/20",
+											"group flex items-center mt-2  mb-4  rounded-2xl space-x-3 p-1  border transition-all duration-200",
+											"hover:bg-muted/50 hover:border-muted hover:scale-101 ease-in-out",
 											subtasks.completed
 												? "bg-muted/30  border-muted"
 												: "bg-background border-border"
@@ -248,11 +269,12 @@ const SubtaskDetails = ({
 					</div>
 
 					{/* Add Subtask Section */}
-					<div className="space-y-3">
+					<div className="space-y-3 px-1 ">
+						<Separator />
 						<div className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted-foreground">
-							<span>Add Subtask :</span>
+							<span className="text-sm">Add Subtask :</span>
 						</div>
-						<div className="flex space-x-2">
+						<div className="flex space-x-2 mb-3">
 							<Input
 								placeholder="Enter subtask ..."
 								value={newSubtask}
@@ -264,19 +286,20 @@ const SubtaskDetails = ({
 							<Button
 								disabled={isPending || !newSubtask.trim()}
 								onClick={handleAddSubTask}
-								variant="neomorphic"
+								variant="glassMirror"
 								size="default"
-								className="shrink-0 px-4"
+								className="shrink-0 px-4 dark:text-primary"
 							>
 								{isPending ? (
 									<div className="flex items-center space-x-2">
 										<div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-										<span>Adding...</span>
+										<Send className="h-4 w-4" />
+										<span className="hidden md:block ml-1">Adding...</span>
 									</div>
 								) : (
-									<div className="flex items-center space-x-2">
-										<Plus className="h-4 w-4" />
-										<span>Add</span>
+									<div className="flex items-center">
+										<Send className="h-4 w-4" />
+										<span className="hidden md:block ml-1">Add</span>
 									</div>
 								)}
 							</Button>

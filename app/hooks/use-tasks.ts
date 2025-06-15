@@ -126,7 +126,7 @@ export const useUpdateTaskStatusMutation = () => {
 	});
 };
 
-// Update in use-tasks.ts
+//  in use-tasks.ts
 export const useUpdateTaskPriorityMutation = () => {
 	const queryClient = useQueryClient();
 
@@ -260,5 +260,36 @@ export const useUpdateSubTaskTitle = () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
 		},
+	});
+};
+
+export const useAddComment = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: { taskId: string; text: string }) =>
+			postData(`tasks/${data.taskId}/add-comment`, {
+				text: data.text,
+			}),
+		onSuccess: (data: any) => {
+			queryClient.invalidateQueries({
+				queryKey: ["comments", data.task],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["task-activity", data.task],
+			});
+		},
+		onSettled: () => {
+			// Always refetch after error or success
+			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
+		},
+	});
+};
+
+export const useGetComments = (taskId: string) => {
+	return useQuery({
+		queryKey: ["comments", taskId],
+		queryFn: () => fetchData(`/tasks/${taskId}/comments`),
 	});
 };

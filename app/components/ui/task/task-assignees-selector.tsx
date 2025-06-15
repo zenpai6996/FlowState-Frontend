@@ -93,10 +93,12 @@ const TaskAssigneesSelector = ({
 							</Badge>
 						))
 				)}
-				<Badge variant={selectedId.length === 0 ? "red" : "done"}>
-					{selectedId.length === 0
-						? "No assignees"
-						: `${selectedId.length} selected`}
+				<Badge
+					variant={selectedId.length === 0 ? "red" : "done"}
+					className="rounded-full px-3"
+				>
+					{selectedId.length === 0 ? "0" : `${selectedId.length} `}{" "}
+					<span className="hidden md:block">selected</span>
 				</Badge>
 			</div>
 
