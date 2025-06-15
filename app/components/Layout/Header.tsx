@@ -8,7 +8,6 @@ import {
 	LogOut,
 	PlusCircle,
 } from "lucide-react";
-import { useEffect } from "react";
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -46,22 +45,23 @@ const Header = ({
 
 	const navigate = useNavigate();
 	const isOnWorkspacePage = useLocation().pathname.includes("/workspace");
-	useEffect(() => {
-		if (workspaces?.length > 0 && !selectedWorkspace) {
-			// Try to get last selected workspace from localStorage
-			const lastWorkspaceId = localStorage.getItem("lastWorkspaceId");
-			const workspaceToSelect = lastWorkspaceId
-				? workspaces.find((w) => w._id === lastWorkspaceId)
-				: workspaces[0];
 
-			if (workspaceToSelect) {
-				handleOnClick(workspaceToSelect);
-			}
-		}
-	}, [workspaces, selectedWorkspace]);
+	// useEffect(() => {
+	// 	if (workspaces?.length > 0 && !selectedWorkspace) {
+	// 		// Try to get last selected workspace from localStorage
+	// 		const lastWorkspaceId = localStorage.getItem("lastWorkspaceId");
+	// 		const workspaceToSelect = lastWorkspaceId
+	// 			? workspaces.find((w) => w._id === lastWorkspaceId)
+	// 			: workspaces[0];
+
+	// 		if (workspaceToSelect) {
+	// 			handleOnClick(workspaceToSelect);
+	// 		}
+	// 	}
+	// }, [workspaces, selectedWorkspace]);
 
 	const handleOnClick = (workspace: Workspace) => {
-		localStorage.setItem("lastWorkspaceId", workspace._id);
+		// localStorage.setItem("lastWorkspaceId", workspace._id);
 		onWorkspaceSelected(workspace);
 		const location = window.location;
 		if (isOnWorkspacePage) {
