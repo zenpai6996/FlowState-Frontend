@@ -9,12 +9,7 @@ const AuthLayout = () => {
 	}
 
 	if (isAuthenticated) {
-		const lastWorkspaceId = localStorage.getItem("lastWorkspaceId");
-		if (lastWorkspaceId) {
-			return <Navigate to={`/dashboard?workspaceId=${lastWorkspaceId}`} />;
-		} else {
-			return <Navigate to="/dashboard" />; // Let dashboard handle empty state
-		}
+		return <Navigate to="/dashboard" />;
 	}
 
 	return (
