@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 import BackButton from "~/components/back-button";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -25,7 +26,11 @@ import TaskPrioritySelector from "~/components/ui/task/task-priority-selector";
 import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
 import Watchers from "~/components/ui/task/Watchers";
-import { useTaskByIdQuery } from "~/hooks/use-tasks";
+import {
+	useArchiveTask,
+	useTaskByIdQuery,
+	useWatchTask,
+} from "~/hooks/use-tasks";
 import { cn } from "~/lib/utils";
 import { useAuth } from "~/provider/auth-context";
 import type { Project, Task } from "~/types";
@@ -48,6 +53,9 @@ const TaskDetails = () => {
 		};
 		isLoading: boolean;
 	};
+
+	const { mutate: watchTask, isPending: isWatching } = useWatchTask();
+	const { mutate: archivedTask, isPending: isArchiving } = useArchiveTask();
 
 	if (isLoading)
 		return (
@@ -78,6 +86,41 @@ const TaskDetails = () => {
 
 	const members = task?.assignees || [];
 
+	const handleWatchTask = () => {
+		watchTask(
+			{ taskId: task._id },
+			{
+				onSuccess: () => {
+					toast.success("Action Successfull !");
+				},
+				onError: (error: any) => {
+					const errorMessage = error.response.data.message;
+					console.log(error);
+					toast.error("Task Watch Unsuccessfull", {
+						description: errorMessage,
+					});
+				},
+			}
+		);
+	};
+	const handleArchiveTask = () => {
+		archivedTask(
+			{ taskId: task._id },
+			{
+				onSuccess: () => {
+					toast.success("Task Archived Successfully !");
+				},
+				onError: (error: any) => {
+					const errorMessage = error.response.data.message;
+					console.log(error);
+					toast.error("Task was not archived", {
+						description: errorMessage,
+					});
+				},
+			}
+		);
+	};
+
 	return (
 		<div className="container mx-auto md:px-4 relative">
 			<div className="flex flex-row md:flex-row items-center justify-between mb-3">
@@ -94,7 +137,8 @@ const TaskDetails = () => {
 					<Button
 						title={isUserWatching ? "Unwatch" : "Watch"}
 						variant={"glassMorph"}
-						onClick={() => {}}
+						onClick={handleWatchTask}
+						disabled={isWatching}
 					>
 						{isUserWatching ? (
 							<>
@@ -111,7 +155,8 @@ const TaskDetails = () => {
 					<Button
 						title={task.isArchived ? "Unarchive" : "Archive"}
 						variant={"glassMorph"}
-						onClick={() => {}}
+						onClick={handleArchiveTask}
+						disabled={isArchiving}
 					>
 						{task.isArchived ? (
 							<>
