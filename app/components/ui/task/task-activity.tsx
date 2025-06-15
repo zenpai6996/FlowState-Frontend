@@ -54,13 +54,13 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 	};
 
 	return (
-		<Card className="shadow-sm p-4">
+		<Card className="shadow-sm p-3">
 			<h3 className="text-sm text-muted-foreground ">Logs</h3>
-			<div className="space-y-2">
+			<div className="space-y-2 bg-background p-3 rounded-2xl">
 				{currentItems?.map((activity) => (
 					<Card
 						key={activity._id}
-						className="flex dark:bg-background p-1 flex-row dark:hover:bg-background/80 dark:hover:scale-103 transition-all cursor-pointer dark:shadow-xl dark:shadow-primary duration-200 ease-in-out rounded-xl gap-2 "
+						className="flex dark:bg-muted p-1 flex-row dark:hover:bg-background/80 dark:hover:scale-103 transition-all cursor-pointer dark:shadow-xl dark:shadow-primary duration-200 ease-in-out rounded-xl gap-2 "
 					>
 						<div className="flex items-center rounded-full justify-center size-5 md:size-6">
 							{TaskIcon(activity.action)}
@@ -68,7 +68,7 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 						<div>
 							<p className="text-xs md:text-sm font-medium">
 								<span className="text-primary ">{activity.user.name}</span>{" "}
-								<span className="text-[10px] md:text-xs">
+								<span className="text-[10px] md:text-xs text-muted-foreground">
 									{activity.details?.description}
 								</span>
 							</p>
@@ -92,7 +92,8 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 					</Button>
 
 					<span className="text-xs text-muted-foreground">
-						Page <span className="text-primary">{currentPage}</span> of{" "}
+						<span className="hidden md:block">Page</span>{" "}
+						<span className="text-primary">{currentPage}</span> of{" "}
 						<span className="text-primary">{totalPages}</span>
 					</span>
 

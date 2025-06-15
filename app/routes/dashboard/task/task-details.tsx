@@ -2,6 +2,7 @@ import { formatDistanceToNow } from "date-fns";
 import {
 	Archive,
 	ArchiveRestore,
+	CircleArrowLeft,
 	Eye,
 	EyeOff,
 	ShieldClose,
@@ -269,9 +270,13 @@ const TaskDetails = () => {
 			{/* Mobile Toggle Button (only visible on small screens) */}
 			<button
 				onClick={() => setIsPanelOpen(!isPanelOpen)}
-				className=" fixed bottom-6 right-6 opacity-70 z-40 bg-primary text-white p-3 rounded-full shadow-lg"
+				className=" fixed md:top-80  right-6 opacity-90 z-40 bg-primary text-muted p-3 rounded-full shadow-lg"
 			>
-				{isPanelOpen ? <X className="h-6 w-6" /> : <Eye className="h-6 w-6" />}
+				{isPanelOpen ? (
+					<X className="h-6 w-6" />
+				) : (
+					<CircleArrowLeft className="h-6 w-6 animate-pulse" />
+				)}
 			</button>
 		</div>
 	);
