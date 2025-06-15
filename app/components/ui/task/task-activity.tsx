@@ -10,7 +10,7 @@ import TaskIcon from "./task-icon";
 
 const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 3;
+	const itemsPerPage = 5;
 
 	const { data, isPending } = useQuery({
 		queryKey: ["task-activity", resourceId],
@@ -58,22 +58,22 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 			<h3 className="text-sm text-muted-foreground ">Logs</h3>
 			<div className="space-y-2">
 				{currentItems?.map((activity) => (
-					<div
+					<Card
 						key={activity._id}
-						className="flex dark:bg-background p-1 md:p-3 dark:hover:bg-background/80 cursor-pointer transition-colors duration-200 ease-in-out rounded-xl gap-2 "
+						className="flex dark:bg-background p-1 flex-row dark:hover:bg-background/80 dark:hover:scale-103 transition-all cursor-pointer dark:shadow-xl dark:shadow-primary duration-200 ease-in-out rounded-xl gap-2 "
 					>
-						<div className="flex items-center rounded-full justify-center size-5">
+						<div className="flex items-center rounded-full justify-center size-5 md:size-6">
 							{TaskIcon(activity.action)}
 						</div>
 						<div>
-							<p className="text-xs font-medium">
+							<p className="text-xs md:text-sm font-medium">
 								<span className="text-primary ">{activity.user.name}</span>{" "}
-								<span className="text-[10px]">
+								<span className="text-[10px] md:text-xs">
 									{activity.details?.description}
 								</span>
 							</p>
 						</div>
-					</div>
+					</Card>
 				))}
 			</div>
 
@@ -88,11 +88,12 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 						className="flex rounded-full dark:hover:text-primary items-center gap-1"
 					>
 						<ChevronLeft className="h-4 w-4" />
-						Prev
+						<span className="hidden md:block">Prev</span>
 					</Button>
 
 					<span className="text-xs text-muted-foreground">
-						Page {currentPage} of {totalPages}
+						Page <span className="text-primary">{currentPage}</span> of{" "}
+						<span className="text-primary">{totalPages}</span>
 					</span>
 
 					<Button
@@ -102,7 +103,7 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 						disabled={currentPage === totalPages}
 						className="flex dark:hover:text-primary rounded-full items-center gap-1"
 					>
-						Next
+						<span className="hidden md:block">Next</span>
 						<ChevronRight className="h-4 w-4" />
 					</Button>
 				</div>

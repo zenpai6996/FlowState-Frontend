@@ -38,7 +38,7 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 		<div className="flex justify-between items-center gap-2">
 			{isEditing ? (
 				<Input2
-					className="md:text-xl! text-sm font-semibold rounded-full border dark:border-primary w-full dark:bg-background min-w-1xl"
+					className="md:text-xl text-sm font-semibold rounded-full border dark:border-primary w-full dark:bg-background min-w-1xl"
 					value={newTitle}
 					onChange={(e) => setNewTitle(e.target.value)}
 					disabled={isPending}
@@ -48,7 +48,6 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 				<h2 className=" md:text-xl mt-[3px] text-md sm:max-w-[240px] md:max-w-[710px] truncate max-w-[160px]   flex-1 font-semibold capitalize">
 					{title}
 				</h2>
-        
 			)}
 			{isEditing ? (
 				<Button
@@ -61,7 +60,7 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 				>
 					<Save className=" rounded-full size-4 md:size-5 flex-shrink-0" />
 					<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
-						{isPending ? "Saving ..." : "Save Title"}{" "}
+						{isPending ? "Saving ..." : "Save "}{" "}
 					</span>
 				</Button>
 			) : (
