@@ -7,10 +7,11 @@ import { Card,CardHeader,CardContent } from '~/components/ui/card';
 import { Link } from 'react-router';
 import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { useForgotPasswordMutation } from '~/hooks/use-auth';
 import { toast } from 'sonner';
+import { Input3 } from '~/components/input3';
+
 
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 
@@ -78,7 +79,7 @@ const ForgotPassword = () => {
                     Email Address
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder='Enter your email'/>
+                    <Input3 {...field} placeholder='Enter your email'/>
                   </FormControl>
                   <FormMessage/>
                 </FormItem>

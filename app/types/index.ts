@@ -165,6 +165,10 @@ export interface StatsProps {
 	totalTasksCompleted: number;
 	totalTaskToDO: number;
 	totalTaskInProgress: number;
+	totalProjectCompleted: number;
+	totalProjectPlanning: number;
+	totalProjectCancelled: number;
+	totalProjectOnHold: number;
 }
 
 export interface TaskTrendProps {
@@ -172,4 +176,21 @@ export interface TaskTrendProps {
 	completed: number;
 	inProgress: number;
 	todo: number;
+}
+
+export interface ProjectStatusProps {
+	name: string;
+	value: number;
+	color: string;
+}
+export interface TaskPriorityProps {
+	name: string;
+	value: number;
+	color: string;
+}
+
+export interface WorspaceProductivityProps {
+	name: string;
+	completed: number;
+	total: number;
 }
