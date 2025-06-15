@@ -157,3 +157,19 @@ export interface Comment {
 		filesize: number;
 	};
 }
+
+export interface StatsProps {
+	totalProjects: number;
+	totalTaskS: number;
+	totalProjectInProgress: number;
+	totalTasksCompleted: number;
+	totalTaskToDO: number;
+	totalTaskInProgress: number;
+}
+
+export interface TaskTrendProps {
+	name: string;
+	completed: number;
+	inProgress: number;
+	todo: number;
+}

@@ -13,6 +13,7 @@ import type { User } from "~/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Badge } from "../badge";
 import { Button } from "../button";
+import Loader from "../loader";
 import { ScrollArea } from "../scroll-area";
 import { Separator } from "../separator";
 import { Textarea } from "../textarea";
@@ -51,20 +52,17 @@ const CommentSection = ({
 		);
 	};
 
-	if (isLoading) {
+	if (isLoading)
 		return (
-			<div className="bg-background border-0 shadow-sm">
-				<div className="p-4 sm:p-6">
-					<div className="flex items-center justify-center h-32">
-						<div className="flex items-center gap-2 text-muted-foreground">
-							<div className="w-4 h-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-							<span className="text-sm">Loading comments...</span>
-						</div>
-					</div>
+			<div className="flex h-full items-center justify-center p-4">
+				<div className="text-center">
+					<Loader />
+					<h2 className="text-muted-foreground text-sm sm:text-base mt-2">
+						Fetching Comments ...
+					</h2>
 				</div>
 			</div>
 		);
-	}
 
 	const displayedComments = comments ? comments.slice(0, 20) : [];
 	const hasComments = displayedComments.length > 0;
