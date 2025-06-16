@@ -148,7 +148,7 @@ const index = () => {
 	return (
 		<div className="space-y-8 2xl:space-y-12">
 			<div className="flex items-center justify-between">
-				<h1 className="text-3xl uppercase">DashBoard</h1>
+				<h1 className="text-3xl uppercase font-bold">DashBoard</h1>
 			</div>
 			<StatCard data={data.stats} />
 			<StatisticsCharts

@@ -55,14 +55,14 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 		}
 
 		return (
-			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 group">
-				<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10" />
+			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-primary/30 dark:to-primary/10 shadow-lg hover:shadow-xl transition-all duration-300 group">
+				<div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/5 dark:from-primary/10 dark:to-primary/10" />
 				<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 					<div className="flex gap-4 justify-between w-full">
-						<CardTitle className="text-xl font-semibold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+						<CardTitle className="text-xl font-semibold bg-gradient-to-r ">
 							Projects:
 						</CardTitle>
-						<div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+						<div className="text-xl font-bold bg-gradient-to-r  group-hover:scale-110 transition-transform duration-300">
 							{data.totalProjects}
 						</div>
 					</div>
@@ -139,14 +139,14 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 		}
 
 		return (
-			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 group">
-				<div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-teal-500/5 dark:from-cyan-400/10 dark:to-teal-400/10" />
+			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-primary/30 dark:to-primary/10  shadow-lg hover:shadow-xl transition-all duration-300 group">
+				<div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/5 dark:from-primary/10 dark:to-primary/10" />
 				<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 					<div className="flex gap-4 justify-between w-full">
-						<CardTitle className="text-xl font-semibold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+						<CardTitle className="text-xl font-semibold bg-gradient-to-r ">
 							Tasks:
 						</CardTitle>
-						<div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+						<div className="text-xl font-bold bg-gradient-to-r group-hover:scale-110 transition-transform duration-300">
 							{data.totalTasks}
 						</div>
 					</div>
