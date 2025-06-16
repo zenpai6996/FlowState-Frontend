@@ -41,6 +41,7 @@ const Workspaces = () => {
 						<Button
 							variant={"neomorphic"}
 							onClick={() => setIsCreatingWorkspace(true)}
+							className="dark:text-primary"
 						>
 							<PlusCircle className="size-4 mr-2" />
 							New Workspace

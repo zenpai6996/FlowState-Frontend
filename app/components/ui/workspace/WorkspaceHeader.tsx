@@ -54,7 +54,7 @@ const WorkspaceHeader = ({
 								variant="neomorphic"
 								onClick={onCreateProject}
 								size="icon"
-								className="size-9 md:size-auto md:px-4 md:py-2"
+								className="size-9 dark:text-primary md:size-auto md:px-4 md:py-2"
 								title="Create Workspace"
 							>
 								<PlusCircle className="size-4" />

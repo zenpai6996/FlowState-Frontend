@@ -136,7 +136,7 @@ const ProjectDetails = () => {
 							</Badge>
 							<Button
 								variant={"neomorphic"}
-								className="text-xs sm:text-sm px-3 sm:px-6  rounded-full whitespace-nowrap"
+								className="text-xs dark:text-primary sm:text-sm px-3 sm:px-6  rounded-full "
 								onClick={() => setIsCreateTask(true)}
 							>
 								<CirclePlus className="size-4 sm:size-4 md:size-5 flex-shrink-0" />

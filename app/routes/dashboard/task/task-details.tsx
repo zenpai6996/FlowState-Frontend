@@ -161,13 +161,6 @@ const TaskDetails = () => {
 			<div className="flex flex-row md:flex-row items-center justify-between mb-3">
 				<BackButton className="mb-0" />
 
-				<div className="flex flex-row md:flex-row md:items-center">
-					{task.isArchived && (
-						<Badge className="ml-2" variant={"glassHologram"}>
-							Archived
-						</Badge>
-					)}
-				</div>
 				<div className="flex space-x-2 mt-4 md:mt-0">
 					<Button
 						title={isUserWatching ? "Unwatch" : "Watch"}
@@ -235,6 +228,14 @@ const TaskDetails = () => {
 										addSuffix: true,
 									})}
 								</div>
+								{task.isArchived && (
+									<Badge
+										className="mt-2 text-[10px] text-primary"
+										variant={"glassHologram"}
+									>
+										Archived
+									</Badge>
+								)}
 								<div className="flex flex-row mt-2">
 									<Badge
 										variant={"glassMorph"}

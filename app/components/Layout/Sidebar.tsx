@@ -6,7 +6,6 @@ import {
 	Home,
 	ListChecks,
 	LogOut,
-	MonitorCheck,
 	MonitorCog,
 	Users2,
 } from "lucide-react";
@@ -32,9 +31,8 @@ export const SidebarComponent = ({
 	const navItems = [
 		{ title: "Dashboard", href: `/dashboard`, icon: Home },
 		{ title: "Workspaces", href: "/workspaces", icon: MonitorCog },
-		{ title: "My Tasks", href: "/my-tasks", icon: ListChecks },
+		{ title: "Tasks", href: "/my-tasks", icon: ListChecks },
 		{ title: "Members", href: "/members", icon: Users2 },
-		{ title: "Achieved", href: "/achieved", icon: MonitorCheck },
 		{ title: "Settings", href: "/settings", icon: Bolt },
 	];
 

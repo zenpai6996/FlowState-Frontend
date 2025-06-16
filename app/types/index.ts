@@ -127,7 +127,8 @@ export type ActionType =
 	| "removed_member"
 	| "joined_workspace"
 	| "transferred_workspace_ownership"
-	| "added_attachment";
+	| "added_attachment"
+	| "archived_task";
 
 export interface ActivityLog {
 	_id: string;

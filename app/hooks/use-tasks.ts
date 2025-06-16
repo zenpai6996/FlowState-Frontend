@@ -386,3 +386,10 @@ export const useDeleteTask = () => {
 		},
 	});
 };
+
+export const useGetMyTasks = () => {
+	return useQuery({
+		queryKey: ["my-tasks", "user"],
+		queryFn: () => fetchData("tasks/my-tasks"),
+	});
+};
