@@ -160,11 +160,11 @@ export interface Comment {
 
 export interface StatsProps {
 	totalProjects: number;
-	totalTaskS: number;
+	totalTasks: number;
 	totalProjectInProgress: number;
 	totalTasksCompleted: number;
-	totalTaskToDO: number;
-	totalTaskInProgress: number;
+	totalTasksTodo: number;
+	totalTasksInProgress: number;
 	totalProjectCompleted: number;
 	totalProjectPlanning: number;
 	totalProjectCancelled: number;
@@ -193,4 +193,6 @@ export interface WorspaceProductivityProps {
 	name: string;
 	completed: number;
 	total: number;
+	inProgress: number;
+	toDo: number;
 }
