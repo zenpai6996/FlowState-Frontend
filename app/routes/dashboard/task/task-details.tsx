@@ -2,27 +2,42 @@ import { formatDistanceToNow } from "date-fns";
 import {
 	Archive,
 	ArchiveRestore,
+	CircleArrowLeft,
 	Eye,
 	EyeOff,
 	ShieldClose,
 	Trash2Icon,
+	X,
 } from "lucide-react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 import BackButton from "~/components/back-button";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { Card, CardDescription, CardTitle } from "~/components/ui/card";
+import { Card, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
+import CommentSection from "~/components/ui/task/comment-section";
+import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
+import TaskActivity from "~/components/ui/task/task-activity";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
 import TaskDescription from "~/components/ui/task/task-description";
+import TaskPrioritySelector from "~/components/ui/task/task-priority-selector";
 import TaskStatusSelector from "~/components/ui/task/task-status-selector";
 import TaskTitle from "~/components/ui/task/TaskTitle";
-import { useTaskByIdQuery } from "~/hooks/use-tasks";
+import Watchers from "~/components/ui/task/Watchers";
+import {
+	useArchiveTask,
+	useTaskByIdQuery,
+	useWatchTask,
+} from "~/hooks/use-tasks";
+import { cn } from "~/lib/utils";
 import { useAuth } from "~/provider/auth-context";
 import type { Project, Task } from "~/types";
 
 const TaskDetails = () => {
 	const { user } = useAuth();
+	const [isPanelOpen, setIsPanelOpen] = useState(false);
 	const { taskId, projectId, workspaceId } = useParams<{
 		taskId: string;
 		projectId: string;
@@ -39,6 +54,9 @@ const TaskDetails = () => {
 		isLoading: boolean;
 	};
 
+	const { mutate: watchTask, isPending: isWatching } = useWatchTask();
+	const { mutate: archivedTask, isPending: isArchiving } = useArchiveTask();
+
 	if (isLoading)
 		return (
 			<div className="flex h-full items-center justify-center p-4">
@@ -51,7 +69,6 @@ const TaskDetails = () => {
 			</div>
 		);
 
-	// //TODO create an empty tasks container
 	if (!data?.task) {
 		return (
 			<div className="flex items-center flex-col justify-center h-screen">
@@ -69,14 +86,47 @@ const TaskDetails = () => {
 
 	const members = task?.assignees || [];
 
+	const handleWatchTask = () => {
+		watchTask(
+			{ taskId: task._id },
+			{
+				onSuccess: () => {
+					toast.success("Action Successfull !");
+				},
+				onError: (error: any) => {
+					const errorMessage = error.response.data.message;
+					console.log(error);
+					toast.error("Task Watch Unsuccessfull", {
+						description: errorMessage,
+					});
+				},
+			}
+		);
+	};
+	const handleArchiveTask = () => {
+		archivedTask(
+			{ taskId: task._id },
+			{
+				onSuccess: () => {
+					toast.success("Task Archived Successfully !");
+				},
+				onError: (error: any) => {
+					const errorMessage = error.response.data.message;
+					console.log(error);
+					toast.error("Task was not archived", {
+						description: errorMessage,
+					});
+				},
+			}
+		);
+	};
+
 	return (
-		<div className="container mx-auto p-0 py-4 md:px-4">
-			<BackButton />
-			<div className="flex flex-row md:flex-row items-center  justify-between mb-6">
-				<div className="flex flex-row md:flex-row   md:items-center">
-					<h1 className="text-xl md:text-2xl font-bold mt-2  mb-0 md:mb-5">
-						{task.title.toUpperCase()}
-					</h1>
+		<div className="container mx-auto md:px-4 relative">
+			<div className="flex flex-row md:flex-row items-center justify-between mb-3">
+				<BackButton className="mb-0" />
+
+				<div className="flex flex-row md:flex-row md:items-center">
 					{task.isArchived && (
 						<Badge className="ml-2" variant={"glassHologram"}>
 							Archived
@@ -87,7 +137,8 @@ const TaskDetails = () => {
 					<Button
 						title={isUserWatching ? "Unwatch" : "Watch"}
 						variant={"glassMorph"}
-						onClick={() => {}}
+						onClick={handleWatchTask}
+						disabled={isWatching}
 					>
 						{isUserWatching ? (
 							<>
@@ -103,8 +154,9 @@ const TaskDetails = () => {
 					</Button>
 					<Button
 						title={task.isArchived ? "Unarchive" : "Archive"}
-						variant={"neomorphic"}
-						onClick={() => {}}
+						variant={"glassMorph"}
+						onClick={handleArchiveTask}
+						disabled={isArchiving}
 					>
 						{task.isArchived ? (
 							<>
@@ -118,46 +170,61 @@ const TaskDetails = () => {
 							</>
 						)}
 					</Button>
+					<Button
+						variant={"neomorphic"}
+						onClick={() => {}}
+						className="border dark:hover:border-red-400 "
+					>
+						<Trash2Icon className=" dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
+						<span className="hidden text-xs dark:text-red-400 md:text-sm xs:inline sm:inline whitespace-nowrap">
+							Delete Task
+						</span>
+					</Button>
 				</div>
 			</div>
-			<div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-				<div className="lg:col-span-2">
-					<Card className="bg-muted rounded-2xl p6 shadow-sm mb-6">
-						<div className="flex flex-row md:flex-row justify-between items-start mb-4">
+
+			{/* Main Content */}
+			<div className="flex flex-col lg:flex-row gap-2">
+				<div className="lg:col-span-2 w-full">
+					<Card className="bg-muted rounded-2xl px-1 md:p-6 shadow-sm mb-6">
+						<div className="flex flex-row md:flex-row justify-between items-start ">
 							<div className="flex px-2 md:px-3 flex-col">
 								<CardTitle>
 									<TaskTitle title={task.title} taskId={task._id} />
 								</CardTitle>
-								<div className=" flex text-sm mt-5 md:text-base text-muted-foreground">
-									<span className="text-primary">Created at :</span>
+
+								<div className=" flex text-sm mt-2 md:text-base text-muted-foreground">
+									<span className="text-primary">Created:&nbsp; </span>
 									{formatDistanceToNow(new Date(task.createdAt), {
 										addSuffix: true,
 									})}
 								</div>
-								<div className="flex flex-row mt-3">
+								<div className="flex flex-row mt-2">
 									<Badge
-										variant={
+										variant={"glassMorph"}
+										className={cn(
+											"block sm:hidden",
 											task.priority === "High"
-												? "red"
+												? "dark:text-red-400 "
 												: task.priority === "Medium"
-												? "todo"
-												: "done"
-										}
-										className="  rounded-2xl  capitalize"
+												? "dark:text-yellow-500"
+												: "dark:text-green-500"
+										)}
 									>
 										<span className="text-[10px] md:text-xs">
 											{task.priority}{" "}
 										</span>
 									</Badge>
 									<Badge
-										variant={
-											task.status === "Done"
-												? "done"
+										variant={"glassMorph"}
+										className={cn(
+											"ml-2   rounded-2xl block sm:hidden capitalize",
+											task.status === "To Do"
+												? "dark:text-yellow-500"
 												: task.status === "In Progress"
-												? "progress"
-												: "todo"
-										}
-										className="ml-2   rounded-2xl  capitalize"
+												? "dark:text-cyan-500"
+												: "dark:text-green-500"
+										)}
 									>
 										<span className="text-[10px] md:text-xs">
 											{task.status}{" "}
@@ -165,29 +232,44 @@ const TaskDetails = () => {
 									</Badge>
 								</div>
 							</div>
-							<div className="flex items-center gap-2 ">
-								<TaskStatusSelector status={task.status} taskId={task._id} />
 
-								<Button variant={"red"} className="mr-3" onClick={() => {}}>
-									<Trash2Icon className=" rounded-full size-4 md:size-5 flex-shrink-0" />
-									<span className="hidden text-xs md:text-sm xs:inline sm:inline whitespace-nowrap">
-										Delete Task
-									</span>
-								</Button>
-							</div>
-						</div>
-						<div className="mb-6 flex px-2 md:px-3 flex-col">
-							<CardDescription>
-								<h3 className="text-sm font-medium text-primary mb-2">
-									Description :
-								</h3>
-								<TaskDescription
-									description={task.description || ""}
+							<div className="flex ">
+								<TaskPrioritySelector
+									priority={task.priority}
 									taskId={task._id}
 								/>
-							</CardDescription>
+								<TaskStatusSelector status={task.status} taskId={task._id} />
+							</div>
 						</div>
-						<div className="mb-6 flex px-2 md:px-3 flex-col">
+						<div className=" flex px-2 md:px-3 flex-col">
+							<TaskDescription
+								description={task.description || ""}
+								taskId={task._id}
+							/>
+						</div>
+						<div className="px-1 ">
+							<h3 className="text-sm  mb-2 font-medium ml-1 text-primary">
+								Subtasks:
+							</h3>
+							<Card className="dark:bg-background p-0">
+								<SubtaskDetails
+									subtask={task.subtasks || []}
+									taskId={task._id}
+								/>
+							</Card>
+						</div>
+						<div className="px-1">
+							<h3 className="text-sm  mb-2 font-medium ml-1 text-primary">
+								Comments :
+							</h3>
+							<Card className="bg-background p-0 ">
+								<CommentSection
+									taskId={task._id}
+									members={project.members as any}
+								/>
+							</Card>
+						</div>
+						<div className=" flex px-2 md:px-3 flex-col">
 							<TaskAssigneesSelector
 								task={task}
 								assignees={task.assignees}
@@ -197,6 +279,50 @@ const TaskDetails = () => {
 					</Card>
 				</div>
 			</div>
+
+			{/* Side Panel Overlay */}
+			<div className={`fixed inset-0 z-50 ${isPanelOpen ? "block" : "hidden"}`}>
+				<div
+					className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+					onClick={() => setIsPanelOpen(false)}
+				/>
+			</div>
+
+			{/* Side Panel Content */}
+			<div
+				className={`fixed top-0 right-0 h-full w-full max-w-md bg-background z-50 shadow-xl transition-transform duration-300 ease-in-out ${
+					isPanelOpen ? "translate-x-0" : "translate-x-full"
+				}`}
+			>
+				<div className="h-full flex flex-col">
+					<div className="p-4 border-b flex justify-between items-center">
+						<h2 className="text-lg font-semibold">Task Logs</h2>
+						<button
+							onClick={() => setIsPanelOpen(false)}
+							className="p-1 rounded-full hover:bg-muted"
+						>
+							<X className="h-5 w-5" />
+						</button>
+					</div>
+
+					<div className="flex-1 overflow-y-auto p-4 space-y-4">
+						<Watchers watchers={task.watchers || []} />
+						<TaskActivity resourceId={task._id} />
+					</div>
+				</div>
+			</div>
+
+			{/* Mobile Toggle Button (only visible on small screens) */}
+			<button
+				onClick={() => setIsPanelOpen(!isPanelOpen)}
+				className=" fixed md:top-80  right-6 opacity-90 z-40 bg-primary text-muted p-3 rounded-full shadow-lg"
+			>
+				{isPanelOpen ? (
+					<X className="h-6 w-6" />
+				) : (
+					<CircleArrowLeft className="h-6 w-6 animate-pulse" />
+				)}
+			</button>
 		</div>
 	);
 };

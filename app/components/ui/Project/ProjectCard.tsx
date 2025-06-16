@@ -12,18 +12,17 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../card";
-import { Progress } from "../progress";
 
 interface ProjectCardTypes {
 	project: Project;
-	progress: number;
+	progress?: number;
 	workspaceId: string;
 }
 
 const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 	return (
 		<Link to={`/workspaces/${workspaceId}/projects/${project._id}`}>
-			<Card className="transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1">
+			<Card className="transition-all duration-300 dark:hover:shadow-md hover:-translate-y-1 mb-3">
 				<CardHeader>
 					<div className="flex items-center justify-between">
 						<CardTitle>{project.title.toUpperCase()}</CardTitle>
@@ -36,7 +35,7 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 							{project.status}
 						</span>
 					</div>
-					<CardDescription className="line-clamp-2 mt-2">
+					<CardDescription className="line-clamp-1 mt-2">
 						{project.description || "No Description"}
 					</CardDescription>
 				</CardHeader>
@@ -52,13 +51,7 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 									{tag}
 								</Badge>
 							))}
-							<div className="flex justify-between text-xs">
-								<span className="text-xs mr-3">Progress:</span>
-								<Progress value={progress} className="h-4" />
-								<span className="text-xs text-muted-foreground ml-3">
-									{progress}%
-								</span>
-							</div>
+
 							<div className="flex items-center justify-between ">
 								<div className="flex items-center text-sm gap-2 text-primary">
 									<span>{project.tasks.length}</span>
