@@ -19,6 +19,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import { Progress } from "~/components/ui/progress";
+import ProjectStatusSelector from "~/components/ui/Project/project-status-selector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import CreateTaskDialog from "~/components/ui/task/create-task-dialog";
 import { UseProjectQuery } from "~/hooks/use-project";
@@ -79,61 +80,14 @@ const ProjectDetails = () => {
 						</h1>
 						<div className="flex flex-row gap-3">
 							{/* Status Badges */}
-							<Badge
-								variant={"glassMorph"}
-								className="flex items-center flex-wrap gap-2 text-xs sm:text-sm"
-							>
-								{/* <div className="text-primary xs:hidden inline whitespace-nowrap">
-									Stats:
-								</div> */}
-								<div className="flex flex-wrap gap-1 sm:gap-2">
-									<Badge
-										variant={"todo"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="To Do"
-									>
-										<span className="hidden xs:inline animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}{" "}
-											To Do
-										</span>
-										<span className="xs:hidden animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}
-										</span>
-									</Badge>
-									<Badge
-										variant={"progress"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="In Progress"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}{" "}
-											In Progress
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}
-										</span>
-									</Badge>
-									<Badge
-										variant={"done"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="Done"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}{" "}
-											Done
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}
-										</span>
-									</Badge>
-								</div>
-							</Badge>
+							<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
+								{/* Change status  */}
+
+								<ProjectStatusSelector
+									status={project.status}
+									projectId={project._id}
+								/>
+							</div>
 							<Button
 								variant={"neomorphic"}
 								className="text-xs dark:text-primary sm:text-sm px-3 sm:px-6  rounded-full "
