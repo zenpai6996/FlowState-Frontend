@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 import BackButton from "~/components/back-button";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
@@ -21,6 +22,7 @@ import { Progress } from "~/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import CreateTaskDialog from "~/components/ui/task/create-task-dialog";
 import { UseProjectQuery } from "~/hooks/use-project";
+import { useUpdateTaskStatusMutation } from "~/hooks/use-tasks";
 import { getProjectProgress } from "~/lib";
 import { cn } from "~/lib/utils";
 import type { Project, Task, TaskStatus } from "~/types";
@@ -393,6 +395,24 @@ const TabsColumn = ({
 };
 
 const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
+	const { mutate: updateStatus, isPending } = useUpdateTaskStatusMutation();
+
+	const handleStatusChange = (value: string) => {
+		updateStatus(
+			{ taskId: task._id, status: value as TaskStatus },
+			{
+				onSuccess: (data) => {
+					toast.success("Status updated successfully");
+				},
+				onError: (error: any) => {
+					const errorMessage =
+						error.response?.data?.message || "Failed to update status";
+					console.error(error);
+					toast.error(errorMessage);
+				},
+			}
+		);
+	};
 	return (
 		<Card
 			onClick={onClick}
@@ -422,8 +442,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="size-6 sm:size-7 dark:text-yellow-500 rounded-full flex-shrink-0"
-								onClick={() => {
-									console.log("todo");
+								disabled={isPending}
+								onClick={(e) => {
+									e.stopPropagation();
+									handleStatusChange("To Do");
 								}}
 								title="Mark as To Do"
 							>
@@ -436,9 +458,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="size-6 sm:size-7 rounded-full dark:text-cyan-500 flex-shrink-0"
+								disabled={isPending}
 								onClick={(e) => {
 									e.stopPropagation();
-									console.log("in progress");
+									handleStatusChange("In Progress");
 								}}
 								title="Mark as in progress"
 							>
@@ -451,9 +474,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="dark:text-green-500 size-6 sm:size-7 rounded-full flex-shrink-0"
+								disabled={isPending}
 								onClick={(e) => {
 									e.stopPropagation();
-									console.log("done");
+									handleStatusChange("Done");
 								}}
 								title="Mark as Done"
 							>

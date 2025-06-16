@@ -110,17 +110,54 @@ export const useUpdateTaskStatusMutation = () => {
 	return useMutation({
 		mutationFn: (data: { taskId: string; status: TaskStatus }) =>
 			updateData(`/tasks/${data.taskId}/status`, { status: data.status }),
-		onSuccess: (data: any) => {
-			queryClient.invalidateQueries({
-				queryKey: ["task", data._id],
-			});
-			queryClient.invalidateQueries({
-				queryKey: ["task-activity", data._id],
-			});
+		onMutate: async (variables) => {
+			// Cancel any outgoing refetches
+			await queryClient.cancelQueries({ queryKey: ["task", variables.taskId] });
+			await queryClient.cancelQueries({ queryKey: ["project"] });
+
+			// Snapshot the previous value
+			const previousTask = queryClient.getQueryData(["task", variables.taskId]);
+			const previousProject = queryClient.getQueryData(["project"]);
+
+			// Optimistically update to the new value
+			queryClient.setQueryData(["task", variables.taskId], (old: any) => ({
+				...old,
+				status: variables.status,
+			}));
+
+			// Also update the project data if needed
+			if (previousProject) {
+				queryClient.setQueryData(["project"], (old: any) => {
+					if (!old?.tasks) return old;
+					return {
+						...old,
+						tasks: old.tasks.map((task: any) =>
+							task._id === variables.taskId
+								? { ...task, status: variables.status }
+								: task
+						),
+					};
+				});
+			}
+
+			return { previousTask, previousProject };
+		},
+		onError: (err, variables, context) => {
+			// Rollback to the previous value if error occurs
+			if (context?.previousTask) {
+				queryClient.setQueryData(
+					["task", variables.taskId],
+					context.previousTask
+				);
+			}
+			if (context?.previousProject) {
+				queryClient.setQueryData(["project"], context.previousProject);
+			}
 		},
 		onSettled: () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
+			queryClient.invalidateQueries({ queryKey: ["project"] });
 			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
 		},
 	});
@@ -334,6 +371,18 @@ export const useArchiveTask = () => {
 			// Always refetch after error or success
 			queryClient.invalidateQueries({ queryKey: ["task"] });
 			queryClient.invalidateQueries({ queryKey: ["task-activity"] });
+		},
+	});
+};
+
+export const useDeleteTask = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (taskId: string) => deleteData(`/tasks/${taskId}`),
+		onSuccess: (_, taskId) => {
+			queryClient.invalidateQueries({ queryKey: ["project"] });
+			queryClient.invalidateQueries({ queryKey: ["task"] });
 		},
 	});
 };

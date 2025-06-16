@@ -30,7 +30,7 @@ export const SidebarComponent = ({
 	const [isCollapsed, setIsCollapsed] = useState(false);
 
 	const navItems = [
-		{ title: "Dashboard", href: "/dashboard", icon: Home },
+		{ title: "Dashboard", href: `/dashboard`, icon: Home },
 		{ title: "Workspaces", href: "/workspaces", icon: MonitorCog },
 		{ title: "My Tasks", href: "/my-tasks", icon: ListChecks },
 		{ title: "Members", href: "/members", icon: Users2 },
