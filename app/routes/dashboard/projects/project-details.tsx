@@ -19,6 +19,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import { Progress } from "~/components/ui/progress";
+import ProjectStatusSelector from "~/components/ui/Project/project-status-selector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import CreateTaskDialog from "~/components/ui/task/create-task-dialog";
 import { UseProjectQuery } from "~/hooks/use-project";
@@ -74,66 +75,19 @@ const ProjectDetails = () => {
 				<div>
 					<BackButton />
 					<div className="flex justify-between gap-3 mt-2 mb-7">
-						<h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
+						<h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
 							{project.title}
-						</h1>
+						</h3>
 						<div className="flex flex-row gap-3">
 							{/* Status Badges */}
-							<Badge
-								variant={"glassMorph"}
-								className="flex items-center flex-wrap gap-2 text-xs sm:text-sm"
-							>
-								{/* <div className="text-primary xs:hidden inline whitespace-nowrap">
-									Stats:
-								</div> */}
-								<div className="flex flex-wrap gap-1 sm:gap-2">
-									<Badge
-										variant={"todo"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="To Do"
-									>
-										<span className="hidden xs:inline animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}{" "}
-											To Do
-										</span>
-										<span className="xs:hidden animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}
-										</span>
-									</Badge>
-									<Badge
-										variant={"progress"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="In Progress"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}{" "}
-											In Progress
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}
-										</span>
-									</Badge>
-									<Badge
-										variant={"done"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="Done"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}{" "}
-											Done
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}
-										</span>
-									</Badge>
-								</div>
-							</Badge>
+							<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
+								{/* Change status  */}
+
+								<ProjectStatusSelector
+									status={project.status}
+									projectId={project._id}
+								/>
+							</div>
 							<Button
 								variant={"neomorphic"}
 								className="text-xs dark:text-primary sm:text-sm px-3 sm:px-6  rounded-full "
@@ -317,7 +271,7 @@ const TabsColumn = ({
 			>
 				{!isfullWidth && (
 					<div className="flex items-center justify-between">
-						<h1 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
+						<h3 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
 							{title === "To Do" ? (
 								<>
 									<AlertCircle className="mr-5  size-4 sm:size-5 text-yellow-500" />
@@ -340,7 +294,7 @@ const TabsColumn = ({
 									{title.toUpperCase()}
 								</>
 							)}
-						</h1>
+						</h3>
 						<Badge variant={"glassMorph"} className="text-xs">
 							{title === "To Do" ? (
 								<span className="text-yellow-500">{tasks.length}</span>

@@ -45,9 +45,9 @@ const TaskTitle = ({ title, taskId }: { title: string; taskId: string }) => {
 					onClear={handleClear}
 				/>
 			) : (
-				<h2 className=" md:text-xl mt-[3px] text-md sm:max-w-[240px] md:max-w-[710px] truncate max-w-[160px]   flex-1 font-semibold capitalize">
+				<h1 className=" md:text-xl mt-[3px] text-md sm:max-w-[240px] md:max-w-[710px] truncate max-w-[160px]   flex-1 font-semibold capitalize">
 					{title}
-				</h2>
+				</h1>
 			)}
 			{isEditing ? (
 				<Button
