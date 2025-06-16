@@ -18,6 +18,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import CommentSection from "~/components/ui/task/comment-section";
+import { DeleteConfirmationDialog } from "~/components/ui/task/delete-confirmation";
 import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
 import TaskActivity from "~/components/ui/task/task-activity";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
@@ -28,6 +29,7 @@ import TaskTitle from "~/components/ui/task/TaskTitle";
 import Watchers from "~/components/ui/task/Watchers";
 import {
 	useArchiveTask,
+	useDeleteTask,
 	useTaskByIdQuery,
 	useWatchTask,
 } from "~/hooks/use-tasks";
@@ -38,6 +40,8 @@ import type { Project, Task } from "~/types";
 const TaskDetails = () => {
 	const { user } = useAuth();
 	const [isPanelOpen, setIsPanelOpen] = useState(false);
+	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
 	const { taskId, projectId, workspaceId } = useParams<{
 		taskId: string;
 		projectId: string;
@@ -56,6 +60,37 @@ const TaskDetails = () => {
 
 	const { mutate: watchTask, isPending: isWatching } = useWatchTask();
 	const { mutate: archivedTask, isPending: isArchiving } = useArchiveTask();
+	const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask();
+	const handleDeleteTask = () => {
+		if (
+			!task.assignees.some(
+				(assignee) => assignee._id?.toString() === user?._id?.toString()
+			)
+		) {
+			toast.error("Only task assignees can delete this task");
+			return;
+		}
+		setIsDeleteDialogOpen(true);
+	};
+
+	const handleConfirmDelete = () => {
+		deleteTask(task._id, {
+			onSuccess: () => {
+				toast.success("Task deleted successfully");
+				navigate(-1); // Go back after deletion
+			},
+			onError: (error: any) => {
+				const errorMessage =
+					error.response?.data?.message || "Failed to delete task";
+				toast.error("Delete failed", {
+					description: errorMessage,
+				});
+			},
+			onSettled: () => {
+				setIsDeleteDialogOpen(false);
+			},
+		});
+	};
 
 	if (isLoading)
 		return (
@@ -172,12 +207,13 @@ const TaskDetails = () => {
 					</Button>
 					<Button
 						variant={"neomorphic"}
-						onClick={() => {}}
-						className="border dark:hover:border-red-400 "
+						onClick={handleDeleteTask}
+						className="border dark:hover:border-red-400"
+						disabled={isDeleting}
 					>
-						<Trash2Icon className=" dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
+						<Trash2Icon className="dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
 						<span className="hidden text-xs dark:text-red-400 md:text-sm xs:inline sm:inline whitespace-nowrap">
-							Delete Task
+							{isDeleting ? "Deleting..." : "Delete Task"}
 						</span>
 					</Button>
 				</div>
@@ -323,6 +359,12 @@ const TaskDetails = () => {
 					<CircleArrowLeft className="h-6 w-6 animate-pulse" />
 				)}
 			</button>
+			<DeleteConfirmationDialog
+				open={isDeleteDialogOpen}
+				onOpenChange={setIsDeleteDialogOpen}
+				onConfirm={handleConfirmDelete}
+				isLoading={isDeleting}
+			/>
 		</div>
 	);
 };
