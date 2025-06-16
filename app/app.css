@@ -8,6 +8,31 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+
+@font-face {
+  font-family: 'Overcame';
+  src: url("./assets/fonts/OvercameDemoRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Know';
+  src: url("./assets/fonts/know_your_product.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+
+h2,
+h3 {
+  font-family: "Know", sans-serif;
+}
+
+
 html,
 body {
   @apply bg-[#f2f0f0] dark:bg-background;
@@ -171,15 +196,19 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @keyframes gradient-x {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -190,13 +219,14 @@ body {
 }
 
 html.theme-transition * {
-  transition: 
+  transition:
     background-color 0.4s ease,
     color 0.4s ease,
     border-color 0.4s ease,
     fill 0.4s ease,
     stroke 0.4s ease;
 }
+
 :root {
   --transition-duration: 0s;
   --transition-easing: ease;
@@ -220,13 +250,23 @@ html.theme-transition * {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 ::view-transition-old(root),
@@ -235,7 +275,8 @@ html.theme-transition * {
   mix-blend-mode: normal;
 }
 
-html, body {
+html,
+body {
   min-height: 100vh;
   min-width: 100vw;
   overflow-x: hidden;
@@ -248,24 +289,36 @@ html, body {
 }
 
 @keyframes gradient-slow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes hologram {
-  0%, 100% { 
+
+  0%,
+  100% {
     background-position: 0% 50%;
     filter: hue-rotate(0deg);
   }
-  25% { 
+
+  25% {
     background-position: 100% 0%;
     filter: hue-rotate(90deg);
   }
-  50% { 
+
+  50% {
     background-position: 100% 100%;
     filter: hue-rotate(180deg);
   }
-  75% { 
+
+  75% {
     background-position: 0% 100%;
     filter: hue-rotate(270deg);
   }

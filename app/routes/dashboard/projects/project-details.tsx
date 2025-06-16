@@ -75,9 +75,9 @@ const ProjectDetails = () => {
 				<div>
 					<BackButton />
 					<div className="flex justify-between gap-3 mt-2 mb-7">
-						<h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
+						<h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
 							{project.title}
-						</h1>
+						</h3>
 						<div className="flex flex-row gap-3">
 							{/* Status Badges */}
 							<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
@@ -271,7 +271,7 @@ const TabsColumn = ({
 			>
 				{!isfullWidth && (
 					<div className="flex items-center justify-between">
-						<h1 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
+						<h3 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
 							{title === "To Do" ? (
 								<>
 									<AlertCircle className="mr-5  size-4 sm:size-5 text-yellow-500" />
@@ -294,7 +294,7 @@ const TabsColumn = ({
 									{title.toUpperCase()}
 								</>
 							)}
-						</h1>
+						</h3>
 						<Badge variant={"glassMorph"} className="text-xs">
 							{title === "To Do" ? (
 								<span className="text-yellow-500">{tasks.length}</span>

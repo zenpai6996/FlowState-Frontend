@@ -223,7 +223,7 @@ const TaskDetails = () => {
 								</CardTitle>
 
 								<div className=" flex text-sm mt-2 md:text-base text-muted-foreground">
-									<span className="text-primary">Created:&nbsp; </span>
+									<h3 className="text-primary">Created:&nbsp; </h3>
 									{formatDistanceToNow(new Date(task.createdAt), {
 										addSuffix: true,
 									})}
