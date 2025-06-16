@@ -1,7 +1,10 @@
 import { FolderOpen, Plus } from "lucide-react";
 import { useLoaderData, useNavigate, useSearchParams } from "react-router";
 import { Button } from "~/components/ui/button";
+import RecentProjects from "~/components/ui/Dashboard/recent-projects";
 import StatCard from "~/components/ui/Dashboard/stats-card";
+import StatisticsCharts from "~/components/ui/Dashboard/stats-chart";
+import UpcomingTasks from "~/components/ui/Dashboard/upcoming-task";
 import Loader from "~/components/ui/loader";
 import { useGetWorkspaceStats } from "~/hooks/use-workspace";
 import type {
@@ -25,7 +28,7 @@ const index = () => {
 	const { data, isPending } = useGetWorkspaceStats(workspaceId!) as {
 		data: {
 			stats: StatsProps;
-			taskTrendData: TaskTrendProps[];
+			taskTrendsData: TaskTrendProps[];
 			taskPriorityData: TaskPriorityProps[];
 			projectStatusData: ProjectStatusProps[];
 			workspaceProductivityData: WorspaceProductivityProps[];
@@ -145,9 +148,20 @@ const index = () => {
 	return (
 		<div className="space-y-8 2xl:space-y-12">
 			<div className="flex items-center justify-between">
-				<h1>DashBoard</h1>
+				<h1 className="text-3xl uppercase">DashBoard</h1>
 			</div>
 			<StatCard data={data.stats} />
+			<StatisticsCharts
+				stats={data.stats}
+				taskTrendsData={data.taskTrendsData}
+				projectStatusData={data.projectStatusData}
+				taskPriorityData={data.taskPriorityData}
+				workspaceProductivityData={data.workspaceProductivityData}
+			/>
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<RecentProjects data={data.recentProjects} />
+				<UpcomingTasks data={data.upcomingTasks} />
+			</div>
 		</div>
 	);
 };

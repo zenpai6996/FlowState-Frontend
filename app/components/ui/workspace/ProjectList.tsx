@@ -1,3 +1,4 @@
+import { getProjectProgress } from "~/lib";
 import type { Project } from "~/types";
 import ProjectCard from "../Project/ProjectCard";
 import NoDataFound from "./NoDataCard";
@@ -26,7 +27,7 @@ const ProjectList = ({
 					/>
 				) : (
 					project.map((project) => {
-						const projectProgress = 0;
+						const projectProgress = getProjectProgress(project.tasks);
 						return (
 							<ProjectCard
 								key={project._id}

@@ -12,11 +12,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../card";
-import { Progress } from "../progress";
 
 interface ProjectCardTypes {
 	project: Project;
-	progress: number;
+	progress?: number;
 	workspaceId: string;
 }
 
@@ -52,13 +51,7 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 									{tag}
 								</Badge>
 							))}
-							<div className="flex justify-between text-xs">
-								<span className="text-xs mr-3">Progress:</span>
-								<Progress value={progress} className="h-4" />
-								<span className="text-xs text-muted-foreground ml-3">
-									{progress}%
-								</span>
-							</div>
+
 							<div className="flex items-center justify-between ">
 								<div className="flex items-center text-sm gap-2 text-primary">
 									<span>{project.tasks.length}</span>
