@@ -101,9 +101,9 @@ const ProjectDetails = () => {
 						</div>
 					</div>
 					{project.description && (
-						<p className="text-xs sm:text-sm text-muted-foreground mt-3 line-clamp-2 sm:line-clamp-none">
+						<p className="text-xs md:text-sm  mt-3 line-clamp-2 sm:line-clamp-none">
 							<span className="text-primary">Description :</span>{" "}
-							{project.description}
+							<span style={{ fontFamily: "Geo" }}>{project.description}</span>
 						</p>
 					)}
 				</div>
@@ -442,9 +442,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 					</div>
 				</div>
 				{task.description && (
-					<p className="text-xs capitalize mt-5 px-2 sm:text-sm text-muted-foreground line-clamp-1 ">
+					<p className="text-xs capitalize mt-5 px-2 sm:text-sm  line-clamp-1 ">
 						<span className="text-primary">Description: </span>
-						{task.description}
+						<span style={{ fontFamily: "Geo" }}>{task.description}</span>
 					</p>
 				)}
 				<div className="ml-2">

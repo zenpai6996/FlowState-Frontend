@@ -9,12 +9,7 @@
 }
 
 
-@font-face {
-  font-family: 'Overcame';
-  src: url("./assets/fonts/OvercameDemoRegular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 @font-face {
   font-family: 'Know';
@@ -23,14 +18,55 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'One';
+  src: url("./assets/fonts/One\ Slice.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geo';
+  src: url("./assets/fonts/GeosansLight-Oblique.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 
+@font-face {
+  font-family: 'Geo2';
+  src: url("./assets/fonts/GeosansLight.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Comfort';
+  src: url("./assets/fonts/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Vintage';
+  src: url("./assets/fonts/Vintage.ttf") format(".ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
 h2,
 h3 {
-  font-family: "Know", sans-serif;
+  font-family: "Comfort"
+
 }
+
+
+
+
+
+
+
 
 
 html,
@@ -40,6 +76,8 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+
+  font-family: 'Comfort';
 }
 
 

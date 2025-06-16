@@ -66,9 +66,9 @@ const WorkspaceHeader = ({
 					</div>
 				</div>
 				{workspace.description && (
-					<p className="text-sm md:text-base dark:text-muted-foreground md:mt-0 mt-1">
+					<p className="text-sm md:text-base  md:mt-0 mt-1">
 						<span className="text-primary">Description : </span>
-						{workspace.description}
+						<span style={{ fontFamily: "Geo" }}>{workspace.description}</span>
 					</p>
 				)}
 				{members.length > 0 && (

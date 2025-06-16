@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon } from "lucide-react";
+import { CalendarCheck2, CalendarClockIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -313,7 +313,7 @@ const CreateProjectDialog = ({
 														>
 															<CalendarClockIcon className="size-4 mr-2" />
 															{field.value ? (
-																format(new Date(field.value), "PPPP")
+																format(new Date(field.value), "dd/MM/yyyy")
 															) : (
 																<span>Start Date</span>
 															)}
@@ -355,7 +355,7 @@ const CreateProjectDialog = ({
 														>
 															<CalendarCheck2 className="size-4 mr-2" />
 															{field.value ? (
-																format(new Date(field.value), "PPPP")
+																format(new Date(field.value), "dd/MM/yyyy")
 															) : (
 																<span>Deadline</span>
 															)}

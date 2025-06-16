@@ -129,7 +129,10 @@ const CommentSection = ({
 															)}
 														</span>
 													</div>
-													<p className="text-sm text-muted-foreground leading-relaxed break-words">
+													<p
+														style={{ fontFamily: "Geo" }}
+														className="text-sm text-muted-foreground leading-relaxed break-words"
+													>
 														{comment.text}
 													</p>
 												</div>
