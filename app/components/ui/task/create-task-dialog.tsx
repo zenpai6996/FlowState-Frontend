@@ -194,7 +194,7 @@ const CreateTaskDialog = ({
 														>
 															<CalendarIcon className="size-4 mr-2" />
 															{field.value ? (
-																format(new Date(field.value), "PPPP")
+																format(new Date(field.value), "dd/MM/yyyy")
 															) : (
 																<span>Pick a date</span>
 															)}

@@ -225,7 +225,10 @@ const SubtaskDetails = ({
 													{index + 1}
 												</Badge>
 												{/* Truncated title container */}
-												<span className="mt-[3px] text-xs truncate max-w-[180px] sm:max-w-[240px] md:max-w-[710px]">
+												<span
+													style={{ fontFamily: "Geo" }}
+													className="mt-[3px]  text-xs md:text-sm truncate max-w-[180px] sm:max-w-[240px] md:max-w-[710px]"
+												>
 													{subtasks.title}
 												</span>
 											</div>

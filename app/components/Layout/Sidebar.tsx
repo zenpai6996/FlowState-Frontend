@@ -53,7 +53,10 @@ export const SidebarComponent = ({
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
 								<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
-								<span className="font-semibold text-lg hidden md:block">
+								<span
+									style={{ fontFamily: "Know" }}
+									className=" text-lg hidden md:block"
+								>
 									FlowState
 								</span>
 							</div>

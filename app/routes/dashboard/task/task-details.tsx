@@ -222,11 +222,13 @@ const TaskDetails = () => {
 									<TaskTitle title={task.title} taskId={task._id} />
 								</CardTitle>
 
-								<div className=" flex text-sm mt-2 md:text-base text-muted-foreground">
+								<div className=" flex text-sm mt-2 md:text-base ">
 									<h3 className="text-primary">Created:&nbsp; </h3>
-									{formatDistanceToNow(new Date(task.createdAt), {
-										addSuffix: true,
-									})}
+									<span style={{ fontFamily: "Geo" }}>
+										{formatDistanceToNow(new Date(task.createdAt), {
+											addSuffix: true,
+										})}
+									</span>
 								</div>
 								{task.isArchived && (
 									<Badge
