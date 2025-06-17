@@ -69,30 +69,32 @@ const TaskAssigneesSelector = ({
 	return (
 		<div>
 			<h3 className="text-sm font-medium text-primary">Assignees:</h3>
-			<div className="flex justify-between gap-2 mb-2 mt-2">
-				{selectedId.length === 0 ? (
-					<span className="text-xs text-muted-foreground">Unassigned</span>
-				) : (
-					projectMembers
-						.filter((members) => selectedId.includes(members.user._id))
-						.map((m) => (
-							<Badge
-								variant={"glassMorph"}
-								key={m.user._id}
-								className="flex items-center rounded-2xl py-0 md:px-1.5 "
-							>
-								<Avatar>
-									<AvatarImage src={m.user.profilePicture} />
-									<AvatarFallback className="size-5 md:size-6 text-[10px] md:text-xs   mt-[5px] md:mt-1   items-center border-1 dark:border-primary ">
-										{m.user.name.charAt(0)}
-									</AvatarFallback>
-								</Avatar>
-								<span className="text-[10px] md:text-xs text-gray-300">
-									{m.user.name}
-								</span>
-							</Badge>
-						))
-				)}
+			<div className="flex justify-between  gap-2 mb-2 mt-2">
+				<div className="flex flex-row gap-1">
+					{selectedId.length === 0 ? (
+						<span className="text-xs text-muted-foreground">Unassigned</span>
+					) : (
+						projectMembers
+							.filter((members) => selectedId.includes(members.user._id))
+							.map((m) => (
+								<Badge
+									variant={"glassMorph"}
+									key={m.user._id}
+									className="flex items-center rounded-2xl py-0 md:px-1.5 "
+								>
+									<Avatar>
+										<AvatarImage src={m.user.profilePicture} />
+										<AvatarFallback className="size-5 md:size-6 text-[10px] md:text-xs   mt-[5px] md:mt-1   items-center border-1 dark:border-primary ">
+											{m.user.name.charAt(0)}
+										</AvatarFallback>
+									</Avatar>
+									<span className="text-[10px] md:text-xs text-gray-300">
+										{m.user.name}
+									</span>
+								</Badge>
+							))
+					)}
+				</div>
 				<Badge
 					variant={selectedId.length === 0 ? "red" : "done"}
 					className="rounded-full px-3"
