@@ -26,9 +26,9 @@ export interface Workspace {
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 export type TaskPriority = "High" | "Medium" | "Low";
 export enum ProjectMemberRole {
-	MANAGER = "manager",
-	CONTRIBUTOR = "contributor",
+	ADMIN = "admin",
 	VIEWER = "viewer",
+	MEMBER = "member",
 }
 
 export interface Subtask {
@@ -57,6 +57,7 @@ export interface Task {
 	createdAt: Date;
 	updatedAt: Date;
 	isArchived: boolean;
+	isWatched: boolean;
 	dueDate: Date;
 	priority: TaskPriority;
 	assignee: User | string;

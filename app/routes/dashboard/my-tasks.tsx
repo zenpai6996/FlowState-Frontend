@@ -11,6 +11,7 @@ import {
 	Circle,
 	CircleAlert,
 	ClockPlus,
+	Eye,
 	Filter,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -144,6 +145,7 @@ const MyTasks = () => {
 						if (filter === "high") return task.priority === "High";
 						if (filter === "medium") return task.priority === "Medium";
 						if (filter === "Low") return task.priority === "Low";
+						if (filter === "watched") return task.isWatched === true;
 					})
 					.filter(
 						(task) =>
@@ -225,6 +227,13 @@ const MyTasks = () => {
 							>
 								<Archive className="text-primary" />
 								Archived
+							</DropdownMenuItem>
+							<DropdownMenuItem
+								className="text-primary"
+								onClick={() => setFilter("watched")}
+							>
+								<Eye className="text-primary" />
+								Watched
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>

@@ -82,7 +82,7 @@ body {
 }
 
 body {
-  @apply bg-gradient-to-br from-background via-muted to-primary;
+  @apply bg-background;
 }
 
 
