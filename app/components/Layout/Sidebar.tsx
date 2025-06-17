@@ -1,5 +1,4 @@
 import {
-	Bolt,
 	ChevronLeft,
 	ChevronRightIcon,
 	Component,
@@ -33,7 +32,6 @@ export const SidebarComponent = ({
 		{ title: "Workspaces", href: "/workspaces", icon: MonitorCog },
 		{ title: "Tasks", href: "/my-tasks", icon: ListChecks },
 		{ title: "Members", href: "/members", icon: Users2 },
-		{ title: "Settings", href: "/settings", icon: Bolt },
 	];
 
 	return (

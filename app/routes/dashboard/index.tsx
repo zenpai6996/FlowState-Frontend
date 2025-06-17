@@ -158,7 +158,7 @@ const index = () => {
 				taskPriorityData={data.taskPriorityData}
 				workspaceProductivityData={data.workspaceProductivityData}
 			/>
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
 				<RecentProjects data={data.recentProjects} />
 				<UpcomingTasks data={data.upcomingTasks} />
 			</div>
