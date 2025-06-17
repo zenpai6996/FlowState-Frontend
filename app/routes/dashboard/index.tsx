@@ -42,19 +42,6 @@ const index = () => {
 		navigate(`/workspaces`);
 	};
 
-	if (isPending) {
-		return (
-			<div className="flex h-full items-center justify-center p-4">
-				<div className="text-center">
-					<Loader />
-					<h2 className="text-muted-foreground text-sm sm:text-base mt-2">
-						Fetching Workspace Stats ...
-					</h2>
-				</div>
-			</div>
-		);
-	}
-
 	if (!workspaces) {
 		return (
 			<div className="flex h-full items-center justify-center p-4">
@@ -63,6 +50,19 @@ const index = () => {
 					<p className="text-muted-foreground text-sm mt-2">
 						Create or select a workspace to get started.
 					</p>
+				</div>
+			</div>
+		);
+	}
+
+	if (isPending) {
+		return (
+			<div className="flex h-full items-center justify-center p-4">
+				<div className="text-center">
+					<Loader />
+					<h2 className="text-muted-foreground text-sm sm:text-base mt-2">
+						Fetching Workspace Stats ...
+					</h2>
 				</div>
 			</div>
 		);
@@ -83,13 +83,13 @@ const index = () => {
 
 					{/* Main heading */}
 					<h2 className="text-xl font-semibold mb-2 text-foreground">
-						No Projects Yet
+						No Workspace Selected
 					</h2>
 
 					{/* Descriptive text */}
 					<p className="text-muted-foreground mb-6 leading-relaxed">
-						Projects help you organize your work and collaborate with your team.
-						Create your first project to get started on your journey!
+						Workspaces help you organize your work and collaborate with your
+						team.
 					</p>
 
 					{/* Call to action button */}
@@ -99,7 +99,7 @@ const index = () => {
 						onClick={handleOnCreate}
 					>
 						<Plus className="w-4 h-4 mr-2" />
-						Create Your First Project
+						Create Your WorkSpace
 					</Button>
 				</div>
 			</div>

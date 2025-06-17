@@ -9,7 +9,6 @@ import {
 	Users2,
 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
 import { cn } from "~/lib/utils";
 import { useAuth } from "~/provider/auth-context";
 import type { Workspace } from "~/types";
@@ -47,7 +46,7 @@ export const SidebarComponent = ({
 				)}
 			>
 				<div className="flex h-14 items-center dark:border-b rounded-r-2xl rounded-l-2xl border-accent px-4 mb-4">
-					<Link to={"/dashboard"} className="flex items-center">
+					<div className="flex items-center hover:scale-101 transition-all duration-200 ease-in-out">
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
 								<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
@@ -59,7 +58,7 @@ export const SidebarComponent = ({
 								</span>
 							</div>
 						) : null}
-					</Link>
+					</div>
 
 					<Button
 						variant={"glassMirror"}
