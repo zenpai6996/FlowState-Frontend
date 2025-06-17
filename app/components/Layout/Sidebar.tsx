@@ -20,9 +20,11 @@ import SidebarNav from "./SidebarNav";
 export const SidebarComponent = ({
 	currentWorkspace,
 	isMobileOpen,
+	onClose,
 }: {
 	currentWorkspace: Workspace | null;
 	isMobileOpen: boolean;
+	onClose: () => void;
 }) => {
 	const { user, logout } = useAuth();
 	const [isCollapsed, setIsCollapsed] = useState(false);
@@ -47,10 +49,12 @@ export const SidebarComponent = ({
 				)}
 			>
 				<div className="flex h-14 items-center dark:border-b rounded-r-2xl rounded-l-2xl border-accent px-4 mb-4">
-					<Link to={"/dashboard"} className="flex items-center">
+					<div className="flex items-center hover:scale-101 transition-all duration-200 ease-in-out">
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
-								<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
+								<Link to="/">
+									<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
+								</Link>
 								<span
 									style={{ fontFamily: "Air" }}
 									className=" text-3xl mb-2 text-primary hidden md:block"
@@ -59,7 +63,7 @@ export const SidebarComponent = ({
 								</span>
 							</div>
 						) : null}
-					</Link>
+					</div>
 
 					<Button
 						variant={"glassMirror"}
