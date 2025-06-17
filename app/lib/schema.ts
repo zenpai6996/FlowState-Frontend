@@ -99,3 +99,8 @@ export const createtaskSchema = z.object({
 	dueDate: z.string().min(1, "Due date is required"),
 	assignees: z.array(z.string()).min(1, "At least one assignees is required"),
 });
+
+export const inviteMemberSchema = z.object({
+	email: z.string().email(),
+	role: z.enum(["admin", "member", "viewer"]),
+});

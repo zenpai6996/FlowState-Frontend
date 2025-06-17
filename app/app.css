@@ -81,6 +81,11 @@ body {
   font-family: 'Comfort';
 }
 
+body {
+  @apply bg-gradient-to-br from-background via-muted to-primary;
+}
+
+
 
 
 :root {
@@ -237,7 +242,7 @@ body {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
 
