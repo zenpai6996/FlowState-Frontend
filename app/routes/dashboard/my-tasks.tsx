@@ -18,13 +18,7 @@ import { Link, useSearchParams } from "react-router";
 import { Input4 } from "~/components/input4";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 import KanbanCard from "~/components/ui/Dashboard/KanbanCard";
 import {
 	DropdownMenu,
@@ -255,12 +249,25 @@ const MyTasks = () => {
 					</Button>
 				</div>
 			</div>
-			<Input4
-				placeholder="Search tasks ..."
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-				className="max-w-md dark:bg-muted"
-			/>
+			<div className="flex  flex-col md:flex-row  justify-between">
+				<Badge variant={"glassMorph"} className="mb-3 md:mb-0">
+					{sortTasks?.length === 0 ? (
+						<div className=" text-start text-sm text-muted-foreground">
+							No task found
+						</div>
+					) : (
+						<div className=" text-start text-sm text-muted-foreground">
+							{sortTasks?.length} tasks assigned
+						</div>
+					)}
+				</Badge>
+				<Input4
+					placeholder="Search tasks ..."
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+					className="max-w-md dark:bg-muted"
+				/>
+			</div>
 			<Tabs defaultValue="board">
 				<TabsList className="w-full h-[50px] flex gap-2 p-1 bg-background/20 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg">
 					<TabsTrigger
@@ -278,19 +285,8 @@ const MyTasks = () => {
 				</TabsList>
 				{/* List View */}
 				<TabsContent value="list">
-					<Card>
-						<CardHeader>
-							<CardTitle className="text-xl">My Tasks</CardTitle>
-							<CardDescription>
-								{sortTasks?.length} tasks assigned
-								{sortTasks?.length === 0 && (
-									<div className="p-4 text-center text-sm text-muted-foreground">
-										No task Found
-									</div>
-								)}
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
+					<Card className="py-2 px-1">
+						<CardContent className="px-0 py-1 md:px-2">
 							<div className="divide-y">
 								{sortTasks?.map((task) => (
 									<div

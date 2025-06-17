@@ -57,7 +57,7 @@ const ProjectStatusSelector = ({
 			<SelectGroup>
 				<SelectTrigger
 					className={cn(
-						"sm:w-auto cursor-pointer mr-[10px] text-center",
+						"sm:w-auto cursor-pointer p-2 md:p-3 mr-[5px] text-center",
 
 						status === "On Hold"
 							? "text-yellow-500 border "
@@ -70,7 +70,7 @@ const ProjectStatusSelector = ({
 							: "text-red-400 border"
 					)}
 				>
-					<Badge variant={"glassMorph"}>
+					<Badge variant={"glassMorph"} className="p-1 ">
 						{status === "Cancelled" ? (
 							<AlertCircle className="text-red-400 size-4 md:ml-0 md:size-5" />
 						) : status === "In Progress" ? (

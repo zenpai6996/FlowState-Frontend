@@ -28,3 +28,10 @@ export const useGetWorkspaceStats = (workspaceId: string) => {
 		queryFn: async () => fetchData(`/workspaces/${workspaceId}/stats`),
 	});
 };
+
+export const useGetWorkspaceDetails = (workspaceId: string) => {
+	return useQuery({
+		queryKey: ["workspace", workspaceId, "details"],
+		queryFn: async () => fetchData(`/workspaces/${workspaceId}`),
+	});
+};
