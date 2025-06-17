@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import Loader from "~/components/ui/loader";
 import CreateProjectDialog from "~/components/ui/Project/CreateProjectDialog";
+import InviteMemberDialog from "~/components/ui/workspace/invite-member";
 import ProjectList from "~/components/ui/workspace/ProjectList";
 import WorkspaceHeader from "~/components/ui/workspace/WorkspaceHeader";
 import { useGetWorkspaceById } from "~/hooks/use-workspace";
@@ -53,6 +54,12 @@ const WorkspaceDetails = () => {
 				onOpenChange={setIsCreateProject}
 				workspaceId={workspaceId}
 				workspaceMembers={data.workspace.members as any}
+			/>
+
+			<InviteMemberDialog
+				isOpen={isInviteMember}
+				onOpenChange={setIsInviteMember}
+				workspaceId={workspaceId}
 			/>
 		</div>
 	);
