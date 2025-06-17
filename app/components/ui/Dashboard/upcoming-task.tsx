@@ -20,7 +20,7 @@ const UpcomingTasks = ({ data }: { data: Task[] }) => {
 	const [searchParams] = useSearchParams();
 	const workspaceId = searchParams.get("workspaceId");
 	return (
-		<Card>
+		<Card className="mb-6">
 			<CardHeader>
 				<CardTitle>Upcoming Tasks</CardTitle>
 				<CardDescription>Tasks that are due soon</CardDescription>

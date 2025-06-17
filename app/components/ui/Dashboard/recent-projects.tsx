@@ -16,7 +16,7 @@ const RecentProjects = ({ data }: { data: Project[] }) => {
 	const [searchParams] = useSearchParams();
 	const workspaceId = searchParams.get("workspaceId");
 	return (
-		<Card>
+		<Card className="mb-6">
 			<CardHeader>
 				<CardTitle>Recent Projects</CardTitle>
 				<CardDescription>Recently worked on projects</CardDescription>

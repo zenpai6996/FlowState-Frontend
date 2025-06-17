@@ -1,6 +1,5 @@
 import {
 	ArrowBigDownDash,
-	Bell,
 	ChevronLeft,
 	ChevronRightIcon,
 	CircleUserRound,
@@ -183,13 +182,6 @@ const Header = ({
 
 				<div className="flex items-center gap-2">
 					<ModeToggle />
-					<Button
-						variant={"neonGlow"}
-						className="rounded-full dark:hover:text-primary hover:text-primary"
-						size={"icon"}
-					>
-						<Bell />
-					</Button>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Avatar className="hover:scale-105 transition-transform duration-200 ease-in-out cursor-pointer">
