@@ -54,8 +54,8 @@ export const SidebarComponent = ({
 							<div className="flex items-center gap-2">
 								<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
 								<span
-									style={{ fontFamily: "Know" }}
-									className=" text-lg hidden md:block"
+									style={{ fontFamily: "Air" }}
+									className=" text-3xl mb-2 text-primary hidden md:block"
 								>
 									FlowState
 								</span>

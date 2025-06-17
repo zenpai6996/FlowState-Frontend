@@ -354,7 +354,7 @@ const TaskDetails = () => {
 			{/* Mobile Toggle Button (only visible on small screens) */}
 			<button
 				onClick={() => setIsPanelOpen(!isPanelOpen)}
-				className=" fixed md:top-80  right-6 opacity-90 z-40 bg-primary text-muted p-3 rounded-full shadow-lg"
+				className=" fixed top-150 md:top-80 right-5  md:right-6 opacity-90 z-40 bg-primary text-muted p-2 md:p-3 rounded-full shadow-lg"
 			>
 				{isPanelOpen ? (
 					<X className="h-6 w-6" />

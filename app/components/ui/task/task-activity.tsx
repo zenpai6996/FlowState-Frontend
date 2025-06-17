@@ -70,7 +70,7 @@ const TaskActivity = ({ resourceId }: { resourceId: string }) => {
 								<span className="text-primary ">{activity.user.name}</span>{" "}
 								<span
 									style={{ fontFamily: "Geo" }}
-									className="text-[10px] md:text-xs text-muted-foreground"
+									className="text-sm md:text-base text-muted-foreground"
 								>
 									{activity.details?.description}
 								</span>

@@ -43,8 +43,8 @@ const Workspaces = () => {
 							onClick={() => setIsCreatingWorkspace(true)}
 							className="dark:text-primary"
 						>
-							<PlusCircle className="size-4 mr-2" />
-							New Workspace
+							<PlusCircle className="size-4 md:mr-2" />
+							<span className="hidden md:block">New Workspace</span>
 						</Button>
 					</div>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ">

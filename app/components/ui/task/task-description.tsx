@@ -66,7 +66,7 @@ const TaskDescription = ({
 				) : (
 					<div
 						style={{ fontFamily: "Geo" }}
-						className=" text-sm md:text-base text-pretty text-muted-foreground  font-semibold"
+						className=" text-sm md:text-xl text-pretty text-muted-foreground  font-semibold"
 					>
 						{description}
 					</div>

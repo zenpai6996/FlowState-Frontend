@@ -14,9 +14,16 @@ const Watchers = ({ watchers }: { watchers: User[] }) => {
 						<div key={watcher._id} className="flex items-center gap-2">
 							<Avatar className="size-6 dark:bg-background rounded-full border border-primary">
 								<AvatarImage src={watcher.profilePicture} />
-								<AvatarFallback>{watcher.name.charAt(0)}</AvatarFallback>
+								<AvatarFallback className="text-xs md:text-sm">
+									{watcher.name.charAt(0)}
+								</AvatarFallback>
 							</Avatar>
-							<p className="text-xs text-muted-foreground">{watcher.name}</p>
+							<p
+								style={{ fontFamily: "Geo" }}
+								className="text-base text-muted-foreground"
+							>
+								{watcher.name}
+							</p>
 						</div>
 					))
 				) : (
