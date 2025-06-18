@@ -8,7 +8,7 @@
   
 
  
-  <h3>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</h3>
+  <p>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</p>
 </div>
 
 <div align="center" >
