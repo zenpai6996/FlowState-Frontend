@@ -91,36 +91,10 @@
     <rect x="8" y="22" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
     <rect x="8" y="28" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
     
-    <!-- Card 2 -->
-    <rect x="70" y="15" width="60" height="40" rx="6" fill="rgba(255,255,255,0.25)" filter="url(#cardShadow)"/>
-    <rect x="78" y="23" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.8)"/>
-    <rect x="78" y="31" width="30" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
-    <rect x="78" y="37" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
-    <rect x="78" y="43" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
     
-    <!-- Card 3 -->
-    <rect x="140" y="5" width="60" height="40" rx="6" fill="rgba(255,255,255,0.15)" filter="url(#cardShadow)"/>
-    <rect x="148" y="13" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.8)"/>
-    <rect x="148" y="21" width="30" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
-    <rect x="148" y="27" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
-    <rect x="148" y="33" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
   </g>
   
-  <!-- Flow State Icon -->
-  <g transform="translate(60, 80)">
-    <!-- Circular Flow Lines -->
-    <circle cx="40" cy="40" r="35" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="5,5">
-      <animateTransform attributeName="transform" type="rotate" values="0 40 40; 360 40 40" dur="10s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="3,3">
-      <animateTransform attributeName="transform" type="rotate" values="360 40 40; 0 40 40" dur="8s" repeatCount="indefinite"/>
-    </circle>
-    
-    <!-- Central Icon -->
-    <circle cx="40" cy="40" r="15" fill="rgba(255,255,255,0.2)" filter="url(#glow)"/>
-    <path d="M35,35 L45,40 L35,45 Z" fill="rgba(255,255,255,0.9)"/>
-    <circle cx="32" cy="40" r="2" fill="rgba(255,255,255,0.7)"/>
-  </g>
+  
   
   <!-- Main Title -->
   <g transform="translate(400, 160)">
