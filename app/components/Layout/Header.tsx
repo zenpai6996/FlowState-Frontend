@@ -82,6 +82,7 @@ const Header = ({
 	// console.log("workspaces from query:", queryWorkspaces);
 	// console.log("workspaces from loader:", loaderData?.workspaces);
 	// console.log("final workspaces:", workspaces);
+	const BASE_URL = import.meta.env.VITE_API_URL;
 
 	return (
 		<div className="dark:bg-muted sticky top-0 z-40 border-b rounded-2xl border-primary dark:border-primary">
@@ -185,7 +186,13 @@ const Header = ({
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Avatar className="hover:scale-105 transition-transform duration-200 ease-in-out cursor-pointer">
-								<AvatarImage src={user?.profilePicture} />
+								<AvatarImage
+									src={
+										user?.profilePicture?.startsWith("http")
+											? user.profilePicture
+											: `${BASE_URL}/${user?.profilePicture}`
+									}
+								/>
 								<AvatarFallback className="bg-primary text-primary-foreground">
 									{user?.name?.charAt(0).toUpperCase()}
 								</AvatarFallback>
