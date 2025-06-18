@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
+import BackButton from "~/components/back-button";
 import { Input3 } from "~/components/input3";
 import { Button } from "~/components/ui/button";
 import {
@@ -68,9 +69,12 @@ const SignIn = () => {
 		<div className="min-h-screen flex flex-col items-center justify-center dark:bg-background p-4">
 			<Card className="max-w-md w-screen">
 				<CardHeader className="text-center mb-5">
-					<CardTitle className="text-2xl font-bold dark:text-primary">
-						Welcome Back
-					</CardTitle>
+					<div>
+						<BackButton />
+						<CardTitle className="text-2xl font-bold dark:text-primary">
+							Welcome Back
+						</CardTitle>
+					</div>
 					<CardDescription className="text-sm text-muted-foreground">
 						Sign in to your account to continue
 					</CardDescription>
