@@ -1,0 +1,183 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <!-- Main Background Gradient -->
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Wave Gradient -->
+    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Text Gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0f7ff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Particle Gradient -->
+    <radialGradient id="particleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Card Shadow -->
+    <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+    
+    <!-- Glow Effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#backgroundGradient)"/>
+  
+  <!-- Animated Flow Waves -->
+  <g opacity="0.6">
+    <path d="M0,200 Q200,150 400,200 T800,200 L800,400 L0,400 Z" fill="url(#waveGradient)">
+      <animateTransform 
+        attributeName="transform" 
+        attributeType="XML" 
+        type="translate" 
+        values="0,0; -100,0; 0,0" 
+        dur="8s" 
+        repeatCount="indefinite"/>
+    </path>
+    <path d="M0,250 Q150,200 300,250 T600,250 L800,250 L800,400 L0,400 Z" fill="url(#waveGradient)" opacity="0.7">
+      <animateTransform 
+        attributeName="transform" 
+        attributeType="XML" 
+        type="translate" 
+        values="0,0; 50,0; 0,0" 
+        dur="6s" 
+        repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Floating Particles -->
+  <g opacity="0.4">
+    <circle cx="100" cy="80" r="3" fill="url(#particleGradient)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 20,-10; 0,0" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="680" cy="120" r="2" fill="url(#particleGradient)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -15,15; 0,0" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="300" r="4" fill="url(#particleGradient)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 10,20; 0,0" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="720" cy="280" r="2.5" fill="url(#particleGradient)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -25,5; 0,0" dur="7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Project Cards Visual Elements -->
+  <g transform="translate(520, 60)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="60" height="40" rx="6" fill="rgba(255,255,255,0.2)" filter="url(#cardShadow)"/>
+    <rect x="8" y="8" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.8)"/>
+    <rect x="8" y="16" width="30" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="8" y="22" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="8" y="28" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    
+    <!-- Card 2 -->
+    <rect x="70" y="15" width="60" height="40" rx="6" fill="rgba(255,255,255,0.25)" filter="url(#cardShadow)"/>
+    <rect x="78" y="23" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.8)"/>
+    <rect x="78" y="31" width="30" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="78" y="37" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="78" y="43" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    
+    <!-- Card 3 -->
+    <rect x="140" y="5" width="60" height="40" rx="6" fill="rgba(255,255,255,0.15)" filter="url(#cardShadow)"/>
+    <rect x="148" y="13" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.8)"/>
+    <rect x="148" y="21" width="30" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="148" y="27" width="35" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+    <rect x="148" y="33" width="25" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+  </g>
+  
+  <!-- Flow State Icon -->
+  <g transform="translate(60, 80)">
+    <!-- Circular Flow Lines -->
+    <circle cx="40" cy="40" r="35" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="5,5">
+      <animateTransform attributeName="transform" type="rotate" values="0 40 40; 360 40 40" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="3,3">
+      <animateTransform attributeName="transform" type="rotate" values="360 40 40; 0 40 40" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Central Icon -->
+    <circle cx="40" cy="40" r="15" fill="rgba(255,255,255,0.2)" filter="url(#glow)"/>
+    <path d="M35,35 L45,40 L35,45 Z" fill="rgba(255,255,255,0.9)"/>
+    <circle cx="32" cy="40" r="2" fill="rgba(255,255,255,0.7)"/>
+  </g>
+  
+  <!-- Main Title -->
+  <g transform="translate(400, 160)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="url(#textGradient)" text-anchor="middle" filter="url(#glow)">
+      FlowState
+    </text>
+  </g>
+  
+  <!-- Subtitle -->
+  <g transform="translate(400, 200)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.9)" text-anchor="middle">
+      Modern Project Management Solution
+    </text>
+  </g>
+  
+  <!-- Feature Pills -->
+  <g transform="translate(400, 240)">
+    <!-- React Pill -->
+    <g transform="translate(-120, 0)">
+      <rect x="-25" y="-10" width="50" height="20" rx="10" fill="rgba(97, 218, 251, 0.2)" stroke="rgba(97, 218, 251, 0.6)" stroke-width="1"/>
+      <text x="0" y="4" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)" text-anchor="middle">React</text>
+    </g>
+    
+    <!-- TypeScript Pill -->
+    <g transform="translate(-40, 0)">
+      <rect x="-30" y="-10" width="60" height="20" rx="10" fill="rgba(0, 122, 204, 0.2)" stroke="rgba(0, 122, 204, 0.6)" stroke-width="1"/>
+      <text x="0" y="4" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)" text-anchor="middle">TypeScript</text>
+    </g>
+    
+    <!-- Tailwind Pill -->
+    <g transform="translate(50, 0)">
+      <rect x="-28" y="-10" width="56" height="20" rx="10" fill="rgba(56, 178, 172, 0.2)" stroke="rgba(56, 178, 172, 0.6)" stroke-width="1"/>
+      <text x="0" y="4" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)" text-anchor="middle">Tailwind</text>
+    </g>
+    
+    <!-- Vite Pill -->
+    <g transform="translate(120, 0)">
+      <rect x="-20" y="-10" width="40" height="20" rx="10" fill="rgba(183, 59, 254, 0.2)" stroke="rgba(183, 59, 254, 0.6)" stroke-width="1"/>
+      <text x="0" y="4" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)" text-anchor="middle">Vite</text>
+    </g>
+  </g>
+  
+ 
+  
+  <!-- Decorative Elements -->
+  <g opacity="0.3">
+    <!-- Top Left -->
+    <circle cx="50" cy="50" r="1" fill="white"/>
+    <circle cx="80" cy="30" r="1.5" fill="white"/>
+    <circle cx="120" cy="60" r="1" fill="white"/>
+    
+    <!-- Top Right -->
+    <circle cx="750" cy="40" r="1" fill="white"/>
+    <circle cx="720" cy="70" r="1.5" fill="white"/>
+    <circle cx="680" cy="45" r="1" fill="white"/>
+    
+    <!-- Bottom decorative line -->
+    <path d="M50,350 Q400,340 750,350" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" stroke-dasharray="2,4"/>
+  </g>
+</svg>
