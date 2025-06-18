@@ -1,3 +1,4 @@
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import {
 	ArrowRight,
 	ChevronDown,
@@ -35,9 +36,9 @@ const AnimatedBackground = () => {
 	return (
 		<div className="fixed inset-0 overflow-hidden pointer-events-none">
 			{/* Gradient orbs */}
-			<div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/20 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
-			<div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-accent/20 to-accent/20 rounded-full blur-3xl animate-ping delay-1000"></div>
-			<div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary/20 to-primary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+			<div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
+			<div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-accent/10 to-accent/20 rounded-full blur-3xl animate-ping delay-1000"></div>
+			<div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
 
 			{/* Floating particles */}
 			{[...Array(0)].map((_, i) => (
@@ -108,7 +109,7 @@ const Navbar = () => {
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 rounded-full ${
 				isScrolled
-					? "bg-white/80 dark:bg-background/80 backdrop-blur-md shadow-lg"
+					? "bg-white/80 dark:bg-background/80 backdrop-blur-md translate-y-5 transition-all duration-200 ease-in-out  shadow-lg"
 					: "bg-transparent"
 			}`}
 		>
@@ -219,7 +220,10 @@ const HeroSection = () => {
 					</h1>
 
 					{/* Subtitle */}
-					<p className="text-sm sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+					<p
+						style={{ fontFamily: "Geo" }}
+						className="text-sm sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
+					>
 						Flow effortlessly through your tasks.
 					</p>
 
@@ -256,7 +260,7 @@ const Footer = () => {
 	return (
 		<>
 			<footer className="relative bg-gray-50 dark:bg-transparent backdrop-blur-3xl border-t border-gray-200 dark:border-primary">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+				<div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-12">
 					<div className="grid grid-cols-2 md:grid-cols-6 gap-8">
 						{/* Logo and Description */}
 						<div className="col-span-3">
@@ -270,6 +274,7 @@ const Footer = () => {
 									FlowState
 								</span>
 							</div>
+
 							<p className="text-gray-600 dark:text-muted-foreground mb-4 ">
 								Achieve your flow state with intuitive tools designed for modern
 								teams.
@@ -310,24 +315,35 @@ const Footer = () => {
 								</Button>
 							</div>
 						</div>
+						<DotLottieReact
+							src="https://lottie.host/8cf4ba71-e5fb-44f3-8134-178c4d389417/0CCsdcgNIP.json"
+							loop
+							autoplay
+							className="w-60 h-20 absolute -right-10 bottom-10 md:bottom-1 "
+						/>
 					</div>
 
 					{/* Bottom Bar */}
-					<div className="mt-12 pt-8 border-t border-gray-200 dark:border-primary">
+					<div className="mt-6 pt-8 border-t border-gray-200 dark:border-primary">
 						<div className="flex flex-col  justify-between items-start">
-							<p className="text-gray-600 dark:text-muted-foreground mb-4 ">
-								Crafted with{" "}
-								<span className="text-primary animate-ping">‪❤︎</span> by{" "}
-								<Link
-									className="text-primary hover:underline"
-									to={"https://github.com/zenpai6996"}
-								>
-									Souharda
-								</Link>
-							</p>
-							<p className="text-sm text-gray-600 dark:text-gray-400">
-								© 2025 FlowState. All rights reserved.
-							</p>
+							<div className="flex  justify-between">
+								<div>
+									<p className="text-gray-600 dark:text-muted-foreground mb-1 ">
+										Crafted with{" "}
+										<span className="text-primary animate-ping">‪❤︎</span> by{" "}
+										<Link
+											className="text-primary hover:underline"
+											to={"https://github.com/zenpai6996"}
+										>
+											Souharda
+										</Link>
+									</p>
+
+									<p className="text-sm text-gray-600 dark:text-gray-400">
+										© 2025 FlowState. All rights reserved.
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
