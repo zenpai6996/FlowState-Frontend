@@ -1,170 +1,219 @@
-import { motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+"use client";
+
+import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { cn } from "~/lib/utils";
 
 interface AnimatedGradientBackgroundProps {
-	/**
-	 * Initial size of the radial gradient, defining the starting width.
-	 * @default 110
-	 */
-	startingGap?: number;
-
-	/**
-	 * Enables or disables the breathing animation effect.
-	 * @default false
-	 */
-	Breathing?: boolean;
-
-	/**
-	 * Array of colors to use in the radial gradient.
-	 * Each color corresponds to a stop percentage in `gradientStops`.
-	 * @default ["#0A0A0A", "#2979FF", "#FF80AB", "#FF6D00", "#FFD600", "#00E676", "#3D5AFE"]
-	 */
-	gradientColors?: string[];
-
-	/**
-	 * Array of percentage stops corresponding to each color in `gradientColors`.
-	 * The values should range between 0 and 100.
-	 * @default [35, 50, 60, 70, 80, 90, 100]
-	 */
-	gradientStops?: number[];
-
-	/**
-	 * Speed of the breathing animation.
-	 * Lower values result in slower animation.
-	 * @default 0.02
-	 */
-	animationSpeed?: number;
-
-	/**
-	 * Maximum range for the breathing animation in percentage points.
-	 * Determines how much the gradient "breathes" by expanding and contracting.
-	 * @default 5
-	 */
-	breathingRange?: number;
-
-	/**
-	 * Additional inline styles for the gradient container.
-	 * @default {}
-	 */
-	containerStyle?: React.CSSProperties;
-
-	/**
-	 * Additional class names for the gradient container.
-	 * @default ""
-	 */
-	containerClassName?: string;
-
-	/**
-	 * Additional top offset for the gradient container form the top to have a more flexible control over the gradient.
-	 * @default 0
-	 */
-	topOffset?: number;
+	className?: string;
+	children?: React.ReactNode;
+	intensity?: "subtle" | "medium" | "strong";
 }
 
-/**
- * AnimatedGradientBackground
- *
- * This component renders a customizable animated radial gradient background with a subtle breathing effect.
- * It uses `framer-motion` for an entrance animation and raw CSS gradients for the dynamic background.
- *
- *
- * @param {AnimatedGradientBackgroundProps} props - Props for configuring the gradient animation.
- * @returns JSX.Element
- */
-const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProps> = ({
-	startingGap = 125,
-	Breathing = false,
-	gradientColors = [
-		"#0A0A0A",
-		"#2979FF",
-		"#FF80AB",
-		"#FF6D00",
-		"#FFD600",
-		"#00E676",
-		"#3D5AFE",
-	],
-	gradientStops = [35, 50, 60, 70, 80, 90, 100],
-	animationSpeed = 0.02,
-	breathingRange = 5,
-	containerStyle = {},
-	topOffset = 0,
-	containerClassName = "",
-}) => {
-	// Validation: Ensure gradientStops and gradientColors lengths match
-	if (gradientColors.length !== gradientStops.length) {
-		throw new Error(
-			`GradientColors and GradientStops must have the same length.
-     Received gradientColors length: ${gradientColors.length},
-     gradientStops length: ${gradientStops.length}`
-		);
-	}
+interface Beam {
+	x: number;
+	y: number;
+	width: number;
+	length: number;
+	angle: number;
+	speed: number;
+	opacity: number;
+	hue: number;
+	pulse: number;
+	pulseSpeed: number;
+}
 
-	const containerRef = useRef<HTMLDivElement | null>(null);
+function createBeam(width: number, height: number): Beam {
+	const angle = -35 + Math.random() * 10;
+	return {
+		x: Math.random() * width * 1.5 - width * 0.25,
+		y: Math.random() * height * 1.5 - height * 0.25,
+		width: 30 + Math.random() * 60,
+		length: height * 2.5,
+		angle: angle,
+		speed: 0.6 + Math.random() * 1.2,
+		opacity: 0.12 + Math.random() * 0.16,
+		hue: 190 + Math.random() * 70,
+		pulse: Math.random() * Math.PI * 2,
+		pulseSpeed: 0.02 + Math.random() * 0.03,
+	};
+}
+
+export function BeamsBackground({
+	className,
+	intensity = "strong",
+}: AnimatedGradientBackgroundProps) {
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const beamsRef = useRef<Beam[]>([]);
+	const animationFrameRef = useRef<number>(0);
+	const MINIMUM_BEAMS = 20;
+
+	const opacityMap = {
+		subtle: 0.7,
+		medium: 0.85,
+		strong: 1,
+	};
 
 	useEffect(() => {
-		let animationFrame: number;
-		let width = startingGap;
-		let directionWidth = 1;
+		const canvas = canvasRef.current;
+		if (!canvas) return;
 
-		const animateGradient = () => {
-			if (width >= startingGap + breathingRange) directionWidth = -1;
-			if (width <= startingGap - breathingRange) directionWidth = 1;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
 
-			if (!Breathing) directionWidth = 0;
-			width += directionWidth * animationSpeed;
+		const updateCanvasSize = () => {
+			const dpr = window.devicePixelRatio || 1;
+			canvas.width = window.innerWidth * dpr;
+			canvas.height = window.innerHeight * dpr;
+			canvas.style.width = `${window.innerWidth}px`;
+			canvas.style.height = `${window.innerHeight}px`;
+			ctx.scale(dpr, dpr);
 
-			const gradientStopsString = gradientStops
-				.map((stop, index) => `${gradientColors[index]} ${stop}%`)
-				.join(", ");
-
-			const gradient = `radial-gradient(${width}% ${
-				width + topOffset
-			}% at 50% 20%, ${gradientStopsString})`;
-
-			if (containerRef.current) {
-				containerRef.current.style.background = gradient;
-			}
-
-			animationFrame = requestAnimationFrame(animateGradient);
+			const totalBeams = MINIMUM_BEAMS * 1.5;
+			beamsRef.current = Array.from({ length: totalBeams }, () =>
+				createBeam(canvas.width, canvas.height)
+			);
 		};
 
-		animationFrame = requestAnimationFrame(animateGradient);
+		updateCanvasSize();
+		window.addEventListener("resize", updateCanvasSize);
 
-		return () => cancelAnimationFrame(animationFrame); // Cleanup animation
-	}, [
-		startingGap,
-		Breathing,
-		gradientColors,
-		gradientStops,
-		animationSpeed,
-		breathingRange,
-		topOffset,
-	]);
+		function resetBeam(beam: Beam, index: number, totalBeams: number) {
+			if (!canvas) return beam;
+
+			const column = index % 3;
+			const spacing = canvas.width / 3;
+
+			beam.y = canvas.height + 100;
+			beam.x =
+				column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
+			beam.width = 100 + Math.random() * 100;
+			beam.speed = 0.5 + Math.random() * 0.4;
+			beam.hue = 190 + (index * 70) / totalBeams;
+			beam.opacity = 0.2 + Math.random() * 0.1;
+			return beam;
+		}
+
+		function drawBeam(ctx: CanvasRenderingContext2D, beam: Beam) {
+			ctx.save();
+			ctx.translate(beam.x, beam.y);
+			ctx.rotate((beam.angle * Math.PI) / 180);
+
+			// Calculate pulsing opacity
+			const pulsingOpacity =
+				beam.opacity *
+				(0.8 + Math.sin(beam.pulse) * 0.2) *
+				opacityMap[intensity];
+
+			const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
+
+			// Enhanced gradient with multiple color stops
+			gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 65%, 0)`);
+			gradient.addColorStop(
+				0.1,
+				`hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
+			);
+			gradient.addColorStop(
+				0.4,
+				`hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
+			);
+			gradient.addColorStop(
+				0.6,
+				`hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
+			);
+			gradient.addColorStop(
+				0.9,
+				`hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
+			);
+			gradient.addColorStop(1, `hsla(${beam.hue}, 85%, 65%, 0)`);
+
+			ctx.fillStyle = gradient;
+			ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
+			ctx.restore();
+		}
+
+		function animate() {
+			if (!canvas || !ctx) return;
+
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.filter = "blur(35px)";
+
+			const totalBeams = beamsRef.current.length;
+			beamsRef.current.forEach((beam, index) => {
+				beam.y -= beam.speed;
+				beam.pulse += beam.pulseSpeed;
+
+				// Reset beam when it goes off screen
+				if (beam.y + beam.length < -100) {
+					resetBeam(beam, index, totalBeams);
+				}
+
+				drawBeam(ctx, beam);
+			});
+
+			animationFrameRef.current = requestAnimationFrame(animate);
+		}
+
+		animate();
+
+		return () => {
+			window.removeEventListener("resize", updateCanvasSize);
+			if (animationFrameRef.current) {
+				cancelAnimationFrame(animationFrameRef.current);
+			}
+		};
+	}, [intensity]);
 
 	return (
-		<motion.div
-			key="animated-gradient-background"
-			initial={{
-				opacity: 0,
-				scale: 1.5,
-			}}
-			animate={{
-				opacity: 1,
-				scale: 1,
-				transition: {
-					duration: 2,
-					ease: [0.25, 0.1, 0.25, 1], // Cubic bezier easing
-				},
-			}}
-			className={`absolute inset-0 overflow-hidden ${containerClassName}`}
+		<div
+			className={cn(
+				"relative min-h-screen w-full overflow-hidden bg-neutral-950",
+				className
+			)}
 		>
-			<div
-				ref={containerRef}
-				style={containerStyle}
-				className="absolute inset-0 transition-transform"
+			<canvas
+				ref={canvasRef}
+				className="absolute inset-0"
+				style={{ filter: "blur(15px)" }}
 			/>
-		</motion.div>
-	);
-};
 
-export default AnimatedGradientBackground;
+			<motion.div
+				className="absolute inset-0 bg-neutral-950/5"
+				animate={{
+					opacity: [0.05, 0.15, 0.05],
+				}}
+				transition={{
+					duration: 10,
+					ease: "easeInOut",
+					repeat: Number.POSITIVE_INFINITY,
+				}}
+				style={{
+					backdropFilter: "blur(50px)",
+				}}
+			/>
+
+			<div className="relative z-10 flex h-screen w-full items-center justify-center">
+				<div className="flex flex-col items-center justify-center gap-6 px-4 text-center">
+					<motion.h1
+						className="text-6xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8 }}
+					>
+						Beams
+						<br />
+						Background
+					</motion.h1>
+					<motion.p
+						className="text-lg md:text-2xl lg:text-3xl text-white/70 tracking-tighter"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8 }}
+					>
+						For your pleasure
+					</motion.p>
+				</div>
+			</div>
+		</div>
+	);
+}
