@@ -53,7 +53,9 @@ export const SidebarComponent = ({
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
 								<Link to="/">
+
 									<Component className="size-6 text-primary md:block hidden dark:hover:animate-spin transition-all duration-150 ease-in-out" />
+
 								</Link>
 								<span
 									style={{ fontFamily: "Air" }}
