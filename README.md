@@ -1,25 +1,36 @@
 <div align="center">
   <a href="https://github.com/zenpai6996/FlowState-Frontend">
-    <img src="./banner.svg" alt="FlowState Banner" style="width: 100%; max-width: 1200px; height: auto;" />
+    <img src="./banner1.svg" alt="FlowState Banner" style="width: 100%; max-width: 1200px; height: auto;" />
   </a>
 </div>
 
 <div align="center">
+  
+
+ 
+  <h3>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</h3>
+</div>
+
+<div align="center" >
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
 </div>
 
+
+
+
+
 <div align="center">
+
   
   [![GitHub Repo](https://badgen.net/badge/icon/github?icon=github&label=FlowState%20Backend)](https://github.com/zenpai6996/FlowState-Backend)
 
-  <h3>🚀 A Modern Project Management Solution</h3>
-  <p>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</p>
 </div>
 
----
+
+
 
 ## ✨ Features
 
