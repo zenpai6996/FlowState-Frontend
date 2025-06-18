@@ -26,13 +26,12 @@
 ### 🔥 Advanced Features
 - **Kanban Boards** - Visualize your workflow with drag-and-drop boards
 - **Time Tracking** - Monitor time spent on tasks and projects
-- **File Management** - Upload and organize project files
 - **Activity Feed** - Stay updated with real-time project activities
 - **Custom Workflows** - Tailor the system to your team's needs
 
 ### 💎 User Experience
 - **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **Dark/Light Mode** - Choose your preferred theme
+- **Multiple Themes** - Choose your preferred theme
 - **Intuitive Interface** - Clean, modern design for maximum productivity
 - **Fast Performance** - Optimized for speed and efficiency
 
