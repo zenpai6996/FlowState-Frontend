@@ -1,10 +1,19 @@
-# FlowState - Frontend
+<div align="center">
+  <a href="https://github.com/zenpai6996/FlowState-Frontend">
+    <img src="./banner.svg" alt="FlowState - Modern Project Management Solution" width="100%"  />
+  </a>
+</div>
 
 <div align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+</div>
+
+<div align="center">
+  
+  [![GitHub Repo](https://badgen.net/badge/icon/github?icon=github&label=FlowState%20Backend)](https://github.com/zenpai6996/FlowState-Backend)
 </div>
 
 <div align="center">
@@ -16,24 +25,39 @@
 
 ## ✨ Features
 
+## ✨ Features
+
+<div align="center">
+
 ### 🎯 Core Functionality
-- **Project Dashboard** - Get a bird's-eye view of all your projects
-- **Task Management** - Create, assign, and track tasks with ease
-- **Team Collaboration** - Real-time updates and team communication
-- **Progress Tracking** - Visual progress indicators and completion metrics
-- **Deadline Management** - Never miss important deadlines again
+
+| Feature | Description |
+|---------|-------------|
+| **🏠 Project Dashboard** | Get a bird's-eye view of all your projects |
+| **✅ Task Management** | Create, assign, and track tasks with ease |
+| **👥 Team Collaboration** | Real-time updates and team communication |
+| **📊 Progress Tracking** | Visual progress indicators and completion metrics |
+| **⏰ Deadline Management** | Never miss important deadlines again |
 
 ### 🔥 Advanced Features
-- **Kanban Boards** - Visualize your workflow with drag-and-drop boards
-- **Time Tracking** - Monitor time spent on tasks and projects
-- **Activity Feed** - Stay updated with real-time project activities
-- **Custom Workflows** - Tailor the system to your team's needs
+
+| Feature | Description |
+|---------|-------------|
+| **📋 Kanban Boards** | Visualize your workflow with drag-and-drop boards |
+| **⏱️ Time Tracking** | Monitor time spent on tasks and projects |
+| **📢 Activity Feed** | Stay updated with real-time project activities |
+| **🔧 Custom Workflows** | Tailor the system to your team's needs |
 
 ### 💎 User Experience
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **Multiple Themes** - Choose your preferred theme
-- **Intuitive Interface** - Clean, modern design for maximum productivity
-- **Fast Performance** - Optimized for speed and efficiency
+
+| Feature | Description |
+|---------|-------------|
+| **📱 Responsive Design** | Works seamlessly on desktop, tablet, and mobile |
+| **🎨 Multiple Themes** | Choose your preferred theme |
+| **🎯 Intuitive Interface** | Clean, modern design for maximum productivity |
+| **⚡ Fast Performance** | Optimized for speed and efficiency |
+
+</div>
 
 ---
 
@@ -103,9 +127,27 @@
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint errors |
-| `npm run type-check` | Run TypeScript type checking |
+
+## 📸 Screenshots
+
+<div align="center">
+
+| Landing | Dashboard |
+|:--------------:|:------------------:|
+| <img width="450" alt="FlowState Dashboard" src="https://github.com/user-attachments/assets/2512cff6-6ab6-43d6-b500-b768b514d61f" /> | <img width="450" alt="Project Overview" src="https://github.com/user-attachments/assets/4cf574c6-7340-4259-a75c-1170d6d86693"/> |
+
+| Project view | Project Management |
+|:---------------:|:------------------:|
+| <img width="450" alt="Task Board" src="https://github.com/user-attachments/assets/4c5ef4fd-7c01-4e8f-bbc2-35d01316f717" /> | <img width="450" alt="Team Workspace" src="https://github.com/user-attachments/assets/8ed3f15c-29d5-4ddd-89c6-52f8c4828b70" /> |
+
+| Task view | Task Management  |
+|:-------------------:|:------------------------:|
+| <img width="450" alt="Analytics Dashboard" src="https://github.com/user-attachments/assets/65f68a3f-b571-4ef1-93ad-4d5fd8b8aafa"/> | <img width="450" alt="App Settings" src="https://github.com/user-attachments/assets/d648bd39-31c3-41d7-9f3d-520b8286785f"/> |
+
+</div>
+
+
+
 
 ---
 
@@ -220,4 +262,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   <p>⭐ If you found this project helpful, please give it a star!</p>
   <p>Crafted with 💛 by Souharda</p>
+</div>
+
+
+<div align="center">
+
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=22C55E&height=100&section=footer)
+
 </div>
