@@ -91,11 +91,11 @@
 |:--------------:|:------------------:|
 | <img width="450" alt="FlowState Dashboard" src="https://github.com/user-attachments/assets/2512cff6-6ab6-43d6-b500-b768b514d61f" /> | <img width="450" alt="Project Overview" src="https://github.com/user-attachments/assets/4cf574c6-7340-4259-a75c-1170d6d86693"/> |
 
-| Workspace View | Projects Management |
+| Workspace  | Projects  |
 |:---------------:|:------------------:|
 | <img width="450" alt="Task Board" src="https://github.com/user-attachments/assets/4c5ef4fd-7c01-4e8f-bbc2-35d01316f717" /> | <img width="450" alt="Team Workspace" src="https://github.com/user-attachments/assets/8ed3f15c-29d5-4ddd-89c6-52f8c4828b70" /> |
 
-| Tasks Management | Tasks view |
+| Tasks | Kanban |
 |:-------------------:|:------------------------:|
 | <img width="450" alt="Analytics Dashboard" src="https://github.com/user-attachments/assets/65f68a3f-b571-4ef1-93ad-4d5fd8b8aafa"/> | <img width="450" alt="App Settings" src="https://github.com/user-attachments/assets/d648bd39-31c3-41d7-9f3d-520b8286785f"/> |
 
@@ -198,23 +198,10 @@ FlowState follows a consistent design system with:
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `VITE_API_BASE_URL` | Backend API URL | `http://localhost:5000/api` |
-| `VITE_APP_NAME` | Application name | `FlowState` |
-
-### Customization
-
-You can customize the application by modifying:
-- `tailwind.config.js` - Tailwind CSS configuration
-- `src/styles/globals.css` - Global styles
-- `src/utils/constants.ts` - Application constants
 
 
 
----
+
 
 ## 📱 Mobile Support
 
