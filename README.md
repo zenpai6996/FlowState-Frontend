@@ -196,8 +196,6 @@ FlowState follows a consistent design system with:
 
 ---
 
-## 🔧 Configuration
-
 
 
 
