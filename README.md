@@ -184,7 +184,6 @@ FlowState follows a consistent design system with:
 |----------|-------------|---------|
 | `VITE_API_BASE_URL` | Backend API URL | `http://localhost:5000/api` |
 | `VITE_APP_NAME` | Application name | `FlowState` |
-| `VITE_ENABLE_ANALYTICS` | Enable analytics | `false` |
 
 ### Customization
 
@@ -193,25 +192,7 @@ You can customize the application by modifying:
 - `src/styles/globals.css` - Global styles
 - `src/utils/constants.ts` - Application constants
 
----
 
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-npm run test
-# or
-yarn test
-```
-
-Run tests with coverage:
-
-```bash
-npm run test:coverage
-# or
-yarn test:coverage
-```
 
 ---
 
