@@ -1,4 +1,8 @@
-# FlowState - Frontend
+<div align="center">
+  <a href="https://github.com/zenpai6996/FlowState-Frontend">
+    <img src="./banner.svg" alt="FlowState Banner" style="width: 100%; max-width: 1200px; height: auto;" />
+  </a>
+</div>
 
 <div align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
@@ -8,6 +12,9 @@
 </div>
 
 <div align="center">
+  
+  [![GitHub Repo](https://badgen.net/badge/icon/github?icon=github&label=FlowState%20Backend)](https://github.com/zenpai6996/FlowState-Backend)
+
   <h3>🚀 A Modern Project Management Solution</h3>
   <p>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</p>
 </div>
@@ -16,24 +23,38 @@
 
 ## ✨ Features
 
+
+<div align="center">
+
 ### 🎯 Core Functionality
-- **Project Dashboard** - Get a bird's-eye view of all your projects
-- **Task Management** - Create, assign, and track tasks with ease
-- **Team Collaboration** - Real-time updates and team communication
-- **Progress Tracking** - Visual progress indicators and completion metrics
-- **Deadline Management** - Never miss important deadlines again
+
+| Feature | Description |
+|---------|-------------|
+| **🏠 Project Dashboard** | Get a bird's-eye view of all your projects |
+| **✅ Task Management** | Create, assign, and track tasks with ease |
+| **👥 Team Collaboration** | Real-time updates and team communication |
+| **📊 Progress Tracking** | Visual progress indicators and completion metrics |
+| **⏰ Deadline Management** | Never miss important deadlines again |
 
 ### 🔥 Advanced Features
-- **Kanban Boards** - Visualize your workflow with drag-and-drop boards
-- **Time Tracking** - Monitor time spent on tasks and projects
-- **Activity Feed** - Stay updated with real-time project activities
-- **Custom Workflows** - Tailor the system to your team's needs
+
+| Feature | Description |
+|---------|-------------|
+| **📋 Kanban Boards** | Visualize your workflow with drag-and-drop boards |
+| **⏱️ Time Tracking** | Monitor time spent on tasks and projects |
+| **📢 Activity Feed** | Stay updated with real-time project activities |
+| **🔧 Custom Workflows** | Tailor the system to your team's needs |
 
 ### 💎 User Experience
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **Multiple Themes** - Choose your preferred theme
-- **Intuitive Interface** - Clean, modern design for maximum productivity
-- **Fast Performance** - Optimized for speed and efficiency
+
+| Feature | Description |
+|---------|-------------|
+| **📱 Responsive Design** | Works seamlessly on desktop, tablet, and mobile |
+| **🎨 Multiple Themes** | Choose your preferred theme |
+| **🎯 Intuitive Interface** | Clean, modern design for maximum productivity |
+| **⚡ Fast Performance** | Optimized for speed and efficiency |
+
+</div>
 
 ---
 
@@ -221,3 +242,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <p>⭐ If you found this project helpful, please give it a star!</p>
   <p>Crafted with 💛 by Souharda</p>
 </div>
+
+
+
+
