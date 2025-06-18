@@ -136,7 +136,9 @@ const Navbar = () => {
 					<div className="hidden md:flex items-center space-x-4">
 						<Link to={"https://github.com/zenpai6996"}>
 							<Button
-								variant="customNeonOutline"
+
+								variant="liquidMetal"
+
 								size="icon"
 								className="p-2 rounded-full dark:text-primary"
 							>
@@ -146,8 +148,10 @@ const Navbar = () => {
 						<ModeToggle />
 						<Link to="/sign-in">
 							<Button
-								variant={"glassNeon"}
-								className="hover:bg-blue-50 dark:hover:bg-gray-800"
+
+								variant={"glassMorph"}
+								className="hover:bg-blue-50 dark:text-primary"
+
 							>
 								Login
 							</Button>
@@ -166,7 +170,9 @@ const Navbar = () => {
 					<div className="md:hidden flex items-center space-x-2">
 						<Link to={"https://github.com/zenpai6996"}>
 							<Button
-								variant="customNeonOutline"
+
+								variant="liquidMetal"
+
 								size="icon"
 								className="p-2 rounded-full dark:text-primary"
 							>
@@ -175,7 +181,13 @@ const Navbar = () => {
 						</Link>
 						<ModeToggle />
 						<Link to="/sign-in">
-							<Button variant="glassNeon" size="icon">
+
+							<Button
+								variant="glassMirror"
+								className="dark:text-primary"
+								size="icon"
+							>
+
 								<LogIn />
 							</Button>
 						</Link>
@@ -259,7 +271,9 @@ const Footer = () => {
 	const navigate = useNavigate();
 	return (
 		<>
-			<footer className="relative bg-gray-50 dark:bg-transparent backdrop-blur-3xl border-t border-gray-200 dark:border-primary">
+
+			<footer className="relative bg-gray-50 dark:bg-muted backdrop-blur-6xl border-t border-gray-200 z-10 dark:border-primary">
+
 				<div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-12">
 					<div className="grid grid-cols-2 md:grid-cols-6 gap-8">
 						{/* Logo and Description */}

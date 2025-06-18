@@ -195,7 +195,7 @@ const Header = ({
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>
-								<Link to="user/profile" className="flex flex-row">
+								<Link to="/user" className="flex flex-row">
 									Profile <CircleUserRound className="ml-15" />
 								</Link>
 							</DropdownMenuItem>
