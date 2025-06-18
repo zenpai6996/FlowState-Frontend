@@ -35,7 +35,7 @@
 ## ✨ Features
 
 
-<div align="center">
+<div align="left">
 
 ### 🎯 Core Functionality
 
