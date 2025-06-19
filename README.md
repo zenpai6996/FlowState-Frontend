@@ -89,6 +89,39 @@
 
 ---
 
+## 🏗️ Project Structure
+
+```
+FlowState-Frontend/
+├── .react-router/         # React Router cache
+├── app/                   # Main app directory
+│   ├── assets/           # Static assets (images, icons, etc.)
+│   ├── components/       # Reusable UI components
+│   ├── hooks/            # Custom React hooks
+│   ├── lib/              # Utility libraries
+│   ├── provider/         # Context providers
+│   ├── routes/           # Route definitions
+│   ├── types/            # TypeScript type definitions
+│   ├── welcome/          # Welcome page components
+│   ├── app.css          # Global app styles
+│   ├── root.tsx         # Root component
+│   └── routes.ts        # Route configuration
+├── public/              # Public static files
+├── .env                 # Environment variables
+├── .gitignore           # Git ignore file
+├── banner1.svg          # Project banner
+├── components.json      # Component configuration
+├── LICENSE              # License file
+├── package-lock.json    # Lock file
+├── package.json         # Package configuration
+├── react-router.config.ts # React Router configuration
+├── README.md            # Documentation
+├── tsconfig.json        # TypeScript configuration
+└── vite.config.ts       # Vite build configuration
+```
+
+---
+
 ## 📸 Screenshots
 
 <div align="center">
@@ -154,41 +187,9 @@
 
 ---
 
-## 📦 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint errors |
-| `npm run type-check` | Run TypeScript type checking |
 
----
 
-## 🏗️ Project Structure
-
-```
-FlowState-Frontend/
-├── public/                 # Static assets
-├── src/
-│   ├── components/         # Reusable UI components
-│   │   ├── ui/            # Base UI components
-│   │   ├── forms/         # Form components
-│   │   └── layout/        # Layout components
-│   ├── pages/             # Page components
-│   ├── hooks/             # Custom React hooks
-│   ├── services/          # API services
-│   ├── store/             # State management
-│   ├── utils/             # Utility functions
-│   ├── types/             # TypeScript type definitions
-│   └── styles/            # Global styles
-├── tests/                 # Test files
-└── docs/                  # Documentation
-```
-
----
 
 ## 🎨 Design System
 
