@@ -18,6 +18,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardTitle } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import CommentSection from "~/components/ui/task/comment-section";
+import { DeleteConfirmationDialog } from "~/components/ui/task/delete-confirmation";
 import SubtaskDetails from "~/components/ui/task/Subtask/subtask-details";
 import TaskActivity from "~/components/ui/task/task-activity";
 import TaskAssigneesSelector from "~/components/ui/task/task-assignees-selector";
@@ -28,6 +29,7 @@ import TaskTitle from "~/components/ui/task/TaskTitle";
 import Watchers from "~/components/ui/task/Watchers";
 import {
 	useArchiveTask,
+	useDeleteTask,
 	useTaskByIdQuery,
 	useWatchTask,
 } from "~/hooks/use-tasks";
@@ -38,6 +40,8 @@ import type { Project, Task } from "~/types";
 const TaskDetails = () => {
 	const { user } = useAuth();
 	const [isPanelOpen, setIsPanelOpen] = useState(false);
+	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
 	const { taskId, projectId, workspaceId } = useParams<{
 		taskId: string;
 		projectId: string;
@@ -56,6 +60,37 @@ const TaskDetails = () => {
 
 	const { mutate: watchTask, isPending: isWatching } = useWatchTask();
 	const { mutate: archivedTask, isPending: isArchiving } = useArchiveTask();
+	const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask();
+	const handleDeleteTask = () => {
+		if (
+			!task.assignees.some(
+				(assignee) => assignee._id?.toString() === user?._id?.toString()
+			)
+		) {
+			toast.error("Only task assignees can delete this task");
+			return;
+		}
+		setIsDeleteDialogOpen(true);
+	};
+
+	const handleConfirmDelete = () => {
+		deleteTask(task._id, {
+			onSuccess: () => {
+				toast.success("Task deleted successfully");
+				navigate(-1); // Go back after deletion
+			},
+			onError: (error: any) => {
+				const errorMessage =
+					error.response?.data?.message || "Failed to delete task";
+				toast.error("Delete failed", {
+					description: errorMessage,
+				});
+			},
+			onSettled: () => {
+				setIsDeleteDialogOpen(false);
+			},
+		});
+	};
 
 	if (isLoading)
 		return (
@@ -126,13 +161,6 @@ const TaskDetails = () => {
 			<div className="flex flex-row md:flex-row items-center justify-between mb-3">
 				<BackButton className="mb-0" />
 
-				<div className="flex flex-row md:flex-row md:items-center">
-					{task.isArchived && (
-						<Badge className="ml-2" variant={"glassHologram"}>
-							Archived
-						</Badge>
-					)}
-				</div>
 				<div className="flex space-x-2 mt-4 md:mt-0">
 					<Button
 						title={isUserWatching ? "Unwatch" : "Watch"}
@@ -172,12 +200,13 @@ const TaskDetails = () => {
 					</Button>
 					<Button
 						variant={"neomorphic"}
-						onClick={() => {}}
-						className="border dark:hover:border-red-400 "
+						onClick={handleDeleteTask}
+						className="border dark:hover:border-red-400"
+						disabled={isDeleting}
 					>
-						<Trash2Icon className=" dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
+						<Trash2Icon className="dark:text-red-400 rounded-full size-4 md:size-5 flex-shrink-0" />
 						<span className="hidden text-xs dark:text-red-400 md:text-sm xs:inline sm:inline whitespace-nowrap">
-							Delete Task
+							{isDeleting ? "Deleting..." : "Delete Task"}
 						</span>
 					</Button>
 				</div>
@@ -193,12 +222,22 @@ const TaskDetails = () => {
 									<TaskTitle title={task.title} taskId={task._id} />
 								</CardTitle>
 
-								<div className=" flex text-sm mt-2 md:text-base text-muted-foreground">
-									<span className="text-primary">Created:&nbsp; </span>
-									{formatDistanceToNow(new Date(task.createdAt), {
-										addSuffix: true,
-									})}
+								<div className=" flex text-sm mt-2 md:text-base ">
+									<h3 className="text-primary">Created:&nbsp; </h3>
+									<span style={{ fontFamily: "Geo" }}>
+										{formatDistanceToNow(new Date(task.createdAt), {
+											addSuffix: true,
+										})}
+									</span>
 								</div>
+								{task.isArchived && (
+									<Badge
+										className="mt-2 text-[10px] text-primary"
+										variant={"glassHologram"}
+									>
+										Archived
+									</Badge>
+								)}
 								<div className="flex flex-row mt-2">
 									<Badge
 										variant={"glassMorph"}
@@ -315,7 +354,7 @@ const TaskDetails = () => {
 			{/* Mobile Toggle Button (only visible on small screens) */}
 			<button
 				onClick={() => setIsPanelOpen(!isPanelOpen)}
-				className=" fixed md:top-80  right-6 opacity-90 z-40 bg-primary text-muted p-3 rounded-full shadow-lg"
+				className=" fixed top-70 md:top-80 right-5  md:right-6 opacity-90 z-40 bg-primary text-muted p-2 md:p-3 rounded-full shadow-lg"
 			>
 				{isPanelOpen ? (
 					<X className="h-6 w-6" />
@@ -323,6 +362,12 @@ const TaskDetails = () => {
 					<CircleArrowLeft className="h-6 w-6 animate-pulse" />
 				)}
 			</button>
+			<DeleteConfirmationDialog
+				open={isDeleteDialogOpen}
+				onOpenChange={setIsDeleteDialogOpen}
+				onConfirm={handleConfirmDelete}
+				isLoading={isDeleting}
+			/>
 		</div>
 	);
 };

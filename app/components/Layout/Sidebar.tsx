@@ -1,12 +1,10 @@
 import {
-	Bolt,
 	ChevronLeft,
 	ChevronRightIcon,
 	Component,
 	Home,
 	ListChecks,
 	LogOut,
-	MonitorCheck,
 	MonitorCog,
 	Users2,
 } from "lucide-react";
@@ -22,20 +20,20 @@ import SidebarNav from "./SidebarNav";
 export const SidebarComponent = ({
 	currentWorkspace,
 	isMobileOpen,
+	onClose,
 }: {
 	currentWorkspace: Workspace | null;
 	isMobileOpen: boolean;
+	onClose: () => void;
 }) => {
 	const { user, logout } = useAuth();
 	const [isCollapsed, setIsCollapsed] = useState(false);
 
 	const navItems = [
-		{ title: "Dashboard", href: "/dashboard", icon: Home },
+		{ title: "Dashboard", href: `/dashboard`, icon: Home },
 		{ title: "Workspaces", href: "/workspaces", icon: MonitorCog },
-		{ title: "My Tasks", href: "/my-tasks", icon: ListChecks },
+		{ title: "Tasks", href: "/my-tasks", icon: ListChecks },
 		{ title: "Members", href: "/members", icon: Users2 },
-		{ title: "Achieved", href: "/achieved", icon: MonitorCheck },
-		{ title: "Settings", href: "/settings", icon: Bolt },
 	];
 
 	return (
@@ -51,16 +49,22 @@ export const SidebarComponent = ({
 				)}
 			>
 				<div className="flex h-14 items-center dark:border-b rounded-r-2xl rounded-l-2xl border-accent px-4 mb-4">
-					<Link to={"/dashboard"} className="flex items-center">
+					<div className="flex items-center hover:scale-101 transition-all duration-200 ease-in-out">
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
-								<Component className="size-6 text-primary dark:hover:animate-spin transition-all duration-150 ease-in-out" />
-								<span className="font-semibold text-lg hidden md:block">
-									FlowState
-								</span>
+								<Link to="/">
+									<Component className="size-6  text-primary block md:hidden dark:hover:animate-spin transition-all duration-150 ease-in-out" />
+
+									<span
+										style={{ fontFamily: "Air" }}
+										className=" text-3xl mb-2 text-primary hidden md:block"
+									>
+										FlowState
+									</span>
+								</Link>
 							</div>
 						) : null}
-					</Link>
+					</div>
 
 					<Button
 						variant={"glassMirror"}

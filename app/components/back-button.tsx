@@ -18,7 +18,6 @@ const BackButton = ({ className }: { className?: string }) => {
 			aria-label="Go back to previous page"
 		>
 			<ArrowLeft className="size-3 sm:size-4 md:size-5 flex-shrink-0" />
-			<span className="hidden xs:inline sm:inline whitespace-nowrap">Back</span>
 		</Button>
 	);
 };

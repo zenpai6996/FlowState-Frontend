@@ -117,10 +117,10 @@ const CommentSection = ({
 												</Avatar>
 												<div className="flex-1 min-w-0">
 													<div className="flex items-center justify-between gap-2 mb-1">
-														<span className="text-sm font-medium text-foreground truncate">
+														<span className=" text-xs md:text-sm font-medium text-foreground truncate">
 															{comment.author.name}
 														</span>
-														<span className="text-xs text-muted-foreground flex-shrink-0">
+														<span className="text-[10px] md:text-xs text-muted-foreground flex-shrink-0">
 															{formatDistanceToNow(
 																new Date(comment.createdAt),
 																{
@@ -129,7 +129,10 @@ const CommentSection = ({
 															)}
 														</span>
 													</div>
-													<p className="text-sm text-muted-foreground leading-relaxed break-words">
+													<p
+														style={{ fontFamily: "Geo" }}
+														className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
+													>
 														{comment.text}
 													</p>
 												</div>

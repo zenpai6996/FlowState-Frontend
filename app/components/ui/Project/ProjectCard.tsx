@@ -35,7 +35,10 @@ const ProjectCard = ({ project, progress, workspaceId }: ProjectCardTypes) => {
 							{project.status}
 						</span>
 					</div>
-					<CardDescription className="line-clamp-1 mt-2">
+					<CardDescription
+						className="line-clamp-1 mt-2 text-xs md:text-md text-muted-foreground"
+						style={{ fontFamily: "Comfort" }}
+					>
 						{project.description || "No Description"}
 					</CardDescription>
 				</CardHeader>

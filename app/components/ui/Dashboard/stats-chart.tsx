@@ -15,6 +15,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import { useMediaQuery } from "~/hooks/use-media-query";
 import type {
 	ProjectStatusProps,
 	StatsProps,
@@ -132,6 +133,13 @@ const StatisticsCharts = ({
 				  ],
 		[filteredTaskPriorityData]
 	);
+	const isMobile = useMediaQuery("(max-width: 768px)");
+
+	const filteredProductivityData = useMemo(() => {
+		return isMobile
+			? workspaceProductivityData.slice(0, 3)
+			: workspaceProductivityData.slice(0, 6);
+	}, [workspaceProductivityData, isMobile]);
 
 	return (
 		<div className="space-y-4 mb-8">
@@ -270,17 +278,17 @@ const StatisticsCharts = ({
 				</CardHeader>
 				<CardContent className="w-full h-[300px] pt-1">
 					<ResponsiveContainer width="100%" height="100%">
-						<BarChart data={workspaceProductivityData}>
+						<BarChart data={filteredProductivityData}>
 							<CartesianGrid strokeDasharray="3 3" vertical={false} />
 							<XAxis
 								dataKey="name"
 								angle={0}
 								height={60}
-								tick={{ fontSize: 11 }}
+								tick={{ fontSize: 11, color: "white" }}
 								interval={0}
 							/>
 							<YAxis
-								tick={{ fontSize: 11 }}
+								tick={{ fontSize: 11, color: "white" }}
 								tickLine={false}
 								axisLine={false}
 							/>

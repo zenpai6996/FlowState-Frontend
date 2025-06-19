@@ -1,7 +1,13 @@
 import { FolderArchiveIcon, FolderOpenDot } from "lucide-react";
 import type { StatsProps } from "~/types";
 import { Badge } from "../badge";
-import { Card, CardContent, CardHeader, CardTitle } from "../card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "../card";
 
 const StatCard = ({ data }: { data: StatsProps }) => {
 	// Check if project data exists
@@ -29,7 +35,7 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 					<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10" />
 					<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 						<div className="flex gap-4 justify-between w-full">
-							<CardTitle className="text-xl font-medium text-slate-600 dark:text-slate-300">
+							<CardTitle className="text-xl font-bold text-slate-600 dark:text-slate-300">
 								Projects:
 							</CardTitle>
 							<div className="text-xl text-muted-foreground font-bold opacity-60">
@@ -55,50 +61,56 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 		}
 
 		return (
-			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 group">
-				<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10" />
+			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-primary/30 dark:to-primary/10 shadow-lg hover:shadow-xl transition-all duration-300 group">
+				<div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/5 dark:from-primary/10 dark:to-primary/10" />
 				<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 					<div className="flex gap-4 justify-between w-full">
-						<CardTitle className="text-xl font-semibold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+						<CardTitle className="text-xl font-semibold bg-gradient-to-r ">
 							Projects:
 						</CardTitle>
-						<div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+						<div className="text-xl font-bold bg-gradient-to-r  group-hover:scale-110 transition-transform duration-300">
 							{data.totalProjects}
 						</div>
 					</div>
 				</CardHeader>
 				<CardContent className="flex items-start md:items-center md:justify-center relative z-10">
-					<div className="flex flex-col md:flex-row gap-3">
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-purple-500 dark:text-purple-400 bg-purple-50/80 dark:bg-purple-900/30 border-purple-200/50 dark:border-purple-700/50 hover:bg-purple-100/80 dark:hover:bg-purple-900/50 transition-colors duration-200"
+					<div>
+						<CardDescription className="mb-2">Status:</CardDescription>
+						<div
+							style={{ fontFamily: "Geo2" }}
+							className="grid md:grid-cols-5 grid-cols-2 gap-3"
 						>
-							{data.totalProjectPlanning || 0} Planning
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-blue-500 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30 border-blue-200/50 dark:border-blue-700/50 hover:bg-blue-100/80 dark:hover:bg-blue-900/50 transition-colors duration-200"
-						>
-							{data.totalProjectInProgress || 0} in Progress
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-green-500 dark:text-green-400 bg-green-50/80 dark:bg-green-900/30 border-green-200/50 dark:border-green-700/50 hover:bg-green-100/80 dark:hover:bg-green-900/50 transition-colors duration-200"
-						>
-							{data.totalProjectCompleted || 0} Completed
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-yellow-500 dark:text-yellow-400 bg-yellow-50/80 dark:bg-yellow-900/30 border-yellow-200/50 dark:border-yellow-700/50 hover:bg-yellow-100/80 dark:hover:bg-yellow-900/50 transition-colors duration-200"
-						>
-							{data.totalProjectOnHold || 0} on hold
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-red-500 dark:text-red-400 bg-red-50/80 dark:bg-red-900/30 border-red-200/50 dark:border-red-700/50 hover:bg-red-100/80 dark:hover:bg-red-900/50 transition-colors duration-200"
-						>
-							{data.totalProjectCancelled || 0} Cancelled
-						</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs  font-bold text-purple-500 dark:text-purple-400 bg-purple-50/80 dark:bg-purple-900/30 border-purple-200/50 dark:border-purple-700/50 hover:bg-purple-100/80 dark:hover:bg-purple-900/50 transition-colors duration-200"
+							>
+								{data.totalProjectPlanning || 0} Planning
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-blue-500 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30 border-blue-200/50 dark:border-blue-700/50 hover:bg-blue-100/80 dark:hover:bg-blue-900/50 transition-colors duration-200"
+							>
+								{data.totalProjectInProgress || 0} In Progress
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-green-500 dark:text-green-400 bg-green-50/80 dark:bg-green-900/30 border-green-200/50 dark:border-green-700/50 hover:bg-green-100/80 dark:hover:bg-green-900/50 transition-colors duration-200"
+							>
+								{data.totalProjectCompleted || 0} Completed
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-yellow-500 dark:text-yellow-400 bg-yellow-50/80 dark:bg-yellow-900/30 border-yellow-200/50 dark:border-yellow-700/50 hover:bg-yellow-100/80 dark:hover:bg-yellow-900/50 transition-colors duration-200"
+							>
+								{data.totalProjectOnHold || 0} On Hold
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-red-500 dark:text-red-400 bg-red-50/80 dark:bg-red-900/30 border-red-200/50 dark:border-red-700/50 hover:bg-red-100/80 dark:hover:bg-red-900/50 transition-colors duration-200"
+							>
+								{data.totalProjectCancelled || 0} Cancelled
+							</Badge>
+						</div>
 					</div>
 				</CardContent>
 			</Card>
@@ -113,7 +125,7 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 					<div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-teal-500/5 dark:from-cyan-400/10 dark:to-teal-400/10" />
 					<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 						<div className="flex gap-4 justify-between w-full">
-							<CardTitle className="text-xl font-medium text-slate-600 dark:text-slate-300">
+							<CardTitle className="text-xl font-bold text-slate-600 dark:text-slate-300">
 								Tasks:
 							</CardTitle>
 							<div className="text-xl text-muted-foreground font-bold opacity-60">
@@ -139,38 +151,44 @@ const StatCard = ({ data }: { data: StatsProps }) => {
 		}
 
 		return (
-			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 group">
-				<div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-teal-500/5 dark:from-cyan-400/10 dark:to-teal-400/10" />
+			<Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-primary/30 dark:to-primary/10  shadow-lg hover:shadow-xl transition-all duration-300 group">
+				<div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/5 dark:from-primary/10 dark:to-primary/10" />
 				<CardHeader className="flex flex-col items-center justify-between pb-2 relative z-10">
 					<div className="flex gap-4 justify-between w-full">
-						<CardTitle className="text-xl font-semibold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+						<CardTitle className="text-xl font-semibold bg-gradient-to-r ">
 							Tasks:
 						</CardTitle>
-						<div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+						<div className="text-xl font-bold bg-gradient-to-r group-hover:scale-110 transition-transform duration-300">
 							{data.totalTasks}
 						</div>
 					</div>
 				</CardHeader>
-				<CardContent className="flex items-start md:items-center md:justify-center relative z-10">
-					<div className="flex flex-col md:flex-row gap-3">
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-yellow-500 dark:text-yellow-400 bg-yellow-50/80 dark:bg-yellow-900/30 border-yellow-200/50 dark:border-yellow-700/50 hover:bg-yellow-100/80 dark:hover:bg-yellow-900/50 transition-colors duration-200"
+				<CardContent className="flex items-start md:items-start  relative z-10">
+					<div>
+						<CardDescription className="mb-2">Status:</CardDescription>
+						<div
+							style={{ fontFamily: "Geo2" }}
+							className="grid grid-cols-1 md:grid-cols-3 gap-3"
 						>
-							{data.totalTasksTodo || 0} Todo
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-cyan-500 dark:text-cyan-400 bg-cyan-50/80 dark:bg-cyan-900/30 border-cyan-200/50 dark:border-cyan-700/50 hover:bg-cyan-100/80 dark:hover:bg-cyan-900/50 transition-colors duration-200"
-						>
-							{data.totalTasksInProgress || 0} in Progress
-						</Badge>
-						<Badge
-							variant={"glassMorph"}
-							className="text-xs font-medium text-green-500 dark:text-green-400 bg-green-50/80 dark:bg-green-900/30 border-green-200/50 dark:border-green-700/50 hover:bg-green-100/80 dark:hover:bg-green-900/50 transition-colors duration-200"
-						>
-							{data.totalTasksCompleted || 0} Completed
-						</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-yellow-500 dark:text-yellow-400 bg-yellow-50/80 dark:bg-yellow-900/30 border-yellow-200/50 dark:border-yellow-700/50 hover:bg-yellow-100/80 dark:hover:bg-yellow-900/50 transition-colors duration-200"
+							>
+								{data.totalTasksTodo || 0} Todo
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-cyan-500 dark:text-cyan-400 bg-cyan-50/80 dark:bg-cyan-900/30 border-cyan-200/50 dark:border-cyan-700/50 hover:bg-cyan-100/80 dark:hover:bg-cyan-900/50 transition-colors duration-200"
+							>
+								{data.totalTasksInProgress || 0} in Progress
+							</Badge>
+							<Badge
+								variant={"glassMorph"}
+								className="text-xs font-bold text-green-500 dark:text-green-400 bg-green-50/80 dark:bg-green-900/30 border-green-200/50 dark:border-green-700/50 hover:bg-green-100/80 dark:hover:bg-green-900/50 transition-colors duration-200"
+							>
+								{data.totalTasksCompleted || 0} Completed
+							</Badge>
+						</div>
 					</div>
 				</CardContent>
 			</Card>

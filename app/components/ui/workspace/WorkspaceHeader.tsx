@@ -54,7 +54,7 @@ const WorkspaceHeader = ({
 								variant="neomorphic"
 								onClick={onCreateProject}
 								size="icon"
-								className="size-9 md:size-auto md:px-4 md:py-2"
+								className="size-9 dark:text-primary md:size-auto md:px-4 md:py-2"
 								title="Create Workspace"
 							>
 								<PlusCircle className="size-4" />
@@ -66,9 +66,9 @@ const WorkspaceHeader = ({
 					</div>
 				</div>
 				{workspace.description && (
-					<p className="text-sm md:text-base dark:text-muted-foreground md:mt-0 mt-1">
+					<p className="text-sm md:text-base  md:mt-0 mt-1">
 						<span className="text-primary">Description : </span>
-						{workspace.description}
+						<span style={{ fontFamily: "Geo" }}>{workspace.description}</span>
 					</p>
 				)}
 				{members.length > 0 && (

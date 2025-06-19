@@ -64,7 +64,10 @@ const TaskDescription = ({
 						onClear={handleClear}
 					/>
 				) : (
-					<div className=" text-sm md:text-base text-pretty text-muted-foreground  font-semibold">
+					<div
+						style={{ fontFamily: "Geo" }}
+						className=" text-sm md:text-xl text-pretty text-muted-foreground  font-semibold"
+					>
 						{description}
 					</div>
 				)}

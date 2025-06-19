@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 import BackButton from "~/components/back-button";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
@@ -18,9 +19,11 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import Loader from "~/components/ui/loader";
 import { Progress } from "~/components/ui/progress";
+import ProjectStatusSelector from "~/components/ui/Project/project-status-selector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import CreateTaskDialog from "~/components/ui/task/create-task-dialog";
 import { UseProjectQuery } from "~/hooks/use-project";
+import { useUpdateTaskStatusMutation } from "~/hooks/use-tasks";
 import { getProjectProgress } from "~/lib";
 import { cn } from "~/lib/utils";
 import type { Project, Task, TaskStatus } from "~/types";
@@ -72,69 +75,22 @@ const ProjectDetails = () => {
 				<div>
 					<BackButton />
 					<div className="flex justify-between gap-3 mt-2 mb-7">
-						<h1 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
+						<h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
 							{project.title}
-						</h1>
+						</h3>
 						<div className="flex flex-row gap-3">
 							{/* Status Badges */}
-							<Badge
-								variant={"glassMorph"}
-								className="flex items-center flex-wrap gap-2 text-xs sm:text-sm"
-							>
-								{/* <div className="text-primary xs:hidden inline whitespace-nowrap">
-									Stats:
-								</div> */}
-								<div className="flex flex-wrap gap-1 sm:gap-2">
-									<Badge
-										variant={"todo"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="To Do"
-									>
-										<span className="hidden xs:inline animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}{" "}
-											To Do
-										</span>
-										<span className="xs:hidden animate-pulse">
-											{tasks.filter((task) => task.status === "To Do").length}
-										</span>
-									</Badge>
-									<Badge
-										variant={"progress"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="In Progress"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}{" "}
-											In Progress
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{
-												tasks.filter((task) => task.status === "In Progress")
-													.length
-											}
-										</span>
-									</Badge>
-									<Badge
-										variant={"done"}
-										className="bg-muted text-[10px] sm:text-xs"
-										title="Done"
-									>
-										<span className="hidden xs:inline  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}{" "}
-											Done
-										</span>
-										<span className="xs:hidden  animate-pulse">
-											{tasks.filter((task) => task.status === "Done").length}
-										</span>
-									</Badge>
-								</div>
-							</Badge>
+							<div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm">
+								{/* Change status  */}
+
+								<ProjectStatusSelector
+									status={project.status}
+									projectId={project._id}
+								/>
+							</div>
 							<Button
 								variant={"neomorphic"}
-								className="text-xs sm:text-sm px-3 sm:px-6  rounded-full whitespace-nowrap"
+								className="text-xs dark:text-primary sm:text-sm px-3 sm:px-6  rounded-full "
 								onClick={() => setIsCreateTask(true)}
 							>
 								<CirclePlus className="size-4 sm:size-4 md:size-5 flex-shrink-0" />
@@ -145,9 +101,9 @@ const ProjectDetails = () => {
 						</div>
 					</div>
 					{project.description && (
-						<p className="text-xs sm:text-sm text-muted-foreground mt-3 line-clamp-2 sm:line-clamp-none">
+						<p className="text-xs md:text-sm  mt-3 line-clamp-2 sm:line-clamp-none">
 							<span className="text-primary">Description :</span>{" "}
-							{project.description}
+							<span style={{ fontFamily: "Geo" }}>{project.description}</span>
 						</p>
 					)}
 				</div>
@@ -315,7 +271,7 @@ const TabsColumn = ({
 			>
 				{!isfullWidth && (
 					<div className="flex items-center justify-between">
-						<h1 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
+						<h3 className="font-medium text-sm   sm:text-base lg:text-lg flex items-center">
 							{title === "To Do" ? (
 								<>
 									<AlertCircle className="mr-5  size-4 sm:size-5 text-yellow-500" />
@@ -338,7 +294,7 @@ const TabsColumn = ({
 									{title.toUpperCase()}
 								</>
 							)}
-						</h1>
+						</h3>
 						<Badge variant={"glassMorph"} className="text-xs">
 							{title === "To Do" ? (
 								<span className="text-yellow-500">{tasks.length}</span>
@@ -393,6 +349,24 @@ const TabsColumn = ({
 };
 
 const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
+	const { mutate: updateStatus, isPending } = useUpdateTaskStatusMutation();
+
+	const handleStatusChange = (value: string) => {
+		updateStatus(
+			{ taskId: task._id, status: value as TaskStatus },
+			{
+				onSuccess: (data) => {
+					toast.success("Status updated successfully");
+				},
+				onError: (error: any) => {
+					const errorMessage =
+						error.response?.data?.message || "Failed to update status";
+					console.error(error);
+					toast.error(errorMessage);
+				},
+			}
+		);
+	};
 	return (
 		<Card
 			onClick={onClick}
@@ -422,8 +396,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="size-6 sm:size-7 dark:text-yellow-500 rounded-full flex-shrink-0"
-								onClick={() => {
-									console.log("todo");
+								disabled={isPending}
+								onClick={(e) => {
+									e.stopPropagation();
+									handleStatusChange("To Do");
 								}}
 								title="Mark as To Do"
 							>
@@ -436,9 +412,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="size-6 sm:size-7 rounded-full dark:text-cyan-500 flex-shrink-0"
+								disabled={isPending}
 								onClick={(e) => {
 									e.stopPropagation();
-									console.log("in progress");
+									handleStatusChange("In Progress");
 								}}
 								title="Mark as in progress"
 							>
@@ -451,9 +428,10 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 								variant={"glassMorph"}
 								size={"icon"}
 								className="dark:text-green-500 size-6 sm:size-7 rounded-full flex-shrink-0"
+								disabled={isPending}
 								onClick={(e) => {
 									e.stopPropagation();
-									console.log("done");
+									handleStatusChange("Done");
 								}}
 								title="Mark as Done"
 							>
@@ -464,9 +442,9 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
 					</div>
 				</div>
 				{task.description && (
-					<p className="text-xs capitalize mt-5 px-2 sm:text-sm text-muted-foreground line-clamp-1 ">
+					<p className="text-xs capitalize mt-5 px-2 sm:text-sm  line-clamp-1 ">
 						<span className="text-primary">Description: </span>
-						{task.description}
+						<span style={{ fontFamily: "Geo" }}>{task.description}</span>
 					</p>
 				)}
 				<div className="ml-2">

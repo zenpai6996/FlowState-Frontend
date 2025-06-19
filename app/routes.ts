@@ -6,8 +6,8 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
+	index("routes/root/home.tsx"),
 	layout("routes/auth/auth-Layout.tsx", [
-		index("routes/root/home.tsx"),
 		route("sign-in", "routes/auth/sign-in.tsx"),
 		route("sign-up", "routes/auth/sign-up.tsx"),
 		route("forgot-password", "routes/auth/forgot-password.tsx"),
@@ -29,5 +29,12 @@ export default [
 			"workspaces/:workspaceId/projects/:projectId/tasks/:taskId",
 			"routes/dashboard/task/task-details.tsx"
 		),
+		route("my-tasks", "routes/dashboard/my-tasks.tsx"),
+		route("members", "routes/dashboard/members.tsx"),
+		route("user", "routes/user/profile.tsx"),
 	]),
+	route(
+		"workspace-invite/:workspaceId",
+		"routes/dashboard/workspaces/workspace-invite.tsx"
+	),
 ] satisfies RouteConfig;

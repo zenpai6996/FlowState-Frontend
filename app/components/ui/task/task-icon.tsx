@@ -1,4 +1,5 @@
 import {
+	Archive,
 	ArrowRightLeft,
 	CheckCircle2,
 	CheckSquare,
@@ -31,6 +32,12 @@ const TaskIcon = (action: ActionType) => {
 			return (
 				<div className="bg-blue-500/10 p-1 rounded-full">
 					<Edit className="size-3 text-blue-500" />
+				</div>
+			);
+		case "archived_task":
+			return (
+				<div className="bg-blue-500/10 p-1 rounded-full">
+					<Archive className="size-3 text-yellow-500" />
 				</div>
 			);
 
