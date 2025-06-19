@@ -192,8 +192,8 @@ const MyTasks = () => {
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant={"glassMorph"}>
-								<Filter className="size-4" />
-								<span className="hidden md:block">
+								<Filter className="size-4 hidden md:block" />
+								<span>
 									{filterDisplayNames[
 										filter as keyof typeof filterDisplayNames
 									] || "Filter"}
@@ -292,12 +292,14 @@ const MyTasks = () => {
 			<Tabs defaultValue="board">
 				<TabsList className="w-full h-[50px] flex gap-2 p-1 bg-background/20 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg">
 					<TabsTrigger
+						style={{ fontFamily: "Know" }}
 						value="list"
 						className="flex-1 data-[state=active]:bg-white/20 data-[state=active]:text-primary data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 data-[state=inactive]:text-muted-foreground hover:text-primary hover:bg-white/10 transition-all duration-300 ease-out rounded-xl font-medium backdrop-blur-sm"
 					>
 						List
 					</TabsTrigger>
 					<TabsTrigger
+						style={{ fontFamily: "Know" }}
 						value="board"
 						className="flex-1 data-[state=active]:bg-white/20 data-[state=active]:text-primary data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 data-[state=inactive]:text-muted-foreground hover:text-primary hover:bg-white/10 transition-all duration-300 ease-out rounded-xl font-medium backdrop-blur-sm"
 					>
@@ -319,10 +321,10 @@ const MyTasks = () => {
 												<div>
 													{task.status === "Done" ? (
 														<CheckCircle className="bg-green-100/10 text-green-500 rounded-full" />
-													) : task.status === "To Do" ? (
-														<ClockPlus className="bg-yellow-100/10 text-yellow-500 rounded-full" />
+													) : task.status === "In Progress" ? (
+														<ClockPlus className="bg-yellow-100/10 text-cyan-500 rounded-full" />
 													) : (
-														<CircleAlert className="bg-cyan-100/10 text-cyan-500 rounded-full" />
+														<CircleAlert className="bg-cyan-100/10 text-yellow-500 rounded-full" />
 													)}
 												</div>
 												<div>
@@ -351,7 +353,7 @@ const MyTasks = () => {
 														</Badge>
 														{task.priority && (
 															<Badge
-																variant={"glassMorph"}
+																variant={"glassHologram"}
 																className={
 																	task.priority === "High"
 																		? "text-red-400"
