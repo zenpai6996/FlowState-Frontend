@@ -19,7 +19,13 @@
 </div>
 
 
-
+<div align="center">
+  <br>
+  
+  **[🚀 Live Demo](https://flowstate-omega.vercel.app/)** • 
+  **[🐛 Report Bug](https://github.com/zenpai6996/FlowState-Frontend/issues)** • 
+  **[💡 Request Feature](https://github.com/zenpai6996/FlowState-Frontend/issues)**
+</div>
 
 
 <div align="center">
