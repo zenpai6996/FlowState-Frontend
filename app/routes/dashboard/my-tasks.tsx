@@ -50,7 +50,15 @@ const MyTasks = () => {
 		inProgress: 1,
 		done: 1,
 	});
-	const [tasksPerPage] = useState(1);
+	const [tasksPerPage] = useState(2);
+	const filterDisplayNames = {
+		all: "All",
+		todo: "To Do",
+		inprogress: "In Progress",
+		done: "Done",
+		archived: "Archived",
+		watched: "Watched",
+	};
 
 	// Add this helper function to calculate paginated tasks
 	const getPaginatedTasks = (tasks: Task[], status: string) => {
@@ -185,7 +193,11 @@ const MyTasks = () => {
 						<DropdownMenuTrigger asChild>
 							<Button variant={"glassMorph"}>
 								<Filter className="size-4" />
-								<span className="hidden md:block">Filter</span>
+								<span className="hidden md:block">
+									{filterDisplayNames[
+										filter as keyof typeof filterDisplayNames
+									] || "Filter"}
+								</span>
 							</Button>
 						</DropdownMenuTrigger>
 
@@ -222,17 +234,17 @@ const MyTasks = () => {
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem
-								className="text-primary"
+								className="text-amber-600"
 								onClick={() => setFilter("archived")}
 							>
-								<Archive className="text-primary" />
+								<Archive className="text-amber-600" />
 								Archived
 							</DropdownMenuItem>
 							<DropdownMenuItem
-								className="text-primary"
+								className="text-purple-400"
 								onClick={() => setFilter("watched")}
 							>
-								<Eye className="text-primary" />
+								<Eye className="text-purple-400" />
 								Watched
 							</DropdownMenuItem>
 						</DropdownMenuContent>

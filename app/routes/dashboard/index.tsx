@@ -5,7 +5,6 @@ import RecentProjects from "~/components/ui/Dashboard/recent-projects";
 import StatCard from "~/components/ui/Dashboard/stats-card";
 import StatisticsCharts from "~/components/ui/Dashboard/stats-chart";
 import UpcomingTasks from "~/components/ui/Dashboard/upcoming-task";
-import Loader from "~/components/ui/loader";
 import { useGetWorkspaceStats } from "~/hooks/use-workspace";
 import type {
 	Project,
@@ -17,6 +16,86 @@ import type {
 	Workspace,
 	WorspaceProductivityProps,
 } from "~/types";
+
+// Skeleton Components
+const SkeletonCard = ({ className = "" }: { className?: string }) => (
+	<div className={`bg-card rounded-lg border p-6 animate-pulse ${className}`}>
+		<div className="h-4 bg-muted rounded w-1/3 mb-4"></div>
+		<div className="h-8 bg-muted rounded w-1/2 mb-2"></div>
+		<div className="h-3 bg-muted rounded w-2/3"></div>
+	</div>
+);
+
+const SkeletonChart = ({ className = "" }: { className?: string }) => (
+	<div className={`bg-card rounded-lg border p-6 animate-pulse ${className}`}>
+		<div className="h-6 bg-muted rounded w-1/4 mb-6"></div>
+		<div className="space-y-3">
+			<div className="flex items-end space-x-2 h-32">
+				{[...Array(7)].map((_, i) => (
+					<div
+						key={i}
+						className="bg-muted rounded-t flex-1 animate-pulse"
+						style={{
+							height: `${Math.random() * 60 + 40}%`,
+							animationDelay: `${i * 0.1}s`,
+						}}
+					></div>
+				))}
+			</div>
+		</div>
+	</div>
+);
+
+const SkeletonList = ({ className = "" }: { className?: string }) => (
+	<div className={`bg-card rounded-lg border p-6 animate-pulse ${className}`}>
+		<div className="h-6 bg-muted rounded w-1/3 mb-6"></div>
+		<div className="space-y-4">
+			{[...Array(4)].map((_, i) => (
+				<div
+					key={i}
+					className="flex items-center space-x-4 animate-pulse"
+					style={{ animationDelay: `${i * 0.2}s` }}
+				>
+					<div className="w-10 h-10 bg-muted rounded-full"></div>
+					<div className="flex-1 space-y-2">
+						<div className="h-4 bg-muted rounded w-3/4"></div>
+						<div className="h-3 bg-muted rounded w-1/2"></div>
+					</div>
+					<div className="h-6 bg-muted rounded w-16"></div>
+				</div>
+			))}
+		</div>
+	</div>
+);
+
+const DashboardSkeletons = () => (
+	<div className="space-y-8 2xl:space-y-12">
+		{/* Header Skeleton */}
+		<div className="flex items-center justify-between">
+			<div className="h-8 bg-muted rounded w-48 animate-pulse"></div>
+		</div>
+
+		{/* Stats Cards Skeleton */}
+		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+			{[...Array(4)].map((_, i) => (
+				<SkeletonCard key={i} />
+			))}
+		</div>
+
+		{/* Charts Skeleton */}
+		<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+			<SkeletonChart className="lg:col-span-2" />
+			<SkeletonChart />
+			<SkeletonChart />
+		</div>
+
+		{/* Recent Projects and Upcoming Tasks Skeleton */}
+		<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+			<SkeletonList />
+			<SkeletonList />
+		</div>
+	</div>
+);
 
 const index = () => {
 	const [searchParams] = useSearchParams();
@@ -56,17 +135,9 @@ const index = () => {
 	}
 
 	if (isPending) {
-		return (
-			<div className="flex h-full items-center justify-center p-4">
-				<div className="text-center">
-					<Loader />
-					<h2 className="text-muted-foreground text-sm sm:text-base mt-2">
-						Fetching Workspace Stats ...
-					</h2>
-				</div>
-			</div>
-		);
+		return <DashboardSkeletons />;
 	}
+
 	if (!data) {
 		return (
 			<div className="flex h-full items-center justify-center p-4">

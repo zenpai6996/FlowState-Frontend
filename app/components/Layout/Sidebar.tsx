@@ -53,16 +53,15 @@ export const SidebarComponent = ({
 						{!isCollapsed ? (
 							<div className="flex items-center gap-2">
 								<Link to="/">
+									<Component className="size-6  text-primary block md:hidden dark:hover:animate-spin transition-all duration-150 ease-in-out" />
 
-									<Component className="size-6 text-primary md:block hidden dark:hover:animate-spin transition-all duration-150 ease-in-out" />
-
+									<span
+										style={{ fontFamily: "Air" }}
+										className=" text-3xl mb-2 text-primary hidden md:block"
+									>
+										FlowState
+									</span>
 								</Link>
-								<span
-									style={{ fontFamily: "Air" }}
-									className=" text-3xl mb-2 text-primary hidden md:block"
-								>
-									FlowState
-								</span>
 							</div>
 						) : null}
 					</div>
