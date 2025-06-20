@@ -2,7 +2,10 @@
 
 <div align="center">
   
+<a href="https://github.com/zenpai6996/FlowState-Frontend">
+  
 ![FlowState](https://github.com/user-attachments/assets/2ded4f21-2f7f-4b76-afb6-a2ffa5e9af0b)
+</a>
 
  
   <p>Streamline your workflow, boost productivity, and achieve that perfect flow state with our intuitive project management platform.</p>
