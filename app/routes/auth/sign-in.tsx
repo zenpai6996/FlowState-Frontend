@@ -41,6 +41,15 @@ const SignIn = () => {
 		},
 	});
 
+	const asciiArt = `
+███████╗██╗      ██████╗ ██╗    ██╗███████╗████████╗ █████╗ ████████╗███████╗
+██╔════╝██║     ██╔═══██╗██║    ██║██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
+█████╗  ██║     ██║   ██║██║ █╗ ██║███████╗   ██║   ███████║   ██║   █████╗
+██╔══╝  ██║     ██║   ██║██║███╗██║╚════██║   ██║   ██╔══██║   ██║   ██╔══╝
+██║     ███████╗╚██████╔╝╚███╔███╔╝███████║   ██║   ██║  ██║   ██║   ███████╗
+╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝
+  `;
+
 	const { mutate, isPending } = useLoginMutation();
 	const navigate = useNavigate();
 	const { login } = useAuth();
@@ -67,109 +76,118 @@ const SignIn = () => {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center dark:bg-background p-4">
-			<Card className="max-w-md w-screen">
-				<CardHeader className="text-center mb-5">
-					<div>
-						<BackButton />
-						<CardTitle className="text-2xl font-bold dark:text-primary">
-							Welcome Back
-						</CardTitle>
-					</div>
-					<CardDescription className="text-sm text-muted-foreground">
-						Sign in to your account to continue
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(handleOnSubmit)}
-							className="space-y-4"
-						>
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Email Address</FormLabel>
-										<FormControl>
-											<Input3
-												className="dark:bg-background"
-												type="email"
-												placeholder="johndoe@example.com"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="password"
-								render={({ field }) => (
-									<FormItem>
-										<div className="flex items-center justify-between">
-											<FormLabel>Password</FormLabel>
-											<Link
-												to={"/forgot-password"}
-												className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 ease-in-out"
-											>
-												Forgot password?
-											</Link>
-										</div>
-										<FormControl>
-											<div className="relative">
-												<Input3
-													type={showPassword ? "text" : "password"}
-													placeholder="********"
-													{...field}
-													className="pr-10"
-												/>
-												<button
-													type="button"
-													onClick={togglePasswordVisibility}
-													className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-primary duration-200 ease-in-out transition-colors"
-												>
-													{showPassword ? (
-														<EyeOff className="h-4 w-4" />
-													) : (
-														<Eye className="h-4 w-4" />
-													)}
-												</button>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<Button
-								type="submit"
-								variant={"glassMorph"}
-								className="w-full mt-2"
-								disabled={isPending}
-							>
-								{isPending ? (
-									<>
-										Signing in <Loader2 className="w-5 h-5 animate-spin" />
-									</>
-								) : (
-									"Sign In"
-								)}
-							</Button>
-						</form>
-					</Form>
-					<CardFooter className="flex items-center justify-center mt-2">
-						<div className="flex items-center justify-center mt-4 ">
-							<p className="text-sm text-muted-foreground">
-								Don&apos;t have an account?{" "}
-								<Link to="/sign-up" className="text-primary hover:underline">
-									Sign Up
-								</Link>
-							</p>
+			<div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-4xl w-full">
+				{/* ASCII Art - Hidden on mobile, shown on md screens and up */}
+
+				<Card className="max-w-xl w-screen">
+					<CardHeader className="text-center mb-5">
+						<div>
+							<BackButton />
+							<div className="hidden md:block flex-1 max-w-xs">
+								<pre className="text-primary dark:text-primary/80 font-mono text-xs whitespace-pre">
+									{asciiArt}
+								</pre>
+							</div>
+							<CardTitle className="text-2xl font-bold dark:text-primary">
+								Welcome Back
+							</CardTitle>
 						</div>
-					</CardFooter>
-				</CardContent>
-			</Card>
+						<CardDescription className="text-sm text-muted-foreground">
+							Sign in to your account to continue
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(handleOnSubmit)}
+								className="space-y-4"
+							>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Email Address</FormLabel>
+											<FormControl>
+												<Input3
+													className="dark:bg-background"
+													type="email"
+													placeholder="johndoe@example.com"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<div className="flex items-center justify-between">
+												<FormLabel>Password</FormLabel>
+												<Link
+													to={"/forgot-password"}
+													className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 ease-in-out"
+												>
+													Forgot password?
+												</Link>
+											</div>
+											<FormControl>
+												<div className="relative">
+													<Input3
+														type={showPassword ? "text" : "password"}
+														placeholder="********"
+														{...field}
+														className="pr-10"
+													/>
+													<button
+														type="button"
+														onClick={togglePasswordVisibility}
+														className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-primary duration-200 ease-in-out transition-colors"
+													>
+														{showPassword ? (
+															<EyeOff className="h-4 w-4" />
+														) : (
+															<Eye className="h-4 w-4" />
+														)}
+													</button>
+												</div>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<Button
+									type="submit"
+									variant={"glassMorph"}
+									className="w-full mt-2"
+									disabled={isPending}
+								>
+									{isPending ? (
+										<>
+											Signing in <Loader2 className="w-5 h-5 animate-spin" />
+										</>
+									) : (
+										"Sign In"
+									)}
+								</Button>
+							</form>
+						</Form>
+						<CardFooter className="flex items-center justify-center mt-2">
+							<div className="flex items-center justify-center mt-4 ">
+								<p className="text-sm text-muted-foreground">
+									Don&apos;t have an account?{" "}
+									<Link to="/sign-up" className="text-primary hover:underline">
+										Sign Up
+									</Link>
+								</p>
+							</div>
+						</CardFooter>
+					</CardContent>
+				</Card>
+			</div>
 		</div>
 	);
 };

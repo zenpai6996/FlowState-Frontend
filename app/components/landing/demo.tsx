@@ -64,7 +64,7 @@ const HowItWorksDemo = () => {
 		},
 		{
 			id: 3,
-			title: "Dashboard",
+			title: "Analytics Dashboard",
 			description:
 				"Use the dashboard to get detailed insights into your projects and tasks at a glance. Monitor progress, track deadlines, and manage resources effectively.",
 			icon: Rocket,
@@ -117,8 +117,8 @@ const HowItWorksDemo = () => {
 			case "workspace":
 				return (
 					<div className="space-y-4">
-						<Settings className="w-16 h-16 text-blue-400 mx-auto mb-4" />
-						<div className="bg-gray-800 rounded-lg p-4 space-y-3">
+						<Settings className="w-16 h-16 text-accent mx-auto mb-4" />
+						<div className="bg-primary/30 rounded-lg p-4 space-y-3">
 							<div className="flex items-center justify-between">
 								<span className="text-sm text-gray-300">
 									Team Alpha Workspace
@@ -129,7 +129,7 @@ const HowItWorksDemo = () => {
 								{["Design Team", "Development", "Marketing"].map((team, i) => (
 									<div
 										key={i}
-										className="flex items-center gap-3 p-2 bg-gray-700 rounded"
+										className="flex items-center gap-3 p-2 bg-primary/40 rounded"
 									>
 										<Users className="w-4 h-4 text-purple-400" />
 										<span className="text-xs text-gray-300">{team}</span>
@@ -152,22 +152,24 @@ const HowItWorksDemo = () => {
 			case "projects":
 				return (
 					<div className="space-y-4">
-						<FolderPlus className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+						<FolderPlus className="w-16 h-16 text-accent mx-auto mb-4" />
 						<div className="space-y-3">
 							{[
-								{ name: "Mobile App Redesign", progress: 85, status: "active" },
-								{ name: "API Integration", progress: 67, status: "active" },
-								{ name: "User Testing", progress: 92, status: "review" },
-								{ name: "Documentation", progress: 45, status: "planning" },
+								{ name: "Mobile App Redesign", progress: 85, status: "Active" },
+								{
+									name: "API Integration",
+									progress: 67,
+									status: "In Progress",
+								},
 							].map((project, i) => (
-								<div key={i} className="bg-gray-800 rounded-lg p-3">
+								<div key={i} className="bg-primary/20 rounded-lg p-3">
 									<div className="flex justify-between items-center mb-2">
 										<span className="text-sm font-medium text-white">
 											{project.name}
 										</span>
 										<span
 											className={`text-xs px-2 py-1 rounded-full ${
-												project.status === "active"
+												project.status === "Active"
 													? "bg-green-500/20 text-green-400"
 													: project.status === "review"
 													? "bg-yellow-500/20 text-yellow-400"
@@ -177,7 +179,7 @@ const HowItWorksDemo = () => {
 											{project.status}
 										</span>
 									</div>
-									<div className="w-full bg-gray-700 rounded-full h-2">
+									<div className="w-full bg-background rounded-full h-2">
 										<motion.div
 											className="h-2 rounded-full bg-gradient-to-r from-primary to-accent"
 											initial={{ width: 0 }}
@@ -196,7 +198,7 @@ const HowItWorksDemo = () => {
 			case "tasks":
 				return (
 					<div className="space-y-4">
-						<CheckSquare className="w-16 h-16 text-orange-400 mx-auto mb-4" />
+						<CheckSquare className="w-16 h-16 text-accent mx-auto mb-4" />
 						<div className="space-y-2">
 							{[
 								{
@@ -209,7 +211,7 @@ const HowItWorksDemo = () => {
 									task: "Implement login flow",
 									assignee: "Mike",
 									status: "in-progress",
-									priority: "high",
+									priority: "low",
 								},
 								{
 									task: "Write unit tests",
@@ -217,16 +219,10 @@ const HowItWorksDemo = () => {
 									status: "assigned",
 									priority: "medium",
 								},
-								{
-									task: "Update documentation",
-									assignee: "Lisa",
-									status: "review",
-									priority: "low",
-								},
 							].map((item, i) => (
 								<div
 									key={i}
-									className="bg-gray-800 rounded-lg p-3 flex items-center gap-3"
+									className="bg-primary/30 rounded-lg p-3 flex items-center gap-3"
 								>
 									<div
 										className={`w-3 h-3 rounded-full ${
@@ -264,18 +260,18 @@ const HowItWorksDemo = () => {
 			case "dashboard":
 				return (
 					<div className="space-y-4">
-						<BarChart3 className="w-16 h-16 text-green-400 mx-auto mb-4" />
+						<BarChart3 className="w-16 h-16 text-accent mx-auto mb-4" />
 						<div className="grid grid-cols-2 gap-3 mb-4">
-							<div className="bg-gray-800 rounded-lg p-3 text-center">
+							<div className="bg-primary/30 rounded-lg p-3 text-center">
 								<div className="text-green-400 text-lg font-bold">15</div>
 								<div className="text-xs text-gray-400">Active Projects</div>
 							</div>
-							<div className="bg-gray-800 rounded-lg p-3 text-center">
+							<div className="bg-primary/30 rounded-lg p-3 text-center">
 								<div className="text-blue-400 text-lg font-bold">127</div>
 								<div className="text-xs text-gray-400">Total Tasks</div>
 							</div>
 						</div>
-						<div className="bg-gray-800 rounded-lg p-4">
+						<div className="bg-primary/30 rounded-lg p-4">
 							<div className="text-sm text-gray-300 mb-3">
 								Project Progress Overview
 							</div>
@@ -318,8 +314,7 @@ const HowItWorksDemo = () => {
 						variants={itemVariants}
 						className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-4 py-2 mb-6"
 					>
-						<div className="w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
-						<span className="text-primary text-sm font-medium">Efficient</span>
+						<span className=" text-sm font-medium">✨ Efficient</span>
 					</motion.div>
 
 					<motion.h2

@@ -175,11 +175,11 @@ const Navbar = () => {
 							<DropdownMenuContent align="start">
 								{isAuthenticated ? (
 									<>
-										<DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
-										<DropdownMenuSeparator />
 										<DropdownMenuItem onClick={() => navigate("/dashboard")}>
 											Dashboard
 										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
 									</>
 								) : (
 									<>
@@ -225,11 +225,11 @@ const Navbar = () => {
 							<DropdownMenuContent align="start">
 								{isAuthenticated ? (
 									<>
-										<DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
-										<DropdownMenuSeparator />
 										<DropdownMenuItem onClick={() => navigate("/dashboard")}>
 											Dashboard
 										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
 									</>
 								) : (
 									<>
