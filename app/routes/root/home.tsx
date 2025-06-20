@@ -11,6 +11,7 @@ import {
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import HowItWorksDemo from "~/components/landing/demo";
 import { ModeToggle } from "~/components/mode-toggle";
 import { Button } from "~/components/ui/button";
 import {
@@ -122,7 +123,7 @@ const Navbar = () => {
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 rounded-full ${
 				isScrolled
-					? "bg-background/80 dark:bg-background/80 backdrop-blur-md translate-y-5 transition-all duration-200 ease-in-out  shadow-lg"
+					? "bg-background/80 dark:bg-background/80 backdrop-blur-md translate-y-2 transition-all duration-200 ease-in-out  shadow-lg"
 					: "bg-transparent"
 			}`}
 		>
@@ -532,6 +533,7 @@ const HomePage = () => {
 			<AnimatedBackground />
 			<Navbar />
 			<HeroSection />
+			<HowItWorksDemo />
 			<Footer />
 		</div>
 	);
