@@ -121,7 +121,7 @@ const CreateTaskDialog = ({
 										control={form.control}
 										name="status"
 										render={({ field }) => (
-											<FormItem className="mb-1">
+											<FormItem>
 												<FormLabel>Task Status</FormLabel>
 												<FormControl>
 													<Select

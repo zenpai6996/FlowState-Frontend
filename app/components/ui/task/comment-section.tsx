@@ -104,37 +104,46 @@ const CommentSection = ({
 										<div key={comment._id}>
 											<Badge
 												variant={"glassMorph"}
-												className="flex gap-3 w-full bg-muted hover:scale-101 transition-all duration-200 ease-in-out hover:shadow-2xl dark:hover:shadow-primary p-2 md:p-3 rounded-2xl"
+												className="flex gap-3 w-full bg-muted hover:scale-[1.01] transition-all duration-200 ease-in-out hover:shadow-lg dark:hover:shadow-primary/20 p-3 rounded-2xl"
 											>
-												<Avatar className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 mb-4">
-													<AvatarImage
-														src={comment.author.profilePicture}
-														className="object-cover"
-													/>
-													<AvatarFallback className="text-xs bg-primary/10 text-primary border-0">
-														{comment.author.name.charAt(0).toUpperCase()}
-													</AvatarFallback>
-												</Avatar>
-												<div className="flex-1 min-w-0">
-													<div className="flex items-center justify-between gap-2 mb-1">
-														<span className=" text-xs md:text-sm font-medium text-foreground truncate">
-															{comment.author.name}
-														</span>
-														<span className="text-[10px] md:text-xs text-muted-foreground flex-shrink-0">
-															{formatDistanceToNow(
-																new Date(comment.createdAt),
-																{
-																	addSuffix: true,
-																}
-															)}
-														</span>
+												<div className="flex flex-col sm:flex-row gap-3 w-full">
+													<div className="flex items-start gap-3">
+														<Avatar className="w-8 h-8 flex-shrink-0">
+															<AvatarImage
+																src={comment.author.profilePicture}
+																className="object-cover"
+															/>
+															<AvatarFallback className="text-xs bg-primary/10 text-primary border-0">
+																{comment.author.name.charAt(0).toUpperCase()}
+															</AvatarFallback>
+														</Avatar>
+
+														<div className="flex-1 min-w-0 space-y-2">
+															<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+																<span className="text-sm font-medium text-foreground truncate">
+																	{comment.author.name}
+																</span>
+																<span className="text-xs text-muted-foreground">
+																	{formatDistanceToNow(
+																		new Date(comment.createdAt),
+																		{ addSuffix: true }
+																	)}
+																	{comment.isArchived && (
+																		<span className="ml-2 text-xs text-rose-500">
+																			archived
+																		</span>
+																	)}
+																</span>
+															</div>
+
+															<p
+																style={{ fontFamily: "Geo" }}
+																className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line break-words"
+															>
+																{comment.text}
+															</p>
+														</div>
 													</div>
-													<p
-														style={{ fontFamily: "Geo" }}
-														className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
-													>
-														{comment.text}
-													</p>
 												</div>
 											</Badge>
 											{index < comments.length - 1 && (
