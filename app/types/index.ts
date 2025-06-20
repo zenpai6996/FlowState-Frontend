@@ -26,9 +26,9 @@ export interface Workspace {
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 export type TaskPriority = "High" | "Medium" | "Low";
 export enum ProjectMemberRole {
-	MANAGER = "manager",
-	CONTRIBUTOR = "contributor",
+	ADMIN = "admin",
 	VIEWER = "viewer",
+	MEMBER = "member",
 }
 
 export interface Subtask {
@@ -57,6 +57,7 @@ export interface Task {
 	createdAt: Date;
 	updatedAt: Date;
 	isArchived: boolean;
+	isWatched: boolean;
 	dueDate: Date;
 	priority: TaskPriority;
 	assignee: User | string;
@@ -100,4 +101,100 @@ export interface MemberProps {
 	user: User;
 	role: "admin" | "member" | "owner" | "viewer";
 	joinedAt: Date;
+}
+
+export type ResourceType =
+	| "Task"
+	| "Project"
+	| "Workspace"
+	| "Comment"
+	| "User";
+
+export type ActionType =
+	| "created_task"
+	| "updated_task"
+	| "created_subtask"
+	| "updated_subtask"
+	| "deleted_subtask"
+	| "edited_subtask"
+	| "completed_task"
+	| "created_project"
+	| "updated_project"
+	| "completed_project"
+	| "created_workspace"
+	| "updated_workspace"
+	| "added_comment"
+	| "added_member"
+	| "removed_member"
+	| "joined_workspace"
+	| "transferred_workspace_ownership"
+	| "added_attachment"
+	| "archived_task";
+
+export interface ActivityLog {
+	_id: string;
+	user: User;
+	action: ActionType;
+	resourceType: ResourceType;
+	resourceId: string;
+	details: any;
+	createdAt: Date;
+}
+
+export interface CommentReaction {
+	emoji: string;
+	user: User;
+}
+
+export interface Comment {
+	_id: string;
+	author: User;
+	text: string;
+	createdAt: Date;
+	reactions?: CommentReaction[];
+	attachments?: {
+		fileName: string;
+		fileUrl: string;
+		fileType: string;
+		filesize: number;
+	};
+}
+
+export interface StatsProps {
+	totalProjects: number;
+	totalTasks: number;
+	totalProjectInProgress: number;
+	totalTasksCompleted: number;
+	totalTasksTodo: number;
+	totalTasksInProgress: number;
+	totalProjectCompleted: number;
+	totalProjectPlanning: number;
+	totalProjectCancelled: number;
+	totalProjectOnHold: number;
+}
+
+export interface TaskTrendProps {
+	name: string;
+	completed: number;
+	inProgress: number;
+	todo: number;
+}
+
+export interface ProjectStatusProps {
+	name: string;
+	value: number;
+	color: string;
+}
+export interface TaskPriorityProps {
+	name: string;
+	value: number;
+	color: string;
+}
+
+export interface WorspaceProductivityProps {
+	name: string;
+	completed: number;
+	total: number;
+	inProgress: number;
+	toDo: number;
 }

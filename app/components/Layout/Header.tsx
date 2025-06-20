@@ -1,6 +1,5 @@
 import {
 	ArrowBigDownDash,
-	Bell,
 	ChevronLeft,
 	ChevronRightIcon,
 	CircleUserRound,
@@ -11,7 +10,6 @@ import {
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
-import { useGetWorkspacesQuery } from "~/hooks/use-workspace";
 import { useAuth } from "~/provider/auth-context";
 import type { Workspace } from "~/types";
 import { ModeToggle } from "../mode-toggle";
@@ -42,15 +40,36 @@ const Header = ({
 	setIsMobileOpen,
 }: HeaderProps) => {
 	const { user, logout } = useAuth();
-
-	const loaderData = useLoaderData() as { workspaces?: Workspace[] } | null;
-	const { data: queryWorkspaces, isLoading, isError } = useGetWorkspacesQuery();
-
-	const workspaces: Workspace[] =
-		queryWorkspaces || loaderData?.workspaces || [];
+	const { workspaces } = useLoaderData() as { workspaces: Workspace[] };
 
 	const navigate = useNavigate();
-	const location = useLocation();
+	const isOnWorkspacePage = useLocation().pathname.includes("/workspace");
+
+	// useEffect(() => {
+	// 	if (workspaces?.length > 0 && !selectedWorkspace) {
+	// 		// Try to get last selected workspace from localStorage
+	// 		const lastWorkspaceId = localStorage.getItem("lastWorkspaceId");
+	// 		const workspaceToSelect = lastWorkspaceId
+	// 			? workspaces.find((w) => w._id === lastWorkspaceId)
+	// 			: workspaces[0];
+
+	// 		if (workspaceToSelect) {
+	// 			handleOnClick(workspaceToSelect);
+	// 		}
+	// 	}
+	// }, [workspaces, selectedWorkspace]);
+
+	const handleOnClick = (workspace: Workspace) => {
+		// localStorage.setItem("lastWorkspaceId", workspace._id);
+		onWorkspaceSelected(workspace);
+		const location = window.location;
+		if (isOnWorkspacePage) {
+			navigate(`/workspaces/${workspace._id}`);
+		} else {
+			const basePath = location.pathname;
+			navigate(`${basePath}?workspaceId=${workspace._id}`);
+		}
+	};
 
 	// if (isLoading) {
 	// 	console.log("Loading workspaces...");
@@ -88,12 +107,7 @@ const Header = ({
 								size={"default"}
 								className="hover:border-primary transition-colors duration-200 ease-in-out"
 							>
-								{location.pathname === "/dashboard" ? (
-									<>
-										<Home className="size-4" />
-										<span className="font-medium max-sm:hidden">Dashboard</span>
-									</>
-								) : selectedWorkspace ? (
+								{selectedWorkspace ? (
 									<>
 										{selectedWorkspace.color && (
 											<WorkspaceAvatar
@@ -103,8 +117,13 @@ const Header = ({
 											/>
 										)}
 										<span className="font-medium max-sm:hidden">
-											{selectedWorkspace?.name}
+											{selectedWorkspace.name}
 										</span>
+									</>
+								) : location.pathname === "/dashboard" ? (
+									<>
+										<Home className="size-4" />
+										<span className="font-medium max-sm:hidden">Dashboard</span>
 									</>
 								) : (
 									<>
@@ -122,18 +141,19 @@ const Header = ({
 						<DropdownMenuContent align="start">
 							<DropdownMenuLabel className="font-bold">
 								Workspaces
-							</DropdownMenuLabel>
+							</DropdownMenuLabel>{" "}
 							<DropdownMenuSeparator />
-
 							<DropdownMenuGroup>
 								{Array.isArray(workspaces) && workspaces.length > 0 ? (
 									workspaces.map((workspace) => (
 										<DropdownMenuItem
 											key={workspace._id}
-											onClick={() => {
-												onWorkspaceSelected(workspace);
-												navigate(`/workspaces/${workspace._id}`);
-											}}
+											onClick={() => handleOnClick(workspace)}
+											className={
+												selectedWorkspace?._id === workspace._id
+													? "border border-primary bg-muted/30"
+													: ""
+											}
 										>
 											{workspace.color && (
 												<WorkspaceAvatar
@@ -142,25 +162,15 @@ const Header = ({
 												/>
 											)}
 											<span className="ml-2">{workspace.name}</span>
+											{selectedWorkspace?._id === workspace._id}
 										</DropdownMenuItem>
 									))
 								) : (
 									<DropdownMenuItem disabled>
-										{isLoading
-											? "Loading workspaces..."
-											: "No workspaces found"}
+										No workspaces found
 									</DropdownMenuItem>
 								)}
 							</DropdownMenuGroup>
-
-							<DropdownMenuSeparator />
-							<DropdownMenuItem
-								onClick={() => navigate("/dashboard")}
-								className="flex items-center gap-2"
-							>
-								<Home className="size-4" />
-								<span className="ml-2">Dashboard</span>
-							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem onClick={onCreateWorkspace}>
 								<PlusCircle className="w-4 h-4 mr-2" />
@@ -172,13 +182,6 @@ const Header = ({
 
 				<div className="flex items-center gap-2">
 					<ModeToggle />
-					<Button
-						variant={"neonGlow"}
-						className="rounded-full dark:hover:text-primary hover:text-primary"
-						size={"icon"}
-					>
-						<Bell />
-					</Button>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Avatar className="hover:scale-105 transition-transform duration-200 ease-in-out cursor-pointer">
@@ -192,7 +195,7 @@ const Header = ({
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>
-								<Link to="user/profile" className="flex flex-row">
+								<Link to="/user" className="flex flex-row">
 									Profile <CircleUserRound className="ml-15" />
 								</Link>
 							</DropdownMenuItem>

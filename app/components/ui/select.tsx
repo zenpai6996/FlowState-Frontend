@@ -35,14 +35,14 @@ function SelectTrigger({
 			data-slot="select-trigger"
 			data-size={size}
 			className={cn(
-				"border-stone-200 data-[placeholder]:text-primary [&_svg:not([class*='text-'])]:text-primary focus-visible:border-stone-950 focus-visible:ring-stone-950/50 aria-invalid:ring-red-500/20 dark:aria-invalid:ring-red-500/40 aria-invalid:border-red-500 dark:bg-background dark:hover:bg-stone-200/50 flex w-fit items-center justify-between gap-2 rounded-2xl border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 dark:border-stone-800 dark:data-[placeholder]:text-primary dark:[&_svg:not([class*='text-'])]:text-primary dark:focus-visible:border-stone-300 dark:focus-visible:ring-stone-300/50 dark:aria-invalid:ring-red-900/20 dark:dark:aria-invalid:ring-red-900/40 dark:aria-invalid:border-red-900 dark:dark:bg-background dark:dark:hover:bg-background/90",
+				"border-stone-200 data-[placeholder]:text-primary [&_svg:not([class*='text-'])]:text-primary focus-visible:border-stone-950 focus-visible:ring-stone-950/50 aria-invalid:ring-red-500/20 dark:aria-invalid:ring-red-500/40 aria-invalid:border-red-500 dark:bg-background dark:hover:bg-stone-200/50 flex w-fit items-center justify-between gap-2 rounded-2xl border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 dark:border-stone-800 dark:data-[placeholder]:text-primary dark:[&_svg:not([class*='text-'])]:text-primary dark:focus-visible:border-stone-300 dark:focus-visible:ring-stone-300/50 dark:aria-invalid:ring-red-900/20 dark:dark:aria-invalid:ring-red-900/40 dark:aria-invalid:border-red-900 dark:dark:bg-muted dark:dark:hover:bg-background/90",
 				className
 			)}
 			{...props}
 		>
 			{children}
 			<SelectPrimitive.Icon asChild>
-				<ChevronDownIcon className="size-4 opacity-50" />
+				<ChevronDownIcon className="size-4 hidden md:block animate-pulse" />
 			</SelectPrimitive.Icon>
 		</SelectPrimitive.Trigger>
 	);
@@ -91,7 +91,7 @@ function SelectLabel({
 		<SelectPrimitive.Label
 			data-slot="select-label"
 			className={cn(
-				"text-stone-500 px-2 py-1.5 text-xs dark:text-stone-400",
+				"text-stone-500 px-2 py-1.5 text-xs dark:text-primary",
 				className
 			)}
 			{...props}
@@ -131,7 +131,7 @@ function SelectSeparator({
 		<SelectPrimitive.Separator
 			data-slot="select-separator"
 			className={cn(
-				"bg-stone-200 pointer-events-none -mx-1 my-1 h-px dark:bg-stone-800",
+				"bg-stone-200 pointer-events-none -mx-1 my-1 h-px dark:bg-accent",
 				className
 			)}
 			{...props}
