@@ -7,7 +7,7 @@ import {
 	LogOut,
 	PlusCircle,
 } from "lucide-react";
-import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { useAuth } from "~/provider/auth-context";
@@ -69,6 +69,10 @@ const Header = ({
 			const basePath = location.pathname;
 			navigate(`${basePath}?workspaceId=${workspace._id}`);
 		}
+	};
+
+	const navigateToProfile = () => {
+		navigate("/user");
 	};
 
 	// if (isLoading) {
@@ -194,10 +198,8 @@ const Header = ({
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								<Link to="/user" className="flex flex-row">
-									Profile <CircleUserRound className="ml-15" />
-								</Link>
+							<DropdownMenuItem onClick={navigateToProfile}>
+								Profile <CircleUserRound className="ml-15" />
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem onClick={logout}>
