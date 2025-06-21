@@ -7,7 +7,9 @@ import {
 	LogOut,
 	PlusCircle,
 } from "lucide-react";
+
 import { useEffect } from "react";
+
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
