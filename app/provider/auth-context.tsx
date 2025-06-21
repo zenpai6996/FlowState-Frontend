@@ -23,6 +23,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const isPublicRoute = publicRoutes.includes(currentPath);
 
 	const logout = async () => {
+
+		if (user?._id) {
+			// Clear user-specific workspace preference
+			localStorage.removeItem(`lastWorkspaceId:${user._id}`);
+		}
+
+		// Clear general auth data
+
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
 		setUser(null);
@@ -79,6 +87,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const login = async (data: any) => {
 		localStorage.setItem("token", data.token);
 		localStorage.setItem("user", JSON.stringify(data.user));
+
+
+		// Store the last used workspace for this user (if exists)
+		if (data.lastWorkspaceId) {
+			localStorage.setItem(
+				`lastWorkspaceId:${data.user._id}`,
+				data.lastWorkspaceId
+			);
+		}
+
 		setUser(data.user);
 		setIsAuthenticated(true);
 	};

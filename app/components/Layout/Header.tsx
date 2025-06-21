@@ -7,6 +7,9 @@ import {
 	LogOut,
 	PlusCircle,
 } from "lucide-react";
+
+import { useEffect } from "react";
+
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -45,28 +48,38 @@ const Header = ({
 	const navigate = useNavigate();
 	const isOnWorkspacePage = useLocation().pathname.includes("/workspace");
 
-	// useEffect(() => {
-	// 	if (workspaces?.length > 0 && !selectedWorkspace) {
-	// 		// Try to get last selected workspace from localStorage
-	// 		const lastWorkspaceId = localStorage.getItem("lastWorkspaceId");
-	// 		const workspaceToSelect = lastWorkspaceId
-	// 			? workspaces.find((w) => w._id === lastWorkspaceId)
-	// 			: workspaces[0];
+	// Header.tsx
+	useEffect(() => {
+		if (workspaces?.length > 0 && !selectedWorkspace && user?._id) {
+			// Get the last workspace ID for this specific user
+			const lastWorkspaceId = localStorage.getItem(
+				`lastWorkspaceId:${user._id}`
+			);
 
-	// 		if (workspaceToSelect) {
-	// 			handleOnClick(workspaceToSelect);
-	// 		}
-	// 	}
-	// }, [workspaces, selectedWorkspace]);
+			// Find the workspace or default to the first one
+			const workspaceToSelect = lastWorkspaceId
+				? workspaces.find((w) => w._id === lastWorkspaceId)
+				: workspaces[0];
+
+			if (workspaceToSelect) {
+				handleOnClick(workspaceToSelect);
+			}
+		}
+	}, [workspaces, selectedWorkspace, user?._id]);
 
 	const handleOnClick = (workspace: Workspace) => {
-		// localStorage.setItem("lastWorkspaceId", workspace._id);
+		if (user?._id) {
+			// Store the selected workspace under the user's ID
+			localStorage.setItem(`lastWorkspaceId:${user._id}`, workspace._id);
+		}
+
 		onWorkspaceSelected(workspace);
-		const location = window.location;
+
+		// Navigate to the workspace
 		if (isOnWorkspacePage) {
 			navigate(`/workspaces/${workspace._id}`);
 		} else {
-			const basePath = location.pathname;
+			const basePath = window.location.pathname;
 			navigate(`${basePath}?workspaceId=${workspace._id}`);
 		}
 	};
